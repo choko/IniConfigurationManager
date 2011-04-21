@@ -9,14 +9,12 @@ import java.util.List;
  */
 public abstract class ConfigItem {
 
-    private String name;
+    protected String name;
     
     public ConfigItem( String name ) {
         this.name = name;
     }
 
-    public void setValues( List< String > values ) {
-        
-    }
+    public abstract void setValues( List< String > values );
     
 }

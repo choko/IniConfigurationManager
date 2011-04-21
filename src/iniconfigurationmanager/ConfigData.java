@@ -3,7 +3,9 @@ package iniconfigurationmanager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -54,6 +56,16 @@ public class ConfigData {
     }
 
 
+    public void saveToFile(String path) {
+        
+    }
+
+    public void saveToOuputStream(OutputStream stream) {
+        
+    }
+
+    
+    
     public void setSchema( ConfigSchema schema ) {
         this.schema = schema;
     }
@@ -77,4 +89,17 @@ public class ConfigData {
     public ConfigSection getSection( String name ) {
         return sections.get( name );
     }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        for( ConfigSection section : sections.values() ) {
+            sb.append( section.toString() );
+        }
+
+        return sb.toString();
+    }
+    
 }

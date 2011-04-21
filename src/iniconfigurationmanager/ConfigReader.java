@@ -49,9 +49,12 @@ public class ConfigReader {
             ) {
                 lines.add( new ConfigLine( line ) );
             }
+
+            bf.close();
         } catch( IOException e ) {
             //@TODO solve problem with exception handling
         }
+        
 
         return this.parser.parse(lines);
     }

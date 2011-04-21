@@ -32,4 +32,23 @@ public class ConfigSection {
         return items.get( name );
     }
 
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append( ConfigLine.SECTION_DEFINITION_START );
+        sb.append( name );
+        sb.append( ConfigLine.SECTION_DEFINITION_END );
+        sb.append( ConfigParser.NEWLINE );
+
+        for( ConfigItem item : items.values() ) {
+            sb.append( item.toString() );
+        }
+
+        sb.append( ConfigParser.NEWLINE );
+
+        return sb.toString();
+    }
+    
 }
