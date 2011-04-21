@@ -88,7 +88,7 @@ public class ConfigParser {
         String text = line.getText();
         String name = text.substring(
             text.indexOf( ConfigLine.SECTION_DEFINITION_START ) + 1,
-            text.indexOf( ConfigLine.SECTION_DEFINITION_END ) - 1
+            text.indexOf( ConfigLine.SECTION_DEFINITION_END )
         );
 
         if( ! isValidName( name ) ) {
@@ -114,7 +114,7 @@ public class ConfigParser {
     private String getItemName( ConfigLine line ) {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
-        String name = trim( text.substring(0, equalsSignPosition - 1 ) );
+        String name = trim( text.substring(0, equalsSignPosition ) );
 
         if( ! isValidName( name ) ) {
             //@TODO handle invalid name
@@ -192,7 +192,7 @@ public class ConfigParser {
             end--;
         }
 
-        return text.substring( start, end );
+        return text.substring( start, end + 1 );
     }
     
 }
