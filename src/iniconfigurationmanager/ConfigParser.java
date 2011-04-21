@@ -125,7 +125,9 @@ public class ConfigParser {
 
 
     private boolean isValidName( String name ) {
-        return match( VALID_NAME_PATTERN, name );
+        Matcher m = VALID_NAME_PATTERN.matcher( name );
+
+        return m.matches();
     }
 
     
@@ -158,20 +160,22 @@ public class ConfigParser {
 
     
     private boolean isDelimitedByComma( String values ) {
-        return match( COMMA_DELIMITER_PATTERN, values );
+        return findOccurence( COMMA_DELIMITER_PATTERN, values );
     }
 
 
     private boolean isDelimitedByColon( String values ) {
-        return match( COLON_DELIMITER_PATTERN, values );
+        return findOccurence( COLON_DELIMITER_PATTERN, values );
     }
 
     
-    private boolean match(Pattern pattern, String text) {
+    private boolean findOccurence( Pattern pattern, String text ) {
         Matcher m = pattern.matcher( text );
-
-        return m.matches();
+        
+        return m.find();
     }
+
+    
     
     
     private String trim( String text ) {
