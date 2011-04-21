@@ -3,7 +3,7 @@ package iniconfigurationmanager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedHashMap;
@@ -56,15 +56,15 @@ public class ConfigData {
     }
 
 
-    public void saveToFile(String path) {
-        
+    public void saveToFile(String path) throws IOException {
+        ConfigWriter.writeToFile( new File( path ), this);
     }
 
-    public void saveToOuputStream(OutputStream stream) {
-        
-    }
 
-    
+    public void saveToOuputStream(OutputStream stream) throws IOException {
+        ConfigWriter.writeToOutputStream( stream , this );
+    }
+  
     
     public void setSchema( ConfigSchema schema ) {
         this.schema = schema;

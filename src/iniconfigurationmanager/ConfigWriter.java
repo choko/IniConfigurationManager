@@ -14,16 +14,21 @@ import java.io.Writer;
  */
 public class ConfigWriter {
 
-    public void writeToFile( File file, ConfigData data ) throws IOException {
-        write( new FileWriter(file), data );
+    public static void writeToFile(
+        File file, ConfigData data
+    ) throws IOException {
+        write( new FileWriter( file ), data );
     }
 
-    public void writeToOutputStream( OutputStream stream, ConfigData data ) 
-    throws IOException { //@TODO check coding style
+    public static void writeToOutputStream( 
+        OutputStream stream, ConfigData data
+    ) throws IOException {
         write( new OutputStreamWriter( stream ), data );
     }
 
-    public void write( Writer writer, ConfigData data ) throws IOException {
+    private static void write(
+        Writer writer, ConfigData data
+    ) throws IOException {
         writer.write( data.toString() );
         writer.close();
     }
