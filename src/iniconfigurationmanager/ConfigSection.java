@@ -5,6 +5,7 @@ import iniconfigurationmanager.items.ConfigItem;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import iniconfigurationmanager.items.StringConfigItem;
+import iniconfigurationmanager.items.BooleanConfigItem;
 
 /**
  *
@@ -30,11 +31,11 @@ public class ConfigSection {
         this.required = true;
     }
 
-    public void UnsetRequired() {
+    public void unsetRequired() {
         this.required = false;
     }
 
-    private boolean getRequired() {
+    private boolean isRequired() {
         return this.required;
     }
 
@@ -43,8 +44,11 @@ public class ConfigSection {
         items.put( name, item );
     }
 
-    public void addStringItem( String name ) {
-        addItem(name,new StringConfigItem(name));
+    public StringConfigItem addStringItem( String name ) {
+        StringConfigItem newStringItem = new StringConfigItem( name );
+        addItem(name,newStringItem);
+        return newStringItem;
+
     }
 
     public void addSignedItem( String name ) {
@@ -59,8 +63,10 @@ public class ConfigSection {
 
     }
 
-    public void addBoolItem( String name ) {
-
+    public BooleanConfigItem addBooleanItem( String name ) {
+        BooleanConfigItem newBooleanItem = new BooleanConfigItem( name);
+        addItem(name,newBooleanItem);
+        return newBooleanItem;
     }
 
     public void addFloatItem( String name) {
