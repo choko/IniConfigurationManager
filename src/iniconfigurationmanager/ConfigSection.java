@@ -4,6 +4,7 @@ package iniconfigurationmanager;
 import iniconfigurationmanager.items.ConfigItem;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import iniconfigurationmanager.items.StringConfigItem;
 
 /**
  *
@@ -13,6 +14,8 @@ public class ConfigSection {
 
     private String name;
 
+    private Boolean required;
+
     private ConfigItem defaultItem;
 
     private Map< String, ConfigItem > items;
@@ -20,14 +23,28 @@ public class ConfigSection {
     public ConfigSection( String name ) {
         this.name = name;
         this.items = new LinkedHashMap<String, ConfigItem>();
+        this.required = false;
     }
+
+    public void setReguired() {
+        this.required = true;
+    }
+
+    public void UnsetRequired() {
+        this.required = false;
+    }
+
+    private boolean getRequired() {
+        return this.required;
+    }
+
 
     public void addItem( String name, ConfigItem item ) {
         items.put( name, item );
     }
 
     public void addStringItem( String name ) {
-        
+        addItem(name,new StringConfigItem(name));
     }
 
     public void addSignedItem( String name ) {
@@ -65,6 +82,10 @@ public class ConfigSection {
 
     public void  setDefaultItem (ConfigItem item) {
         this.defaultItem = item;
+    }
+
+    public boolean getRequidedItem ( String name ) {
+        return items.get( name ).getRequided();
     }
 
     
