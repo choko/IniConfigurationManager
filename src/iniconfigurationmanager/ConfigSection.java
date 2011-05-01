@@ -13,6 +13,8 @@ public class ConfigSection {
 
     private String name;
 
+    private ConfigItem defaultItem;
+
     private Map< String, ConfigItem > items;
     
     public ConfigSection( String name ) {
@@ -24,12 +26,45 @@ public class ConfigSection {
         items.put( name, item );
     }
 
+    public void addStringItem( String name ) {
+        
+    }
+
+    public void addSignedItem( String name ) {
+
+    }
+
+    public void addUnsignedItem( String name ){
+
+    }
+
+    public void addEnumItem( String name ) {
+
+    }
+
+    public void addBoolItem( String name ) {
+
+    }
+
+    public void addFloatItem( String name) {
+
+    }
+
+    public void addRefItem( String name ) {
+
+    }
+
+
     public boolean hasItem( String name ) {
         return items.containsKey( name );
     }
 
     public ConfigItem getItem( String name ) {
         return items.get( name );
+    }
+
+    public void  setDefaultItem (ConfigItem item) {
+        this.defaultItem = item;
     }
 
     

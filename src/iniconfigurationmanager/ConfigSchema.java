@@ -20,11 +20,14 @@ public class ConfigSchema {
         sections.put(name, section);
     }
 
+
     public boolean hasSection( String name ) {
         return sections.containsKey( name );
     }
 
+
     public ConfigSection getSection( String name ) {
         return sections.get( name );
     }
+
 }
