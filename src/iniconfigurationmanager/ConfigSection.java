@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import iniconfigurationmanager.items.StringConfigItem;
 import iniconfigurationmanager.items.BooleanConfigItem;
+import iniconfigurationmanager.items.SignedConfigItem;
 
 /**
  *
@@ -46,13 +47,15 @@ public class ConfigSection {
 
     public StringConfigItem addStringItem( String name ) {
         StringConfigItem newStringItem = new StringConfigItem( name );
-        addItem(name,newStringItem);
+        addItem( name,newStringItem );
         return newStringItem;
 
     }
 
-    public void addSignedItem( String name ) {
-
+    public SignedConfigItem addSignedItem( String name ) {
+        SignedConfigItem newSignedItem = new SignedConfigItem( name );
+        addItem( name,newSignedItem );
+        return newSignedItem;
     }
 
     public void addUnsignedItem( String name ){
@@ -80,6 +83,10 @@ public class ConfigSection {
 
     public boolean hasItem( String name ) {
         return items.containsKey( name );
+    }
+
+    public void removeItem( String name ) {
+        items.remove( name );
     }
 
     public ConfigItem getItem( String name ) {
