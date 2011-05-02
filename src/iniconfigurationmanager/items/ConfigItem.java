@@ -1,7 +1,9 @@
 
 package iniconfigurationmanager.items;
 
+
 import java.util.List;
+import iniconfigurationmanager.ConfigVisitor;
 
 /**
  *
@@ -11,24 +13,28 @@ public abstract class ConfigItem {
 
     protected String name;
 
-    private boolean requided;
+    private boolean required;
     
     public ConfigItem( String name ) {
         this.name = name;
+        this.required = false;
     }
 
-    public void setRequided() {
-        this.requided = true;
+    public void setRequired() {
+        this.required = true;
     }
 
-    public void UnsetRequided() {
-        this.requided = false;
+    public void unsetRequired() {
+        this.required = false;
     }
 
-    public boolean getRequided() {
-        return this.requided;
+    public boolean isRequired() {
+        return this.required;
     }
 
     public abstract void setValues( List< String > values );
+
+    public abstract void accept(ConfigVisitor visitor);
+
     
 }

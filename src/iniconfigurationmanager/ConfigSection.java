@@ -7,6 +7,8 @@ import java.util.Map;
 import iniconfigurationmanager.items.StringConfigItem;
 import iniconfigurationmanager.items.BooleanConfigItem;
 import iniconfigurationmanager.items.SignedConfigItem;
+import iniconfigurationmanager.items.FloatConfigItem;
+import iniconfigurationmanager.items.UnsignedConfigItem;
 
 /**
  *
@@ -16,9 +18,7 @@ public class ConfigSection {
 
     private String name;
 
-    private Boolean required;
-
-    private ConfigItem defaultItem;
+    private Boolean required;  
 
     private Map< String, ConfigItem > items;
     
@@ -46,19 +46,22 @@ public class ConfigSection {
     }
 
     public StringConfigItem addStringItem( String name ) {
-        StringConfigItem newStringItem = new StringConfigItem( name );
-        addItem( name,newStringItem );
-        return newStringItem;
+        StringConfigItem item = new StringConfigItem( name );
+        this.addItem( name,item );
+        return item;
 
     }
 
     public SignedConfigItem addSignedItem( String name ) {
-        SignedConfigItem newSignedItem = new SignedConfigItem( name );
-        addItem( name,newSignedItem );
-        return newSignedItem;
+        SignedConfigItem item = new SignedConfigItem( name );
+        this.addItem( name,item );
+        return item;
     }
 
-    public void addUnsignedItem( String name ){
+    public UnsignedConfigItem addUnsignedItem( String name ){
+        UnsignedConfigItem item = new UnsignedConfigItem( name );
+        this.addItem( name,item);
+        return item;
 
     }
 
@@ -67,19 +70,17 @@ public class ConfigSection {
     }
 
     public BooleanConfigItem addBooleanItem( String name ) {
-        BooleanConfigItem newBooleanItem = new BooleanConfigItem( name);
-        addItem(name,newBooleanItem);
-        return newBooleanItem;
+        BooleanConfigItem item = new BooleanConfigItem( name);
+        this.addItem(name,item);
+        return item;
     }
 
-    public void addFloatItem( String name) {
-
+    public FloatConfigItem addFloatItem( String name) {
+        FloatConfigItem item = new FloatConfigItem( name);
+        this.addItem(name,item);
+        return item;
     }
-
-    public void addRefItem( String name ) {
-
-    }
-
+  
 
     public boolean hasItem( String name ) {
         return items.containsKey( name );
@@ -92,14 +93,8 @@ public class ConfigSection {
     public ConfigItem getItem( String name ) {
         return items.get( name );
     }
-
-    public void  setDefaultItem (ConfigItem item) {
-        this.defaultItem = item;
-    }
-
-    public boolean getRequidedItem ( String name ) {
-        return items.get( name ).getRequided();
-    }
+   
+    
 
     
     @Override

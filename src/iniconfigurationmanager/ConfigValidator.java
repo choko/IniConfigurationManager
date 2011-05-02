@@ -9,10 +9,12 @@ package iniconfigurationmanager;
  *
  * @author KlonK
  */
+
+
 public class ConfigValidator {
 
-    public  boolean  validateStrict() {
-    return false;
+    public  boolean  validateStrict( ConfigSchema schema) {
+        return false;
     }
 
     public boolean validateRelax() {

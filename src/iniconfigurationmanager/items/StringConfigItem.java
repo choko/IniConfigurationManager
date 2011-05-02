@@ -7,6 +7,7 @@ package iniconfigurationmanager.items;
 
 import iniconfigurationmanager.ConfigLine;
 import iniconfigurationmanager.ConfigParser;
+import iniconfigurationmanager.ConfigVisitor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +28,11 @@ public class StringConfigItem extends ConfigItem {
     @Override
     public void setValues( List< String > values ) {
         this.values = values;
+    }
+
+    @Override
+    public void accept(ConfigVisitor visitor){
+        visitor.visit(this);
     }
 
 
