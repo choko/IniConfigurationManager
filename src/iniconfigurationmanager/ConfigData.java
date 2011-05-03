@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigData {
+public class ConfigData implements Iterable< ConfigSection > {
 
     private ConfigSchema schema;
 
@@ -100,6 +101,10 @@ public class ConfigData {
         }
 
         return sb.toString();
+    }
+
+    public Iterator<ConfigSection> iterator() {
+        return sections.values().iterator();
     }
     
 }

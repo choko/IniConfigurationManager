@@ -2,6 +2,7 @@
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.items.ConfigItem;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import iniconfigurationmanager.items.StringConfigItem;
@@ -14,7 +15,7 @@ import iniconfigurationmanager.items.UnsignedConfigItem;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSection {
+public class ConfigSection implements Iterable< ConfigItem > {
 
     private String name;
 
@@ -113,6 +114,10 @@ public class ConfigSection {
         sb.append( ConfigParser.NEWLINE );
 
         return sb.toString();
+    }
+
+    public Iterator<ConfigItem> iterator() {
+        return items.values().iterator();
     }
     
 }

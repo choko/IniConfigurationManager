@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSchema {
+public class ConfigSchema implements Iterable< ConfigSection > {
 
     private Map< String, ConfigSection > sections;
 
@@ -30,6 +31,8 @@ public class ConfigSchema {
         return sections.get( name );
     }
 
-
+    public Iterator<ConfigSection> iterator() {
+        return sections.values().iterator();
+    }
 
 }
