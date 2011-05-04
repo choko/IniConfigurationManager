@@ -21,6 +21,8 @@ public abstract class ConfigItem {
 
     protected String name;
 
+    protected String comment;
+
     protected boolean required;
 
     protected List< Object > values;
@@ -38,6 +40,11 @@ public abstract class ConfigItem {
     public ConfigItem( String name ) {
         this();
         this.name = name;
+    }
+
+
+    public void setComment( String comment ) {
+        this.comment = comment;
     }
 
     
