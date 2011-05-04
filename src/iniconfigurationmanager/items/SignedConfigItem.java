@@ -7,7 +7,7 @@ package iniconfigurationmanager.items;
 
 import iniconfigurationmanager.ConfigLine;
 import iniconfigurationmanager.ConfigParser;
-import iniconfigurationmanager.ValidatorVisitor;
+import iniconfigurationmanager.validators.ValidatorVisitor;
 import iniconfigurationmanager.RawValue;
 import java.util.LinkedList;
 import java.util.List;

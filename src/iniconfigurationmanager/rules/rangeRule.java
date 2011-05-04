@@ -33,13 +33,16 @@ public class RangeRule implements  ValidationRule {
 
     }
 
+
     public boolean isAplicableOn(ConfigItem item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean validate(ConfigItem item) {
+    public String validate(ConfigItem item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+
 
 
 

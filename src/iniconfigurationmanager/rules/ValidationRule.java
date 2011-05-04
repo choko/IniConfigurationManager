@@ -15,6 +15,6 @@ public interface ValidationRule {
 
     public boolean isAplicableOn( ConfigItem item );
     
-    public boolean validate( ConfigItem item );
+    public String validate( ConfigItem item );
 
 }

@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import iniconfigurationmanager.validators.ValidatorResult;
+import iniconfigurationmanager.validators.ValidatorVisitor;
 
 /**
  *
@@ -105,6 +107,18 @@ public class ConfigData implements Iterable< ConfigSection > {
 
     public Iterator<ConfigSection> iterator() {
         return sections.values().iterator();
+    }
+    
+    private void accept(ValidatorVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public ValidatorResult validateStrict() {
+
+    }
+
+    public ValidatorResult validateRelax() {
+
     }
     
 }
