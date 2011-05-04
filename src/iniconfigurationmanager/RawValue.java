@@ -11,7 +11,13 @@ package iniconfigurationmanager;
  */
 public class RawValue {
 
+    private String value;
+
     public RawValue( String value ) {
-        
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }
