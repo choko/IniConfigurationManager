@@ -40,5 +40,9 @@ public class ConfigLine {
     public boolean isItemDefinition() {
         return text.indexOf( EQUALS_SIGN ) != -1;
     }
+
+    public boolean isEmpty() {
+        return text.trim() == "";
+    }
   
 }
