@@ -3,6 +3,7 @@ package iniconfigurationmanager;
 
 import iniconfigurationmanager.items.ConfigItem;
 import iniconfigurationmanager.items.StringConfigItem;
+import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -126,7 +127,8 @@ public class ConfigParser {
             throws ConfigParserException {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
-        String name = trim( text.substring(0, equalsSignPosition ) );
+        String name = StringUtils.trim(
+                text.substring(0, equalsSignPosition ) );
 
         if( ! isValidName( name ) ) {
             throw new ConfigParserException(
@@ -164,7 +166,7 @@ public class ConfigParser {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
 
-        return trim( text.substring(equalsSignPosition + 1) );
+        return StringUtils.trim( text.substring(equalsSignPosition + 1) );
     }
 
 
@@ -211,29 +213,6 @@ public class ConfigParser {
         Matcher m = pattern.matcher( text );
         
         return m.find();
-    }
-    
-    
-    
-    private String trim( String text ) {
-        int start = 0;
-        while(
-            start < text.length() &&
-            text.charAt(start) == WHITESPACE
-        ) {
-            start++;
-        }
-
-        int end = text.length() - 1;
-        while(
-            end > start + 1 &&
-            text.charAt( end ) == WHITESPACE &&
-            text.charAt( end - 1 ) != ESCAPE
-        ) {
-            end--;
-        }
-
-        return text.substring( start, end + 1 );
     }
     
 }
