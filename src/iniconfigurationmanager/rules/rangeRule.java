@@ -13,30 +13,32 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class rangeRule extends  rule {
+public class RangeRule implements  ValidationRule {
 
     private int from;
 
     private int to;
 
-    public rangeRule( int from,int to ){
+    public RangeRule( int from,int to ){
         this.from = from;
         this.to = to;
     }
 
-    public rangeRule( int to ){
+    public RangeRule( int to ){
         this.from = Integer.MIN_VALUE;
         this.to = to;
     }
 
-    public rangeRule(List<ConfigItem> items){
+    public RangeRule(List<ConfigItem> items){
 
     }
 
+    public boolean isAplicableOn(ConfigItem item) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-    @Override
-    public boolean validate(SignedConfigItem item){
-        return false;
+    public boolean validate(ConfigItem item) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

@@ -9,6 +9,6 @@ package iniconfigurationmanager.rules;
  *
  * @author KlonK
  */
-public class countRule {
+public class CountRule {
 
 }

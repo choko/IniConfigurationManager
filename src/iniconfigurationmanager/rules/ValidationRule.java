@@ -11,7 +11,7 @@ import iniconfigurationmanager.items.ConfigItem;
  *
  * @author KlonK
  */
-interface ValidationRule {
+public interface ValidationRule {
 
     public boolean isAplicableOn( ConfigItem item );
     
