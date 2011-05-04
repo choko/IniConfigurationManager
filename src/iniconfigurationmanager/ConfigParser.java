@@ -2,7 +2,6 @@
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.items.StringConfigItem;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -75,7 +74,7 @@ public class ConfigParser {
         String name = getSectionName( line );
 
         if( schema.hasSection( name )) {
-            currentSection = schema.getSection( name );
+            currentSection = (ConfigSection) schema.getSection( name ).clone();
         } else {
             currentSection = new ConfigSection( name );
         }
@@ -101,9 +100,9 @@ public class ConfigParser {
 
     private void parseItemDefinition( ConfigLine line ) {
         String name = getItemName( line );
-        List< String > values = getItemValues( line );
+        List< Object > values = getItemValues( line );
 
-        if( ! currentSection.hasItem( name) ) {
+        if( currentSection.hasItem( name ) ) {
             currentSection.addItem( name, new StringConfigItem( name ) );
         } 
 
@@ -131,20 +130,32 @@ public class ConfigParser {
     }
 
     
-    private List< String > getItemValues( ConfigLine line ) {
+    private List< Object > getItemValues( ConfigLine line ) {
+        String[] values = splitValues( getItemValuesDefinition( line ) );
+
+        List< Object > valuesList = new LinkedList< Object >();
+        for( String value : values ) {
+            if( isLinkDefinition( value ) ) {
+                valuesList.add( new ValueLink( value, configuration ) );
+            } else {
+                valuesList.add( new RawValue( value ) );
+            }
+        }
+
+        return valuesList;
+    }
+    
+
+    private String getItemValuesDefinition( ConfigLine line ) {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
-        String value = text.substring(equalsSignPosition + 1);
 
-        return splitValues( trim( value ) );
+        return trim( text.substring(equalsSignPosition + 1) );
     }
 
 
-    private List< String > splitValues( String values ) {
-        Pattern delimiter = getDelimiterPattern( values );
-        String[] valuesArray = delimiter.split( values );
-
-        return new LinkedList< String >( Arrays.asList( valuesArray ) );
+    private String[] splitValues( String values ) {
+        return getDelimiterPattern( values ).split( values );
     }
 
     
@@ -158,7 +169,13 @@ public class ConfigParser {
         }
     }
 
+
+    private boolean isLinkDefinition( String value ) {
+        //@TODO handle link definition
+        return false;
+    }
     
+
     private boolean isDelimitedByComma( String values ) {
         return findOccurence( COMMA_DELIMITER_PATTERN, values );
     }
@@ -174,7 +191,6 @@ public class ConfigParser {
         
         return m.find();
     }
-
     
     
     
