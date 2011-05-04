@@ -171,8 +171,7 @@ public class ConfigParser {
 
 
     private boolean isLinkDefinition( String value ) {
-        //@TODO handle link definition
-        return false;
+        return value.startsWith("${");
     }
     
 

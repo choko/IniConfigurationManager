@@ -144,7 +144,12 @@ public abstract class ConfigItem {
         visitor.enter( this );
 
         for( Object value : values ) {
-            visitor.visit( value.getClass().cast( value ) );
+            if( value instanceof ValueLink ) {
+                ValueLink link = (ValueLink) value;
+                link.getLinkedItem().accept( visitor );
+            } else {
+                visitor.visit( value );
+            }
         }
 
         visitor.leave( this );
@@ -183,9 +188,9 @@ public abstract class ConfigItem {
             
             return item;
         } catch( InstantiationException e ) {
-            throw new InternalError();
+            throw new InternalError( e.getMessage() );
         } catch( IllegalAccessException e ) {
-            throw new InternalError();
+            throw new InternalError( e.getMessage() );
         }
     }
 
