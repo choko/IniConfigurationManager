@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager;
 
+import iniconfigurationmanager.items.ConfigItem;
 import iniconfigurationmanager.items.StringConfigItem;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,16 +48,20 @@ public class ConfigParser {
     }
 
     
-    public ConfigData parse( List<ConfigLine> lines ) {
-        for( ConfigLine line : lines) {
-            if( line.isComment() ) {
-                parseComment( line );
+    public ConfigData parse(List<ConfigLine> lines)
+            throws ConfigParserException {
+        for (ConfigLine line : lines) {
+            if (line.isComment()) {
+                parseComment(line);
             } else if (line.isSectionHeader()) {
-                parseSectionHeader( line );
-            } else if ( line.isItemDefinition() ) {
-                parseItemDefinition( line );
+                parseSectionHeader(line);
+            } else if (line.isItemDefinition()) {
+                parseItemDefinition(line);
             } else {
-                //@TODO report error in the configuration file
+                if (!line.isEmpty()) {
+                    throw new ConfigParserException(
+                            ConfigParserError.UNEXPECTED_LINE, line);
+                }
             }
         }
 
@@ -70,7 +75,8 @@ public class ConfigParser {
     }
 
     
-    private void parseSectionHeader( ConfigLine line ) {
+    private void parseSectionHeader( ConfigLine line ) 
+            throws ConfigParserException {
         String name = getSectionName( line );
 
         if( schema.hasSection( name )) {
@@ -83,7 +89,8 @@ public class ConfigParser {
     }
 
     
-    private String getSectionName( ConfigLine line ) {
+    private String getSectionName( ConfigLine line )
+            throws ConfigParserException {
         String text = line.getText();
         String name = text.substring(
             text.indexOf( ConfigLine.SECTION_DEFINITION_START ) + 1,
@@ -91,32 +98,39 @@ public class ConfigParser {
         );
 
         if( ! isValidName( name ) ) {
-            //@TODO handle invalid name
+            throw new ConfigParserException(
+                    ConfigParserError.INVALID_SECTION_NAME, name);
         }
 
         return name;
     }
     
 
-    private void parseItemDefinition( ConfigLine line ) {
+    private void parseItemDefinition( ConfigLine line )
+            throws ConfigParserException {
         String name = getItemName( line );
+        String comment = getComment();
         List< Object > values = getItemValues( line );
 
-        if( currentSection.hasItem( name ) ) {
+        if( ! currentSection.hasItem( name ) ) {
             currentSection.addItem( name, new StringConfigItem( name ) );
-        } 
+        }
 
-        currentSection.getItem( name ).setValues( values );
+        ConfigItem item = currentSection.getItem( name );
+        item.setValues( values );
+        item.setComment( comment );
     }
 
     
-    private String getItemName( ConfigLine line ) {
+    private String getItemName( ConfigLine line )
+            throws ConfigParserException {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
         String name = trim( text.substring(0, equalsSignPosition ) );
 
         if( ! isValidName( name ) ) {
-            //@TODO handle invalid name
+            throw new ConfigParserException(
+                    ConfigParserError.INVALID_ITEM_NAME, name);
         }
         
         return name;
@@ -167,6 +181,14 @@ public class ConfigParser {
         } else {
             return NO_DELIMITER_PATTERN;
         }
+    }
+
+
+    private String getComment() {
+        String comment = currentComment.toString();
+        currentComment = new StringBuilder();
+
+        return comment;
     }
 
 
