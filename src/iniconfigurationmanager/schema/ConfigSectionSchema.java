@@ -36,7 +36,7 @@ public class ConfigSectionSchema implements Iterable< ConfigItemSchema > {
     }
 
 
-    private boolean isRequired() {
+    public boolean isRequired() {
         return this.required;
     }
 

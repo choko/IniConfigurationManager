@@ -48,6 +48,10 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
         return items.values().iterator();
     }
 
+    public String getName() {
+        return this.name;
+    }
+
 
     public void accept( ValidatorVisitor visitor ) {
         for( ConfigItemData item : items.values() ) {

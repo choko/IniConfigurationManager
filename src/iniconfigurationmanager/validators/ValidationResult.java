@@ -15,32 +15,31 @@ import java.util.List;
 public class ValidationResult {
 
     private LinkedList<String> errorMsgs;
+    private boolean result;
 
     public ValidationResult() {
         this.errorMsgs = new LinkedList<String>();
     }
 
-    public void addResult( String errorMsg ) {
-        if ( errorMsg != null ) {
-            this.errorMsgs.add( errorMsg );
-        }
+    public void addResult( boolean result ) {
+        this.result = this.result && result;
     }
 
     public boolean getResult() {
-        if( this.errorMsgs.isEmpty()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.result;
     }
 
     public void addErrorMsg( String errorMsg ) {
         this.errorMsgs.add(errorMsg);
     }
 
-    public List<String> getErrprMsgs() {
+    public List<String> getErrorMsgs() {
         return this.errorMsgs;
+    }
+
+    public void mergeResults( ValidationResult result ) {
+        this.errorMsgs.addAll( result.getErrorMsgs() );
+        this.result = result.getResult();
     }
 
 }

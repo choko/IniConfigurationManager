@@ -5,7 +5,7 @@ import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.schema.ConfigItemSchema;
 import iniconfigurationmanager.schema.ConfigSectionData;
 import iniconfigurationmanager.schema.ConfigSectionSchema;
-
+import iniconfigurationmanager.schema.ConfigData;
 
 /**
  *
@@ -24,6 +24,8 @@ public interface ValidatorVisitor {
 
 
     public void visit(ConfigSectionSchema section);
+
+    public void visit(ConfigData data);
 
     
     public ValidationResult getResult();

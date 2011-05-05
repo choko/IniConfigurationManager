@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.ConfigData;
 import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.schema.ConfigItemSchema;
 import iniconfigurationmanager.schema.ConfigSectionData;
@@ -29,6 +30,10 @@ public class RelaxValidatorVisitor implements ValidatorVisitor {
     }
 
     public ValidationResult getResult() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void visit(ConfigData data) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
