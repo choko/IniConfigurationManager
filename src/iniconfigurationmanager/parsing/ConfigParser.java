@@ -1,8 +1,17 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.parsing;
 
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.ConfigLine;
+import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.schema.ConfigData;
+import iniconfigurationmanager.schema.ConfigSchema;
+import iniconfigurationmanager.schema.ConfigSectionData;
+import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.items.StringConfigItem;
+import iniconfigurationmanager.schema.ConfigItemSchema;
+import iniconfigurationmanager.schema.ConfigSectionSchema;
+import iniconfigurationmanager.schema.NullConfigSectionData;
+import iniconfigurationmanager.schema.NullConfigSectionSchema;
 import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +45,9 @@ public class ConfigParser {
 
     private ConfigData configuration;
 
-    private ConfigSection currentSection;
+    private ConfigSectionSchema currentSectionSchema;
+
+    private ConfigSectionData currentSectionData;
     
     private StringBuilder currentComment;
     
@@ -45,6 +56,8 @@ public class ConfigParser {
         this.schema = schema;
         this.configuration = configuration;
         this.configuration.setSchema( schema );
+        this.currentSectionData = NullConfigSectionData.getInstance();
+        this.currentSectionSchema = NullConfigSectionSchema.getInstance();
         this.currentComment = new StringBuilder();
     }
 
@@ -61,7 +74,7 @@ public class ConfigParser {
             } else {
                 if (!line.isEmpty()) {
                     throw new ConfigParserException(
-                            ConfigParserError.UNEXPECTED_LINE, line);
+                            ConfigParserError.UNEXPECTED_LINE, line.getText() );
                 }
             }
         }
@@ -81,12 +94,14 @@ public class ConfigParser {
         String name = getSectionName( line );
 
         if( schema.hasSection( name )) {
-            currentSection = (ConfigSection) schema.getSection( name ).clone();
+            currentSectionSchema = schema.getSection( name );
         } else {
-            currentSection = new ConfigSection( name );
+            currentSectionSchema = NullConfigSectionSchema.getInstance();
         }
 
-        configuration.addSection( name, currentSection );
+        currentSectionData = new ConfigSectionData( name );
+
+        configuration.addSection( name, currentSectionData );
     }
 
     
@@ -109,17 +124,23 @@ public class ConfigParser {
 
     private void parseItemDefinition( ConfigLine line )
             throws ConfigParserException {
-        String name = getItemName( line );
-        String comment = getComment();
-        List< Object > values = getItemValues( line );
+        try {
+            String name = getItemName( line );
+            List< Object > values = getItemValues( line );
 
-        if( ! currentSection.hasItem( name ) ) {
-            currentSection.addItem( name, new StringConfigItem( name ) );
+            ConfigItemData item = new ConfigItemData(
+                    name, getCurrentSectionName(),
+                    configuration, getFormatDefinition( name ));
+
+            item.setValues( values );
+            item.setComment( getCommentForItem( name ), getComment() );
+            currentSectionData.addItem( name, item );
+        } catch( UnsupportedOperationException e ) {
+            throw new ConfigParserException(
+                    ConfigParserError.UNDEFINED_SECTION, line.getText() );
+        } catch( ClassCastException e ) {
+            //@TODO throw new exception
         }
-
-        ConfigItem item = currentSection.getItem( name );
-        item.setValues( values );
-        item.setComment( comment );
     }
 
     
@@ -170,6 +191,21 @@ public class ConfigParser {
     }
 
 
+    private String getCurrentSectionName() {
+        return currentSectionSchema.getName();
+    }
+    
+
+    private ConfigItemFormatDefinition getFormatDefinition( String name ) {
+        if( ! currentSectionSchema.hasItem( name ) ) {
+            ConfigItemSchema itemSchema = currentSectionSchema.getItem(name);
+            return itemSchema.getFormatDefinition();
+        } else {
+            return new StringConfigItem();
+        }
+    }
+
+    
     private String[] splitValues( String values ) {
         return getDelimiterPattern( values ).split( values );
     }
@@ -191,6 +227,15 @@ public class ConfigParser {
         currentComment = new StringBuilder();
 
         return comment;
+    }
+
+
+    private String getCommentForItem( String name ) {
+        if( currentSectionSchema.hasItem( name ) ) {
+            return currentSectionSchema.getItem( name ).getComment();
+        } else {
+            return "";
+        }
     }
 
 

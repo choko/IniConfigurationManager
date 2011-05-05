@@ -1,6 +1,9 @@
 
 package iniconfigurationmanager;
 
+import iniconfigurationmanager.parsing.ConfigParser;
+import iniconfigurationmanager.parsing.ConfigParserException;
+import iniconfigurationmanager.schema.ConfigData;
 import java.io.BufferedReader;
 import java.io.CharArrayReader;
 import java.io.File;
@@ -25,19 +28,22 @@ public class ConfigReader {
         this.parser = parser;
     }
     
-    public ConfigData readFromFile( File file ) throws FileNotFoundException {
+    public ConfigData readFromFile( File file ) 
+            throws FileNotFoundException, ConfigParserException {
         return read( new FileReader( file ) );
     }
 
-    public ConfigData readFromInputStream( InputStream stream ) {
+    public ConfigData readFromInputStream( InputStream stream )
+            throws ConfigParserException {
         return read ( new InputStreamReader( stream ) );
     }
 
-    public ConfigData readFromString( String string ) {
+    public ConfigData readFromString( String string )
+            throws ConfigParserException {
         return read ( new CharArrayReader ( string.toCharArray() ) );
     }
 
-    private ConfigData read( Reader reader ) {
+    private ConfigData read( Reader reader ) throws ConfigParserException {
         BufferedReader bf = new BufferedReader(reader);
 
         List<ConfigLine> lines = new ArrayList<ConfigLine>();

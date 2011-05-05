@@ -3,10 +3,10 @@ package iniconfigurationmanager.schema;
 
 
 import iniconfigurationmanager.ConfigLine;
-import iniconfigurationmanager.ConfigParser;
-import iniconfigurationmanager.ValueLink;
+import iniconfigurationmanager.parsing.ConfigParser;
+import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
-import iniconfigurationmanager.RawValue;
+import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
@@ -41,6 +41,11 @@ public final class ConfigItemData {
         this.configuration = configuration;
         this.formatDefinition = formatDefinition;
         this.values = new LinkedList< Object >();
+    }
+
+
+    public void setComment( String schemaComment, String inputComment ) {
+        
     }
 
 

@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager;
 
+import iniconfigurationmanager.schema.ConfigData;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

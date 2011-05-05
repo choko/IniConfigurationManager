@@ -2,7 +2,7 @@
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.ConfigLine;
-import iniconfigurationmanager.ConfigParser;
+import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

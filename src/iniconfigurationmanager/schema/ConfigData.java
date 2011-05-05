@@ -1,9 +1,10 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.ConfigParser;
+import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.ConfigReader;
 import iniconfigurationmanager.ConfigWriter;
+import iniconfigurationmanager.parsing.ConfigParserException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     public static ConfigData loadFromString(
         ConfigSchema schema,
         String string
-    ) {
+    ) throws ConfigParserException {
         return getReader( schema ).readFromString( string );
     }
 
@@ -36,7 +37,7 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     public static ConfigData loadFromFile(
         ConfigSchema schema,
         File file
-    ) throws FileNotFoundException {
+    ) throws FileNotFoundException, ConfigParserException {
         return getReader( schema ).readFromFile( file );
     }
 
@@ -44,7 +45,7 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     public static ConfigData loadFromInputStream(
         ConfigSchema schema,
         InputStream stream
-    ) {
+    ) throws ConfigParserException {
         return getReader( schema ).readFromInputStream( stream );
     }
 

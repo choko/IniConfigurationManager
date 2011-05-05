@@ -3,9 +3,12 @@
  * and open the template in the editor.
  */
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.parsing;
 
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.LinkVisitor;
+import iniconfigurationmanager.schema.ConfigData;
+import iniconfigurationmanager.schema.ConfigSectionData;
+import iniconfigurationmanager.schema.ConfigItemData;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,14 +43,14 @@ public class ValueLink {
     
 
     public <T> List< T > getValues( T type ) {
-        LinkVisitor< T > visitor = new LinkVisitor< T >( type );
+        LinkVisitor< T > visitor = new LinkVisitor< T >();
         getLinkedItem().accept( visitor );
 
         return visitor.getValues();
     }
 
 
-    public ConfigSection getLinkedSection() {
+    public ConfigSectionData getLinkedSection() {
         if( configuration.hasSection( sectionName ) ) {
             return configuration.getSection( sectionName );
         } else {
@@ -55,8 +58,8 @@ public class ValueLink {
         }
     }
 
-    public ConfigItem getLinkedItem() {
-        ConfigSection section = getLinkedSection();
+    public ConfigItemData getLinkedItem() {
+        ConfigSectionData section = getLinkedSection();
 
         if( section.hasItem( itemName ) ) {
             return section.getItem( itemName );

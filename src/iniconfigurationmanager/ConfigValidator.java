@@ -5,6 +5,8 @@
 
 package iniconfigurationmanager;
 
+import iniconfigurationmanager.schema.ConfigSchema;
+
 /**
  *
  * @author KlonK
