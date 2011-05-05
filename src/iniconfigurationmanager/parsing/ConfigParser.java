@@ -63,6 +63,8 @@ public class ConfigParser {
             }
         }
 
+        addMissingItemsWithDefaultValue();
+
         return configuration;
     }
 
@@ -251,6 +253,32 @@ public class ConfigParser {
         Matcher m = pattern.matcher( text );
         
         return m.find();
+    }
+
+    
+    private void addMissingItemsWithDefaultValue() {
+        for( ConfigSectionSchema sectionSchema : configuration.getSchema() ) {
+            ConfigSectionData sectionData = configuration.getSection(
+                    sectionSchema.getName() );
+
+            for( ConfigItemSchema itemSchema : sectionSchema ) {
+                if( 
+                    itemSchema.hasDefaultValue() &&
+                    ! sectionData.hasItem( itemSchema.getName() )
+                ) {
+                    ConfigItemData item = new ConfigItemData(
+                            itemSchema.getName(),
+                            sectionSchema.getName(),
+                            configuration,
+                            itemSchema.getFormatDefinition());
+
+                    item.setValues( itemSchema.getDefaultValues() );
+                    item.setComment( itemSchema.getComment(), "");
+
+                    sectionData.addItem( itemSchema.getName(), item );
+                }
+            }
+        }
     }
     
 }
