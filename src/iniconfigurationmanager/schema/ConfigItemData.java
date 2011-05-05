@@ -161,10 +161,17 @@ public final class ConfigItemData {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append( name );
-        sb.append( ConfigFormatDefinition.EQUALS_SIGN );
+        if( containsOnlyDefaultValues() ) {
+            return "";
+        }
 
+        return String.format( ConfigFormatDefinition.ITEM_FORMAT,
+                name, valuesToString() );
+    }
+
+
+    private String valuesToString() {
+        StringBuilder sb = new StringBuilder();
         for( Object value : getValues() ) {
             if( value instanceof ValueLink ) {
                 sb.append( ((ValueLink) value).toString() );
@@ -176,9 +183,32 @@ public final class ConfigItemData {
         }
 
         sb.deleteCharAt( sb.length() - 1 );
-        sb.append( ConfigFormatDefinition.NEWLINE );
 
-        return sb.toString();     
+        return sb.toString();
+    }
+
+
+    private boolean containsOnlyDefaultValues() {
+        ConfigSchema schema = configuration.getSchema();
+        if( ! schema.hasSection( sectionName ) ) {
+            return false;
+        }
+
+        ConfigSectionSchema sectionSchema = schema.getSection( sectionName );
+        if( ! sectionSchema.hasItem( name ) ) {
+            return false;
+        }
+
+        ConfigItemSchema itemSchena = sectionSchema.getItem( name );
+        return containsSameValues( itemSchena.getDefaultValues(), values );
+    }
+
+
+    private boolean containsSameValues( 
+            List defaultValues, List<Object> values
+    ) {
+        return defaultValues.containsAll( values ) &&
+                values.containsAll( defaultValues );
     }
 
 }

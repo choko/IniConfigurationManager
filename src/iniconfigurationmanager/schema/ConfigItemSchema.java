@@ -23,7 +23,9 @@ public final class ConfigItemSchema {
 
     private String comment;
 
-    protected List< ValidationRule > validationRules;
+    private List< ValidationRule > validationRules;
+
+    private List defaultValues;
 
 
     public ConfigItemSchema( String name, String section, ConfigItemFormatDefinition formatDefinition ) {
@@ -85,7 +87,18 @@ public final class ConfigItemSchema {
     }
 
 
+    public void setDefaultValues(List defaultValues) {
+        this.defaultValues = defaultValues;
+    }
+
+
+    public List getDefaultValues() {
+        return defaultValues;
+    }
+    
+
     public void accept(ValidatorVisitor visitor) {
         visitor.visit( this );
     }
+    
 }

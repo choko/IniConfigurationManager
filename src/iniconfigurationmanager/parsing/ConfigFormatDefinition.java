@@ -15,6 +15,8 @@ public class ConfigFormatDefinition {
 
     public static final String ITEM_CANONICAL_NAME_FORMAT = "%s#%s";
 
+    public static final String ITEM_FORMAT = "%s=%s\n";
+
     public static final String EQUALS_SIGN = "=";
 
     public static final String VALUES_COMMA_DELIMITER = ",";
