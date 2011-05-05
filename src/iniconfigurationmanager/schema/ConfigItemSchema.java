@@ -95,6 +95,11 @@ public final class ConfigItemSchema {
     public List getDefaultValues() {
         return defaultValues;
     }
+
+
+    public boolean hasDefaultValue() {
+        return ! defaultValues.isEmpty();
+    }
     
 
     public void accept(ValidatorVisitor visitor) {
