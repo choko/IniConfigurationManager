@@ -1,11 +1,14 @@
 
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.rules.ValidationRule;
 import iniconfigurationmanager.schema.ConfigData;
 import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.schema.ConfigItemSchema;
 import iniconfigurationmanager.schema.ConfigSectionData;
 import iniconfigurationmanager.schema.ConfigSectionSchema;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,12 +16,20 @@ import iniconfigurationmanager.schema.ConfigSectionSchema;
  */
 public class RulesValidatorVisitor implements ValidatorVisitor {
 
-    public void visit(ConfigItemData item) {
-        
+     private Map< String,ConfigItemSchema > schemaItems;
+
+     private ValidationResult result;
+
+    public void visit( ConfigItemData item ) {
+      ConfigItemSchema schema = schemaItems.get(item.getCanonicalName());
+      List<ValidationRule> itemRules = schema.getValidationRules();
+       for (ValidationRule validationRule : itemRules) {
+           result.mergeResults( validationRule.validate( item ) );
+        }
     }
 
     public void visit(ConfigItemSchema item) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        schemaItems.put(item.getCanonicalName(), item);
     }
 
     public void visit(ConfigSectionData section) {

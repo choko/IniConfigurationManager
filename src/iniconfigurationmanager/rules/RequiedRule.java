@@ -5,6 +5,7 @@
 
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.validators.ValidationResult;
 
@@ -21,6 +22,10 @@ public class RequiedRule implements ValidationRule {
 
     public ValidationResult validate(ConfigItemData item) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isAplicableOn(ConfigItemFormatDefinition item) {
+        return false;
     }
 
 }
