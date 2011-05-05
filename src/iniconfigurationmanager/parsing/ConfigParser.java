@@ -139,7 +139,7 @@ public class ConfigParser {
             throw new ConfigParserException(
                     ConfigParserError.UNDEFINED_SECTION, line.getText() );
         } catch( ClassCastException e ) {
-            //@TODO throw new exception
+            System.out.println("ClassCastException");
         }
     }
 
@@ -197,8 +197,8 @@ public class ConfigParser {
     
 
     private ConfigItemFormatDefinition getFormatDefinition( String name ) {
-        if( ! currentSectionSchema.hasItem( name ) ) {
-            ConfigItemSchema itemSchema = currentSectionSchema.getItem(name);
+        if( currentSectionSchema.hasItem( name ) ) {
+            ConfigItemSchema itemSchema = currentSectionSchema.getItem( name );
             return itemSchema.getFormatDefinition();
         } else {
             return new StringConfigItem();

@@ -105,7 +105,7 @@ public class ConfigData implements Iterable< ConfigSectionData > {
             sb.append( section.toString() );
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public Iterator<ConfigSectionData> iterator() {

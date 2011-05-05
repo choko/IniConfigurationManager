@@ -14,15 +14,15 @@ import iniconfigurationmanager.parsing.RawValue;
 public class StringConfigItem implements ConfigItemFormatDefinition {
 
     public Class getValueClass() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return String.class;
     }
 
     public Object parseValue(RawValue value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return value.getValue();
     }
 
     public String valueToString(Object value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (String) value;
     }
 
 

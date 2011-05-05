@@ -71,34 +71,29 @@ public final class ConfigItemData {
     public void clear() {
         values.clear();
     }
-
-
-    public void addValue( ValueLink link ) {
-        values.add( link );
-    }
-
-
-    public void addValue( RawValue value ) {
-        values.add( formatDefinition.parseValue( value ) );
-    }
     
 
     public void addValue( Object value ) {
-        //@TODO cast check
-        values.add( formatDefinition.getValueClass().cast( value ) );
+        if( value instanceof ValueLink) {
+            values.add( (ValueLink) value );
+        } else if ( value instanceof RawValue ) {
+            values.add( formatDefinition.parseValue( (RawValue) value ) );
+        } else {
+            values.add( formatDefinition.getValueClass().cast( value ) );
+        }
     }
 
     
     public void setValue( Object value ) {
         clear();
-        addValue( value.getClass().cast( value ) );
+        addValue( value );
     }
 
 
     public void setValues( List< Object > values ) {
         clear();
         for( Object value : values ) {
-            addValue( value.getClass().cast( value ) );
+            addValue( value );
         }
     }
 
@@ -171,7 +166,7 @@ public final class ConfigItemData {
             sb.append( "," );
         }
 
-        sb.deleteCharAt( sb.length() );
+        sb.deleteCharAt( sb.length() - 1 );
         sb.append( ConfigParser.NEWLINE );
 
         return sb.toString();     
