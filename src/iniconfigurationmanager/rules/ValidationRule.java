@@ -5,7 +5,7 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.schema.ConfigItemData;
 
 /**
  *
@@ -13,8 +13,8 @@ import iniconfigurationmanager.items.ConfigItem;
  */
 public interface ValidationRule {
 
-    public boolean isAplicableOn( ConfigItem item );
+    public boolean isAplicableOn( ConfigItemData item );
     
-    public String validate( ConfigItem item );
+    public String validate( ConfigItemData item );
 
 }

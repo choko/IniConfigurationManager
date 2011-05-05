@@ -6,7 +6,7 @@
 package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.items.SignedConfigItem;
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.schema.ConfigItemData;
 import java.util.List;
 
 /**
@@ -29,15 +29,15 @@ public class RangeRule implements ValidationRule {
         this.to = to;
     }
 
-    public RangeRule(List<ConfigItem> items){
+    public RangeRule(List<ConfigItemData> items){
 
     }
 
-    public boolean isAplicableOn(ConfigItem item) {
+    public boolean isAplicableOn(ConfigItemData item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String validate(ConfigItem item) {
+    public String validate(ConfigItemData item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
