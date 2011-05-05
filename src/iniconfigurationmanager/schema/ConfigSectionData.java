@@ -1,7 +1,8 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.ConfigLine;
+import iniconfigurationmanager.ConfigParser;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,18 +11,18 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSection implements Iterable< ConfigItem >, Cloneable {
+public class ConfigSectionData implements Iterable< ConfigItemData > {
 
     private String name;
 
     private Boolean required;  
 
-    private Map< String, ConfigItem > items;
+    private Map< String, ConfigItemData > items;
     
 
-    public ConfigSection( String name ) {
+    public ConfigSectionData( String name ) {
         this.name = name;
-        this.items = new LinkedHashMap<String, ConfigItem>();
+        this.items = new LinkedHashMap<String, ConfigItemData>();
         this.required = false;
     }
 
@@ -36,7 +37,7 @@ public class ConfigSection implements Iterable< ConfigItem >, Cloneable {
     }
 
 
-    public void addItem( String name, ConfigItem item ) {
+    public void addItem( String name, ConfigItemData item ) {
         items.put( name, item );
     }
   
@@ -51,12 +52,12 @@ public class ConfigSection implements Iterable< ConfigItem >, Cloneable {
     }
 
 
-    public ConfigItem getItem( String name ) {
+    public ConfigItemData getItem( String name ) {
         return items.get( name );
     }
 
 
-    public Iterator<ConfigItem> iterator() {
+    public Iterator<ConfigItemData> iterator() {
         return items.values().iterator();
     }
 
@@ -70,7 +71,7 @@ public class ConfigSection implements Iterable< ConfigItem >, Cloneable {
         sb.append( ConfigLine.SECTION_DEFINITION_END );
         sb.append( ConfigParser.NEWLINE );
 
-        for( ConfigItem item : items.values() ) {
+        for( ConfigItemData item : items.values() ) {
             sb.append( item.toString() );
         }
 
@@ -82,12 +83,12 @@ public class ConfigSection implements Iterable< ConfigItem >, Cloneable {
     
     @Override
     public Object clone() {
-        ConfigSection sectionClone = new ConfigSection( this.name );
+        ConfigSectionData sectionClone = new ConfigSectionData( this.name );
         sectionClone.required = this.required;
 
         for( String itemName : this.items.keySet() ) {
-            ConfigItem oldItem = items.get( itemName );
-            ConfigItem item = oldItem.copy();
+            ConfigItemData oldItem = items.get( itemName );
+            ConfigItemData item = oldItem.copy();
             item.setValues( oldItem.getValues() ); //@TODO this is a hack
                 
             sectionClone.addItem( itemName, item );

@@ -1,6 +1,9 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.ConfigParser;
+import iniconfigurationmanager.ConfigReader;
+import iniconfigurationmanager.ConfigWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,11 +19,11 @@ import iniconfigurationmanager.validators.ValidatorVisitor;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigData implements Iterable< ConfigSection > {
+public class ConfigData implements Iterable< ConfigSectionData > {
 
     private ConfigSchema schema;
 
-    private Map< String, ConfigSection > sections;
+    private Map< String, ConfigSectionData > sections;
 
     
     public static ConfigData loadFromString(
@@ -55,7 +58,7 @@ public class ConfigData implements Iterable< ConfigSection > {
 
     
     private ConfigData() {
-        this.sections = new LinkedHashMap< String, ConfigSection >();
+        this.sections = new LinkedHashMap< String, ConfigSectionData >();
     }
 
 
@@ -79,7 +82,7 @@ public class ConfigData implements Iterable< ConfigSection > {
     }
     
 
-    public void addSection ( String name, ConfigSection section ) {
+    public void addSection ( String name, ConfigSectionData section ) {
         sections.put(name, section);
     }
 
@@ -89,7 +92,7 @@ public class ConfigData implements Iterable< ConfigSection > {
     }
 
     
-    public ConfigSection getSection( String name ) {
+    public ConfigSectionData getSection( String name ) {
         return sections.get( name );
     }
 
@@ -98,19 +101,19 @@ public class ConfigData implements Iterable< ConfigSection > {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        for( ConfigSection section : sections.values() ) {
+        for( ConfigSectionData section : sections.values() ) {
             sb.append( section.toString() );
         }
 
         return sb.toString();
     }
 
-    public Iterator<ConfigSection> iterator() {
+    public Iterator<ConfigSectionData> iterator() {
         return sections.values().iterator();
     }
     
     private void accept(ValidatorVisitor visitor) {
-        visitor.visit(this);
+        
     }
 
     public ValidatorResult validateStrict() {

@@ -1,5 +1,5 @@
 
-package iniconfigurationmanager.items;
+package iniconfigurationmanager.schema;
 
 
 import iniconfigurationmanager.ConfigLine;
@@ -7,8 +7,8 @@ import iniconfigurationmanager.ConfigParser;
 import iniconfigurationmanager.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.RawValue;
-import iniconfigurationmanager.ValidatorVisitor;
 import iniconfigurationmanager.rules.ValidationRule;
+import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -17,7 +17,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public abstract class ConfigItem {
+public abstract class ConfigItemData {
 
     protected String name;
 
@@ -30,14 +30,14 @@ public abstract class ConfigItem {
     protected List< ValidationRule > validationRules;
 
 
-    protected ConfigItem() {
+    protected ConfigItemData() {
         this.required = false;
         this.values = new LinkedList< Object >();
         this.validationRules = new LinkedList< ValidationRule >();
     }
     
     
-    public ConfigItem( String name ) {
+    public ConfigItemData( String name ) {
         this();
         this.name = name;
     }
@@ -183,9 +183,9 @@ public abstract class ConfigItem {
     }
 
 
-    public ConfigItem copy() {
+    public ConfigItemData copy() {
         try {
-            ConfigItem item = this.getClass().newInstance();
+            ConfigItemData item = this.getClass().newInstance();
             item.name = this.name;
             item.required = this.required;
 
