@@ -12,6 +12,7 @@ import iniconfigurationmanager.schema.ConfigItemSchema;
 import iniconfigurationmanager.schema.ConfigSectionSchema;
 import iniconfigurationmanager.schema.NullConfigSectionData;
 import iniconfigurationmanager.schema.NullConfigSectionSchema;
+import iniconfigurationmanager.utils.InvalidOperationException;
 import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,23 +25,6 @@ import java.util.regex.Pattern;
  */
 public class ConfigParser {
 
-    public static final char WHITESPACE = ' ';
-
-    public static final char ESCAPE = '\\';
-    
-    public static final String NEWLINE = System.getProperty("line.separator");
-
-    private static final Pattern VALID_NAME_PATTERN =
-        Pattern.compile("[a-zA-Z.:$][a-zA-Z0-9_~.:$ -]*");
-
-    private static final Pattern COMMA_DELIMITER_PATTERN =
-        Pattern.compile("(?<!\\\\),");
-
-    private static final Pattern COLON_DELIMITER_PATTERN =
-        Pattern.compile("(?<!\\\\):");
-
-    private static final Pattern NO_DELIMITER_PATTERN = COMMA_DELIMITER_PATTERN;
-    
     private ConfigSchema schema;
 
     private ConfigData configuration;
@@ -85,7 +69,7 @@ public class ConfigParser {
 
     private void parseComment( ConfigLine line ) {
         currentComment.append( line.getText() );
-        currentComment.append( NEWLINE );
+        currentComment.append( ConfigFormatDefinition.NEWLINE );
     }
 
     
@@ -109,8 +93,8 @@ public class ConfigParser {
             throws ConfigParserException {
         String text = line.getText();
         String name = text.substring(
-            text.indexOf( ConfigLine.SECTION_DEFINITION_START ) + 1,
-            text.indexOf( ConfigLine.SECTION_DEFINITION_END )
+            text.indexOf( ConfigFormatDefinition.SECTION_DEFINITION_START ) + 1,
+            text.indexOf( ConfigFormatDefinition.SECTION_DEFINITION_END )
         );
 
         if( ! isValidName( name ) ) {
@@ -135,11 +119,12 @@ public class ConfigParser {
             item.setValues( values );
             item.setComment( getCommentForItem( name ), getComment() );
             currentSectionData.addItem( name, item );
-        } catch( UnsupportedOperationException e ) {
+        } catch( InvalidOperationException ex ) {
             throw new ConfigParserException(
                     ConfigParserError.UNDEFINED_SECTION, line.getText() );
-        } catch( ClassCastException e ) {
-            System.out.println("ClassCastException");
+        } catch( ClassCastException ex ) {
+            throw new ConfigParserException(
+                    ConfigParserError.TYPE_PARSER_EXCEPTION, line.getText() );
         }
     }
 
@@ -147,7 +132,7 @@ public class ConfigParser {
     private String getItemName( ConfigLine line )
             throws ConfigParserException {
         String text = line.getText();
-        int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
+        int equalsSignPosition = text.indexOf( ConfigFormatDefinition.EQUALS_SIGN );
         String name = StringUtils.trim(
                 text.substring(0, equalsSignPosition ) );
 
@@ -161,7 +146,7 @@ public class ConfigParser {
 
 
     private boolean isValidName( String name ) {
-        Matcher m = VALID_NAME_PATTERN.matcher( name );
+        Matcher m = ConfigFormatDefinition.VALID_NAME_PATTERN.matcher( name );
 
         return m.matches();
     }
@@ -185,7 +170,7 @@ public class ConfigParser {
 
     private String getItemValuesDefinition( ConfigLine line ) {
         String text = line.getText();
-        int equalsSignPosition = text.indexOf( ConfigLine.EQUALS_SIGN );
+        int equalsSignPosition = text.indexOf( ConfigFormatDefinition.EQUALS_SIGN );
 
         return StringUtils.trim( text.substring(equalsSignPosition + 1) );
     }
@@ -213,11 +198,11 @@ public class ConfigParser {
     
     private Pattern getDelimiterPattern( String values ) {
         if( isDelimitedByComma( values ) ) {
-            return COMMA_DELIMITER_PATTERN;
+            return ConfigFormatDefinition.COMMA_DELIMITER_PATTERN;
         } else if ( isDelimitedByColon( values ) ) {
-            return COLON_DELIMITER_PATTERN;
+            return ConfigFormatDefinition.COLON_DELIMITER_PATTERN;
         } else {
-            return NO_DELIMITER_PATTERN;
+            return ConfigFormatDefinition.NO_DELIMITER_PATTERN;
         }
     }
 
@@ -240,17 +225,21 @@ public class ConfigParser {
 
 
     private boolean isLinkDefinition( String value ) {
-        return value.startsWith("${");
+        return value.startsWith( ConfigFormatDefinition.LINK_DEFINITION_START );
     }
     
 
     private boolean isDelimitedByComma( String values ) {
-        return findOccurence( COMMA_DELIMITER_PATTERN, values );
+        Pattern pattern = ConfigFormatDefinition.COMMA_DELIMITER_PATTERN;
+
+        return findOccurence( pattern, values );
     }
 
 
     private boolean isDelimitedByColon( String values ) {
-        return findOccurence( COLON_DELIMITER_PATTERN, values );
+        Pattern pattern = ConfigFormatDefinition.COLON_DELIMITER_PATTERN;
+
+        return findOccurence( pattern, values );
     }
 
     

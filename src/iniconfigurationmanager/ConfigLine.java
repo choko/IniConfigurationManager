@@ -5,20 +5,14 @@
 
 package iniconfigurationmanager;
 
+import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
 public class ConfigLine {
 
-    public static final String SECTION_DEFINITION_START = "[";
-
-    public static final String SECTION_DEFINITION_END = "]";
-
-    public static final String COMMENT_START = "#";
-
-    public static final String EQUALS_SIGN = "=";
-    
     private String text;
 
     public ConfigLine( String text ) {
@@ -30,19 +24,19 @@ public class ConfigLine {
     }
     
     public boolean isSectionHeader() {
-        return text.startsWith( SECTION_DEFINITION_START );
+        return text.startsWith(ConfigFormatDefinition.SECTION_DEFINITION_START);
     }
 
     public boolean isComment() {
-        return text.trim().startsWith( COMMENT_START );
+        return text.trim().startsWith( ConfigFormatDefinition.COMMENT_START );
     }
 
     public boolean isItemDefinition() {
-        return text.indexOf( EQUALS_SIGN ) != -1;
+        return text.indexOf( ConfigFormatDefinition.EQUALS_SIGN ) != -1;
     }
 
     public boolean isEmpty() {
-        return text.trim() == "";
+        return text.trim().equals("");
     }
   
 }

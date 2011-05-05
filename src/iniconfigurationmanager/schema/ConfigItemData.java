@@ -2,12 +2,11 @@
 package iniconfigurationmanager.schema;
 
 
-import iniconfigurationmanager.ConfigLine;
-import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.parsing.ConfigFormatDefinition;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +59,8 @@ public final class ConfigItemData {
     
 
     public String getCanonicalName() {
-        return String.format("%s#%s", sectionName, name);
+        return String.format( ConfigFormatDefinition.ITEM_CANONICAL_NAME_FORMAT,
+                sectionName, name);
     }
 
 
@@ -114,7 +114,7 @@ public final class ConfigItemData {
 
     
     public < T > List< T > getValues( T type ) {
-        if( ! type.getClass().isAssignableFrom( formatDefinition.getValueClass() ) ) {
+        if( ! typeMatches( type ) ) {
             throw new ClassCastException();
         }
 
@@ -129,6 +129,12 @@ public final class ConfigItemData {
         }
 
         return valuesList;
+    }
+
+
+    private < T > boolean typeMatches( T type ) {
+        return type.getClass().isAssignableFrom(
+                formatDefinition.getValueClass() );
     }
 
 
@@ -157,17 +163,20 @@ public final class ConfigItemData {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append( name );
-        sb.append( ConfigParser.WHITESPACE );
-        sb.append( ConfigLine.EQUALS_SIGN );
-        sb.append( ConfigParser.WHITESPACE );
+        sb.append( ConfigFormatDefinition.EQUALS_SIGN );
 
         for( Object value : getValues() ) {
-            sb.append( formatDefinition.valueToString( value ) );
-            sb.append( "," );
+            if( value instanceof ValueLink ) {
+                sb.append( ((ValueLink) value).toString() );
+            } else {
+                sb.append( formatDefinition.valueToString( value ) );
+            }
+
+            sb.append( ConfigFormatDefinition.VALUES_COMMA_DELIMITER );
         }
 
         sb.deleteCharAt( sb.length() - 1 );
-        sb.append( ConfigParser.NEWLINE );
+        sb.append( ConfigFormatDefinition.NEWLINE );
 
         return sb.toString();     
     }

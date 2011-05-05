@@ -14,7 +14,9 @@ public enum ConfigParserError {
     UNEXPECTED_LINE ( "Line %s '%s' is unexpected." ),
     INVALID_SECTION_NAME ( "Section name '%s' is not valid." ),
     INVALID_ITEM_NAME ( "Item name '%s' is not valid." ),
-    UNDEFINED_SECTION ( "Section has to be defined before line '%s'." );
+    UNDEFINED_SECTION ( "Section has to be defined before line '%s'." ),
+    TYPE_PARSER_EXCEPTION( "Value cannot be parsed at line '%s'." );
+
 
     private final String message;
 

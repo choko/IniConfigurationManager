@@ -1,6 +1,8 @@
 
 package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.utils.InvalidOperationException;
+
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
@@ -23,7 +25,7 @@ public class NullConfigSectionData extends ConfigSectionData {
     
     @Override
     public void addItem(String name, ConfigItemData item) {
-        throw new UnsupportedOperationException();
+        throw new InvalidOperationException();
     }
 
     

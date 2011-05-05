@@ -1,8 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.ConfigLine;
-import iniconfigurationmanager.parsing.ConfigParser;
+import iniconfigurationmanager.parsing.ConfigFormatDefinition;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -63,16 +62,16 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        sb.append( ConfigLine.SECTION_DEFINITION_START );
+        sb.append( ConfigFormatDefinition.SECTION_DEFINITION_START );
         sb.append( name );
-        sb.append( ConfigLine.SECTION_DEFINITION_END );
-        sb.append( ConfigParser.NEWLINE );
+        sb.append( ConfigFormatDefinition.SECTION_DEFINITION_END );
+        sb.append( ConfigFormatDefinition.NEWLINE );
 
         for( ConfigItemData item : items.values() ) {
             sb.append( item.toString() );
         }
 
-        sb.append( ConfigParser.NEWLINE );
+        sb.append( ConfigFormatDefinition.NEWLINE );
 
         return sb.toString();
     }
