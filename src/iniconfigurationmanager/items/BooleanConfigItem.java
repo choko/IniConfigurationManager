@@ -5,7 +5,7 @@
 
 package iniconfigurationmanager.items;
 
-import iniconfigurationmanager.RawValue;
+import iniconfigurationmanager.parsing.RawValue;
 
 
 /**
