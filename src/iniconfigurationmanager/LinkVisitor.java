@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package iniconfigurationmanager;
 
-import iniconfigurationmanager.items.ConfigItem;
+import iniconfigurationmanager.schema.ConfigItemData;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,19 +12,16 @@ import java.util.List;
  */
 public class LinkVisitor<T> {
 
-    private T type;
-
-    private HashSet< ConfigItem > enteredConfigItems;
+    private HashSet< ConfigItemData > enteredConfigItems;
 
     private List< T > values;
 
-    public LinkVisitor( T type ) {
-        this.type = type;
+    public LinkVisitor() {
         this.values = new LinkedList< T >();
     }
 
 
-    public void enter( ConfigItem item ) {
+    public void enter( ConfigItemData item ) {
         if( enteredConfigItems.contains( item ) ) {
             //@TODO throw new exception
         }
@@ -42,7 +35,7 @@ public class LinkVisitor<T> {
     }
 
     
-    public void leave( ConfigItem item ) {
+    public void leave( ConfigItemData item ) {
         enteredConfigItems.remove( item );
     }
 
