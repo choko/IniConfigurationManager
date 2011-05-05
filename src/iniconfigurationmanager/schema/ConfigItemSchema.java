@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.items.ConfigItemDefinition;
+import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.rules.ValidationRule;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
@@ -15,9 +15,9 @@ public final class ConfigItemSchema {
 
     private final String name;
 
-    private final String section;
+    private final String sectionName;
 
-    private final ConfigItemDefinition formatDefinition;
+    private final ConfigItemFormatDefinition formatDefinition;
 
     private boolean required;
 
@@ -26,9 +26,9 @@ public final class ConfigItemSchema {
     protected List< ValidationRule > validationRules;
 
 
-    public ConfigItemSchema( String name, String section, ConfigItemDefinition formatDefinition ) {
+    public ConfigItemSchema( String name, String section, ConfigItemFormatDefinition formatDefinition ) {
         this.name = name;
-        this.section = section;
+        this.sectionName = section;
         this.formatDefinition = formatDefinition;
         this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
@@ -40,8 +40,13 @@ public final class ConfigItemSchema {
     }
 
 
+    public String getSectionName() {
+        return sectionName;
+    }
+
+
     public String getCanonicalName() {
-        return String.format("%s#%s", section, name);
+        return String.format("%s#%s", sectionName, name);
     }
 
 
@@ -65,7 +70,7 @@ public final class ConfigItemSchema {
     }
 
     
-    public ConfigItemDefinition getFormatDefinition() {
+    public ConfigItemFormatDefinition getFormatDefinition() {
         return formatDefinition;
     }
 

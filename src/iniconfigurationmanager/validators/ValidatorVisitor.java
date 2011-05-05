@@ -1,33 +1,32 @@
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.items.ConfigItem;
-import iniconfigurationmanager.validators.ValidatorResult;
-import iniconfigurationmanager.rules.ValidationRule;
-import java.util.HashSet;
+import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.schema.ConfigItemSchema;
+import iniconfigurationmanager.schema.ConfigSectionData;
+import iniconfigurationmanager.schema.ConfigSectionSchema;
 
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ValidatorVisitor {
+public interface ValidatorVisitor {
 
 
-    private ValidatorResult validationResult;
+    public void visit(ConfigItemData item);
 
-    private HashSet< ConfigItem > enteredConfigItems;
+    
+    public void visit(ConfigItemSchema item);
 
-    public void visit( ConfigItem item ) {
+    
+    public void visit(ConfigSectionData section);
 
-        for (ValidationRule rule : item.getValidationRules()) {
-            validationResult.addResult(rule.validate(item));
-        }
-   }
 
-   public ValidatorResult getResult() {
-       return this.validationResult;
-   }
+    public void visit(ConfigSectionSchema section);
+
+    
+    public ValidationResult getResult();
 
 
 }

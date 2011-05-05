@@ -7,7 +7,7 @@ import iniconfigurationmanager.ConfigParser;
 import iniconfigurationmanager.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.RawValue;
-import iniconfigurationmanager.items.ConfigItemDefinition;
+import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,23 +21,23 @@ public final class ConfigItemData {
 
     private String name;
 
-    private String section;
+    private String sectionName;
 
     private ConfigData configuration;
 
-    private ConfigItemDefinition formatDefinition;
+    private ConfigItemFormatDefinition formatDefinition;
 
     private List< Object > values;
 
 
     public ConfigItemData(
             String name,
-            String section,
+            String sectionName,
             ConfigData configuration,
-            ConfigItemDefinition formatDefinition
+            ConfigItemFormatDefinition formatDefinition
     ) {
         this.name = name;
-        this.section = section;
+        this.sectionName = sectionName;
         this.configuration = configuration;
         this.formatDefinition = formatDefinition;
         this.values = new LinkedList< Object >();
@@ -48,9 +48,14 @@ public final class ConfigItemData {
         return name;
     }
 
+    
+    public String getSectionName() {
+        return sectionName;
+    }
+    
 
     public String getCanonicalName() {
-        return String.format("%s#%s", section, name);
+        return String.format("%s#%s", sectionName, name);
     }
 
 

@@ -12,7 +12,6 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import iniconfigurationmanager.validators.ValidatorResult;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 
 /**
@@ -112,7 +111,9 @@ public class ConfigData implements Iterable< ConfigSectionData > {
         return sections.values().iterator();
     }
     
-    private void accept(ValidatorVisitor visitor) {
+    public void accept(ValidatorVisitor visitor) {
+        schema.accept( visitor );
+
         for( ConfigSectionData section : sections.values() ) {
             section.accept( visitor );
         }

@@ -12,11 +12,11 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class ValidatorResult {
+public class ValidationResult {
 
     private LinkedList<String> errorMsgs;
 
-    public ValidatorResult() {
+    public ValidationResult() {
         this.errorMsgs = new LinkedList<String>();
     }
 

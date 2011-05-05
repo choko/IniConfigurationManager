@@ -1,28 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.validators.ValidatorResult;
-import iniconfigurationmanager.ConfigData;
-import java.util.HashSet;
-import iniconfigurationmanager.ConfigSection;
+import iniconfigurationmanager.schema.ConfigData;
+
 /**
  *
  * @author KlonK
  */
-public abstract class Validator {
+public class Validator {
 
-    private ValidatorResult result;
+    public static ValidationResult validateStrict( ConfigData data ) {
+        StrictValidatorVisitor visitor = new StrictValidatorVisitor();
+        data.accept( visitor );
 
-    private HashSet<ConfigSection> enteredConfigSection;
+        return visitor.getResult();
+    }
 
-    public abstract ValidatorResult visit(ConfigData data);
 
-    private void addSectionToHash(ConfigSection section) {
-        enteredConfigSection.add(section);
+    public static ValidationResult validateRelax( ConfigData data ) {
+        RelaxValidatorVisitor visitor = new RelaxValidatorVisitor();
+        data.accept( visitor );
+
+        return visitor.getResult();
+    }
+
+
+    public static ValidationResult validateValidationRules( ConfigData data ) {
+        RulesValidatorVisitor visitor = new RulesValidatorVisitor();
+        data.accept( visitor );
+
+        return visitor.getResult();
     }
 
 
