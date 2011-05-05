@@ -68,7 +68,7 @@ public class ConfigParser {
 
 
     private void parseComment( ConfigLine line ) {
-        currentComment.append( line.getText() );
+        currentComment.append( line.getText().trim().substring( 1 ) );
         currentComment.append( ConfigFormatDefinition.NEWLINE );
     }
 
@@ -118,6 +118,7 @@ public class ConfigParser {
 
             item.setValues( values );
             item.setComment( getCommentForItem( name ), getComment() );
+
             currentSectionData.addItem( name, item );
         } catch( InvalidOperationException ex ) {
             throw new ConfigParserException(
@@ -171,8 +172,11 @@ public class ConfigParser {
     private String getItemValuesDefinition( ConfigLine line ) {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigFormatDefinition.EQUALS_SIGN );
+        
+        String rawValues = StringUtils.trimInlineComments(
+                    text.substring(equalsSignPosition + 1) );
 
-        return StringUtils.trim( text.substring(equalsSignPosition + 1) );
+        return StringUtils.trim( rawValues );
     }
 
 

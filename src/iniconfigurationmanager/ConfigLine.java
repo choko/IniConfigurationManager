@@ -28,7 +28,8 @@ public class ConfigLine {
     }
 
     public boolean isComment() {
-        return text.trim().startsWith( ConfigFormatDefinition.COMMENT_START );
+        String commentStart = "" + ConfigFormatDefinition.COMMENT_START;
+        return text.trim().startsWith( commentStart );
     }
 
     public boolean isItemDefinition() {
@@ -36,7 +37,7 @@ public class ConfigLine {
     }
 
     public boolean isEmpty() {
-        return text.trim().equals("");
+        return text.trim().isEmpty();
     }
   
 }

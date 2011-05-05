@@ -1,6 +1,8 @@
 
 package iniconfigurationmanager.utils;
 
+import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
@@ -8,26 +10,34 @@ package iniconfigurationmanager.utils;
 public class StringUtils {
 
 
-     public static String trim( String text ) {
-        int start = 0;
-        while(
-            start < text.length() &&
-            text.charAt(start) == ' '
-        ) {
-            start++;
-        }
+    public static String trim( String text ) {
+        String trimmedText = text.trim();
 
-        int end = text.length() - 1;
-        while(
-            end > start + 1 &&
-            text.charAt( end ) == ' ' &&
-            text.charAt( end - 1 ) != '\\'
-        ) {
-            end--;
+        if( trimmedText.endsWith( "" + ConfigFormatDefinition.ESCAPE ) ) {
+            return trimmedText + ConfigFormatDefinition.WHITESPACE;
+        } else {
+            return trimmedText;
         }
-
-        return text.substring( start, end + 1 );
     }
 
+
+     public static String trimInlineComments( String line ) {
+        int length = line.length();
+        char last = ' ';
+
+        for( int index = 0; index < line.length(); index++ ) {
+            if(
+                line.charAt( index ) == ConfigFormatDefinition.COMMENT_START &&
+                last != ConfigFormatDefinition.ESCAPE
+            ) {
+                length = index;
+                break;
+            }
+
+            last = line.charAt( index );
+        }
+
+        return line.substring(0, length);
+    }
     
 }

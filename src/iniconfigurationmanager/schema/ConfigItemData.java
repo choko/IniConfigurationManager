@@ -22,6 +22,8 @@ public final class ConfigItemData {
 
     private String sectionName;
 
+    private String comment;
+
     private ConfigData configuration;
 
     private ConfigItemFormatDefinition formatDefinition;
@@ -44,10 +46,35 @@ public final class ConfigItemData {
 
 
     public void setComment( String schemaComment, String inputComment ) {
-        
+        StringBuilder sb = new StringBuilder();
+        sb.append( schemaComment );
+        sb.append( ConfigFormatDefinition.NEWLINE );
+        sb.append( inputComment );
+
+        this.comment = formatComment( sb.toString() );
     }
 
 
+    private String formatComment( String comment ) {
+        StringBuilder sb = new StringBuilder();
+
+        for( char ch : comment.trim().toCharArray() ) {
+            sb.append( ch );
+
+            if( ch == ConfigFormatDefinition.NEWLINE.charAt( 0 ) ) {
+                sb.append( ConfigFormatDefinition.COMMENT_START );
+            } 
+        }
+
+        return sb.toString();
+    }
+
+
+    private boolean hasComment() {
+        return ! comment.trim().isEmpty();
+    }
+
+    
     public String getName() {
         return name;
     }
@@ -165,8 +192,13 @@ public final class ConfigItemData {
             return "";
         }
 
-        return String.format( ConfigFormatDefinition.ITEM_FORMAT,
+        if( hasComment() ) {
+            return String.format( ConfigFormatDefinition.ITEM_WITH_COMMENT_FORMAT,
+                    comment, name, valuesToString() );
+        } else {
+            return String.format( ConfigFormatDefinition.ITEM_FORMAT,
                 name, valuesToString() );
+        }
     }
 
 

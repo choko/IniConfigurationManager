@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package iniconfigurationmanager.parsing;
 
@@ -17,6 +13,8 @@ public class ConfigFormatDefinition {
 
     public static final String ITEM_FORMAT = "%s=%s\n";
 
+    public static final String ITEM_WITH_COMMENT_FORMAT = ";%s\n%s=%s\n";
+    
     public static final String EQUALS_SIGN = "=";
 
     public static final String VALUES_COMMA_DELIMITER = ",";
@@ -33,7 +31,7 @@ public class ConfigFormatDefinition {
 
     public static final String SECTION_DEFINITION_END = "]";
 
-    public static final String COMMENT_START = "#";
+    public static final char COMMENT_START = ';';
 
     public static final char WHITESPACE = ' ';
 
