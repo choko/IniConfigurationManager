@@ -7,57 +7,57 @@ import iniconfigurationmanager.ConfigParser;
 import iniconfigurationmanager.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.RawValue;
-import iniconfigurationmanager.rules.ValidationRule;
+import iniconfigurationmanager.items.ConfigItemDefinition;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public abstract class ConfigItemData {
+public final class ConfigItemData {
 
-    protected String name;
+    private String name;
 
-    protected String comment;
+    private String section;
 
-    protected boolean required;
+    private ConfigData configuration;
 
-    protected List< Object > values;
+    private ConfigItemDefinition formatDefinition;
 
-    protected List< ValidationRule > validationRules;
+    private List< Object > values;
 
 
-    protected ConfigItemData() {
-        this.required = false;
-        this.values = new LinkedList< Object >();
-        this.validationRules = new LinkedList< ValidationRule >();
-    }
-    
-    
-    public ConfigItemData( String name ) {
-        this();
+    public ConfigItemData(
+            String name,
+            String section,
+            ConfigData configuration,
+            ConfigItemDefinition formatDefinition
+    ) {
         this.name = name;
+        this.section = section;
+        this.configuration = configuration;
+        this.formatDefinition = formatDefinition;
+        this.values = new LinkedList< Object >();
     }
 
 
-    public void setComment( String comment ) {
-        this.comment = comment;
+    public String getName() {
+        return name;
     }
 
+
+    public String getCanonicalName() {
+        return String.format("%s#%s", section, name);
+    }
+
+
+    public ValueLink getItemLink() {
+        return new ValueLink( getCanonicalName(), configuration );
+    }
     
-    public void setRequired() {
-        this.required = true;
-    }
-
-
-    public boolean isRequired() {
-        return this.required;
-    }
-
-
     public void clear() {
         values.clear();
     }
@@ -69,13 +69,13 @@ public abstract class ConfigItemData {
 
 
     public void addValue( RawValue value ) {
-        values.add( parseValue( value ) );
+        values.add( formatDefinition.parseValue( value ) );
     }
     
 
     public void addValue( Object value ) {
         //@TODO cast check
-        values.add( getValueClass().cast( value ) );
+        values.add( formatDefinition.getValueClass().cast( value ) );
     }
 
     
@@ -109,7 +109,7 @@ public abstract class ConfigItemData {
 
     
     public < T > List< T > getValues( T type ) {
-        if( ! type.getClass().isAssignableFrom( getValueClass() ) ) {
+        if( ! type.getClass().isAssignableFrom( formatDefinition.getValueClass() ) ) {
             throw new ClassCastException();
         }
 
@@ -124,21 +124,6 @@ public abstract class ConfigItemData {
         }
 
         return valuesList;
-    }
-
-
-    public void addValidationRule( ValidationRule rule ) {
-        validationRules.add( rule );
-    }
-
-
-    public List< ValidationRule > getValidationRules() {
-        return validationRules;
-    }
-    
-    
-    public ValueLink getLink() {
-        throw new NotImplementedException();
     }
 
 
@@ -172,7 +157,7 @@ public abstract class ConfigItemData {
         sb.append( ConfigParser.WHITESPACE );
 
         for( Object value : getValues() ) {
-            sb.append( valueToString( value ) );
+            sb.append( formatDefinition.valueToString( value ) );
             sb.append( "," );
         }
 
@@ -181,33 +166,5 @@ public abstract class ConfigItemData {
 
         return sb.toString();     
     }
-
-
-    public ConfigItemData copy() {
-        try {
-            ConfigItemData item = this.getClass().newInstance();
-            item.name = this.name;
-            item.required = this.required;
-
-            for( ValidationRule rule : validationRules ) {
-                item.addValidationRule( rule );
-            }
-            
-            return item;
-        } catch( InstantiationException e ) {
-            throw new InternalError( e.getMessage() );
-        } catch( IllegalAccessException e ) {
-            throw new InternalError( e.getMessage() );
-        }
-    }
-
-    
-    protected abstract Class getValueClass();
-
-
-    protected abstract Object parseValue( RawValue value );
-
-    
-    protected abstract String valueToString( Object value );
 
 }

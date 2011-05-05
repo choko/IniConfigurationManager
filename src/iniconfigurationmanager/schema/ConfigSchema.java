@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.schema.ConfigSectionData;
+import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,15 +10,15 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSchema implements Iterable< ConfigSectionData > {
+public class ConfigSchema implements Iterable< ConfigSectionSchema > {
 
-    private Map< String, ConfigSectionData > sections;
+    private Map< String, ConfigSectionSchema > sections;
 
     public ConfigSchema() {
-        this.sections = new LinkedHashMap< String, ConfigSectionData >();
+        this.sections = new LinkedHashMap< String, ConfigSectionSchema >();
     }
 
-    public void addSection ( String name, ConfigSectionData section ) {
+    public void addSection ( String name, ConfigSectionSchema section ) {
         sections.put(name, section);
     }
 
@@ -28,12 +28,20 @@ public class ConfigSchema implements Iterable< ConfigSectionData > {
     }
 
 
-    public ConfigSectionData getSection( String name ) {
+    public ConfigSectionSchema getSection( String name ) {
         return sections.get( name );
     }
 
-    public Iterator<ConfigSectionData> iterator() {
+
+    public Iterator<ConfigSectionSchema> iterator() {
         return sections.values().iterator();
+    }
+
+
+    public void accept( ValidatorVisitor visitor ) {
+        for( ConfigSectionSchema section : sections.values() ) {
+            section.accept( visitor );
+        }
     }
 
 }

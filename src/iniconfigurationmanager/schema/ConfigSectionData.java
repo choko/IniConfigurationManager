@@ -3,6 +3,7 @@ package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.ConfigLine;
 import iniconfigurationmanager.ConfigParser;
+import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,25 +16,12 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
 
     private String name;
 
-    private Boolean required;  
-
     private Map< String, ConfigItemData > items;
     
 
     public ConfigSectionData( String name ) {
         this.name = name;
         this.items = new LinkedHashMap<String, ConfigItemData>();
-        this.required = false;
-    }
-
-
-    public void setReguired() {
-        this.required = true;
-    }
-
-
-    private boolean isRequired() {
-        return this.required;
     }
 
 
@@ -61,7 +49,16 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
         return items.values().iterator();
     }
 
+
+    public void accept( ValidatorVisitor visitor ) {
+        for( ConfigItemData item : items.values() ) {
+            item.accept( visitor );
+        }
+
+        visitor.visit( this );
+    }
     
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,23 +75,6 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
         sb.append( ConfigParser.NEWLINE );
 
         return sb.toString();
-    }
-
-    
-    @Override
-    public Object clone() {
-        ConfigSectionData sectionClone = new ConfigSectionData( this.name );
-        sectionClone.required = this.required;
-
-        for( String itemName : this.items.keySet() ) {
-            ConfigItemData oldItem = items.get( itemName );
-            ConfigItemData item = oldItem.copy();
-            item.setValues( oldItem.getValues() ); //@TODO this is a hack
-                
-            sectionClone.addItem( itemName, item );
-        }
-
-        return sectionClone;
     }
     
 }

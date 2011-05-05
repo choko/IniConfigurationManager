@@ -113,15 +113,9 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     }
     
     private void accept(ValidatorVisitor visitor) {
-        
-    }
-
-    public ValidatorResult validateStrict() {
-
-    }
-
-    public ValidatorResult validateRelax() {
-
+        for( ConfigSectionData section : sections.values() ) {
+            section.accept( visitor );
+        }
     }
     
 }
