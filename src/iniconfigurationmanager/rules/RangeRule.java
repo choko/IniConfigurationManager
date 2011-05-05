@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class RangeRule implements  ValidationRule {
+public class RangeRule implements ValidationRule {
 
     private int from;
 
@@ -33,7 +33,6 @@ public class RangeRule implements  ValidationRule {
 
     }
 
-
     public boolean isAplicableOn(ConfigItem item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -41,7 +40,6 @@ public class RangeRule implements  ValidationRule {
     public String validate(ConfigItem item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 
 
 
