@@ -9,7 +9,6 @@ import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.schema.ConfigData;
 import iniconfigurationmanager.schema.ConfigSectionData;
 import iniconfigurationmanager.schema.ConfigItemData;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class ValueLink {
 
 
     private String getItemName( String link ) {
-        return link.substring( link.indexOf("#"), link.length() - 1 );
+        return link.substring( link.indexOf("#") + 1, link.length() - 1 );
     }
     
 
@@ -54,7 +53,7 @@ public class ValueLink {
         if( configuration.hasSection( sectionName ) ) {
             return configuration.getSection( sectionName );
         } else {
-            return null;
+            return null; //@throws error
         }
     }
 
@@ -64,7 +63,7 @@ public class ValueLink {
         if( section.hasItem( itemName ) ) {
             return section.getItem( itemName );
         } else {
-            return null;
+            return null; //@throws error
         }
     }
 

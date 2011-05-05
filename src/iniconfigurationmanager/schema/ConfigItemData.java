@@ -204,7 +204,7 @@ public final class ConfigItemData {
 
     private String valuesToString() {
         StringBuilder sb = new StringBuilder();
-        for( Object value : getValues() ) {
+        for( Object value : values ) {
             if( value instanceof ValueLink ) {
                 sb.append( ((ValueLink) value).toString() );
             } else {

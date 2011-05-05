@@ -17,6 +17,7 @@ public class LinkVisitor<T> {
     private List< T > values;
 
     public LinkVisitor() {
+        this.enteredConfigItems = new HashSet<ConfigItemData>();
         this.values = new LinkedList< T >();
     }
 

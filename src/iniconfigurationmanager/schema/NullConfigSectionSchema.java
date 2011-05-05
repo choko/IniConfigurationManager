@@ -7,17 +7,8 @@ package iniconfigurationmanager.schema;
  */
 public class NullConfigSectionSchema extends ConfigSectionSchema {
 
-    private static final NullConfigSectionSchema INSTANCE =
-            new NullConfigSectionSchema();
-
-
-    public static NullConfigSectionSchema getInstance() {
-        return INSTANCE;
-    }
-
-
-    private NullConfigSectionSchema() {
-        super("");
+    public NullConfigSectionSchema( String name ) {
+        super( name );
     }
 
     @Override

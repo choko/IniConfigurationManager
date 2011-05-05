@@ -41,7 +41,7 @@ public class ConfigParser {
         this.configuration = configuration;
         this.configuration.setSchema( schema );
         this.currentSectionData = NullConfigSectionData.getInstance();
-        this.currentSectionSchema = NullConfigSectionSchema.getInstance();
+        this.currentSectionSchema = new NullConfigSectionSchema( "" );
         this.currentComment = new StringBuilder();
     }
 
@@ -82,7 +82,7 @@ public class ConfigParser {
         if( schema.hasSection( name )) {
             currentSectionSchema = schema.getSection( name );
         } else {
-            currentSectionSchema = NullConfigSectionSchema.getInstance();
+            currentSectionSchema = new NullConfigSectionSchema( name );
         }
 
         currentSectionData = new ConfigSectionData( name );
@@ -121,6 +121,7 @@ public class ConfigParser {
             item.setValues( values );
             item.setComment( getCommentForItem( name ), getComment() );
 
+            System.out.println("Adding " + name + " to " + currentSectionSchema.getName());
             currentSectionData.addItem( name, item );
         } catch( InvalidOperationException ex ) {
             throw new ConfigParserException(
