@@ -6,6 +6,7 @@
 package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.validators.ValidationResult;
 
 /**
  *
@@ -15,6 +16,8 @@ public interface ValidationRule {
 
     public boolean isAplicableOn( ConfigItemData item );
     
-    public String validate( ConfigItemData item );
+    public ValidationResult validate( ConfigItemData item );
+
+
 
 }

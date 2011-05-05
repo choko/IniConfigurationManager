@@ -6,6 +6,7 @@
 package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.validators.ValidationResult;
 
 /**
  *
@@ -17,7 +18,8 @@ public class RequiedRule implements ValidationRule {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String validate(ConfigItemData item) {
+
+    public ValidationResult validate(ConfigItemData item) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
