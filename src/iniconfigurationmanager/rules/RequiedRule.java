@@ -28,4 +28,8 @@ public class RequiedRule implements ValidationRule {
         return false;
     }
 
+    public <T> ValidationResult validate(T value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

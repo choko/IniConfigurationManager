@@ -7,8 +7,8 @@ package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.items.SignedConfigItem;
-import iniconfigurationmanager.items.FloatConfigItem;
+import iniconfigurationmanager.items.SignedOptionData;
+import iniconfigurationmanager.items.FloatOptionData;
 import iniconfigurationmanager.validators.ValidationResult;
 
 /**
@@ -26,11 +26,11 @@ public class RangeRule implements ValidationRule {
         this.to = to;
     }
 
-    public boolean isAplicableOn(SignedConfigItem item) {
+    public boolean isAplicableOn(SignedOptionData item) {
         return true;
     }
 
-    public boolean isAplicableOn(FloatConfigItem item) {
+    public boolean isAplicableOn(FloatOptionData item) {
         return true;
     }
 
@@ -43,7 +43,7 @@ public class RangeRule implements ValidationRule {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ValidationResult validate(SignedConfigItem item) {
+    public ValidationResult validate(SignedOptionData item) {
         
 
     }

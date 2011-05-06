@@ -6,23 +6,25 @@
 package iniconfigurationmanager.items;
 
 import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.ConfigItemData;
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class FloatConfigItem implements ConfigItemFormatDefinition {
+public class FloatOptionData extends  ConfigItemData {
 
     public Class getValueClass() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return Float.class;
     }
 
     public Object parseValue(RawValue value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        return  Float.parseFloat( value.getValue() );
     }
 
     public String valueToString(Object value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return value.toString();
     }
 
 

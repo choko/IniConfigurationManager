@@ -6,24 +6,24 @@
 package iniconfigurationmanager.items;
 
 import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.ConfigItemData;
 
 /**
  *
  * @author KlonK <jurko@bdi.sk>
  */
-public class UnsignedConfigItem implements ConfigItemFormatDefinition {
+public class SignedOptionData  extends ConfigItemData {
 
     public Class getValueClass() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return int.class;
     }
 
     public Object parseValue(RawValue value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return Integer.decode( value.getValue() );
     }
 
     public String valueToString(Object value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return value.toString();
     }
-
 
 }

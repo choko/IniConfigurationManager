@@ -6,12 +6,13 @@
 package iniconfigurationmanager.items;
 
 import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.ConfigItemData;
 
 /**
  *
  * @author KlonK <jurko@bdi.sk>
  */
-public class SignedConfigItem implements ConfigItemFormatDefinition {
+public class UnsignedOptionData extends ConfigItemData {
 
     public Class getValueClass() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -24,5 +25,6 @@ public class SignedConfigItem implements ConfigItemFormatDefinition {
     public String valueToString(Object value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 
 }

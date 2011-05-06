@@ -6,12 +6,12 @@
 package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.items.ConfigItemFormatDefinition;
-import iniconfigurationmanager.items.SignedConfigItem;
+import iniconfigurationmanager.items.SignedOptionData;
 import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.items.SignedConfigItem;
-import iniconfigurationmanager.items.FloatConfigItem;
-import iniconfigurationmanager.items.UnsignedConfigItem;
-import iniconfigurationmanager.items.BooleanConfigItem;
+import iniconfigurationmanager.items.SignedOptionData;
+import iniconfigurationmanager.items.FloatOptionData;
+import iniconfigurationmanager.items.UnsignedOptionData;
+import iniconfigurationmanager.items.BooleanOptionData;
 import iniconfigurationmanager.items.StringConfigItem;
 import java.util.List;
 import iniconfigurationmanager.validators.ValidationResult;
@@ -23,15 +23,15 @@ import javax.naming.spi.DirStateFactory.Result;
  */
 public class BotomValueRule implements ValidationRule{
 
-    public boolean isAplicableOn(SignedConfigItem item) {
+    public boolean isAplicableOn(SignedOptionData item) {
         return true;
     }
 
-    public boolean isAplicableOn(FloatConfigItem item) {
+    public boolean isAplicableOn(FloatOptionData item) {
         return true;
     }
 
-    public boolean isAplicableOn(BooleanConfigItem item) {
+    public boolean isAplicableOn(BooleanOptionData item) {
         return false;
     }
 
