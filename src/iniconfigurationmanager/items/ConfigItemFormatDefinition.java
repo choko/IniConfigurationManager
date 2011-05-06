@@ -13,10 +13,6 @@ import iniconfigurationmanager.parsing.RawValue;
  */
 public interface ConfigItemFormatDefinition {
 
-    public Class getValueClass();
 
-    public Object parseValue( RawValue value );
-
-    public String valueToString( Object value );
     
 }

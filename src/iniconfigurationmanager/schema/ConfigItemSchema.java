@@ -11,13 +11,13 @@ import java.util.List;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public final class ConfigItemSchema {
+public abstract class ConfigItemSchema {
 
-    private final String name;
+    private String name;
 
-    private final String sectionName;
+    private String sectionName;
 
-    private final ConfigItemFormatDefinition formatDefinition;
+    private ConfigItemFormatDefinition formatDefinition;
 
     private boolean required;
 
@@ -26,6 +26,11 @@ public final class ConfigItemSchema {
     private List< ValidationRule > validationRules;
 
     private List defaultValues;
+
+    
+    public ConfigItemSchema() {
+        
+    }
 
 
     public ConfigItemSchema( String name, String section, ConfigItemFormatDefinition formatDefinition ) {
@@ -37,10 +42,27 @@ public final class ConfigItemSchema {
     }
 
 
+    public void setName( String name ) {
+        if( this.name != null ) {
+            throw new IllegalStateException();
+        }
+
+        this.name = name;
+    }
+
+
     public String getName() {
         return name;
     }
 
+
+    public void setSectionName( String sectionName ) {
+        if( this.sectionName != null ) {
+            throw new IllegalStateException();
+        }
+
+        this.sectionName = sectionName;
+    }
 
     public String getSectionName() {
         return sectionName;
@@ -105,5 +127,8 @@ public final class ConfigItemSchema {
     public void accept(ValidatorVisitor visitor) {
         visitor.visit( this );
     }
+
+
+    protected abstract ConfigItemData getItemData();
     
 }

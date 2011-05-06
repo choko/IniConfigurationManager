@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public final class ConfigItemData {
+public abstract class ConfigItemData {
 
     private String name;
 
@@ -29,6 +29,11 @@ public final class ConfigItemData {
     private ConfigItemFormatDefinition formatDefinition;
 
     private List< Object > values;
+
+    
+    public ConfigItemData() {
+        
+    }
 
 
     public ConfigItemData(
@@ -104,9 +109,9 @@ public final class ConfigItemData {
         if( value instanceof ValueLink) {
             values.add( (ValueLink) value );
         } else if ( value instanceof RawValue ) {
-            values.add( formatDefinition.parseValue( (RawValue) value ) );
+            values.add( parseValue( (RawValue) value ) );
         } else {
-            values.add( formatDefinition.getValueClass().cast( value ) );
+            values.add( getValueClass().cast( value ) );
         }
     }
 
@@ -160,8 +165,7 @@ public final class ConfigItemData {
 
 
     private < T > boolean typeMatches( T type ) {
-        return type.getClass().isAssignableFrom(
-                formatDefinition.getValueClass() );
+        return type.getClass().isAssignableFrom( getValueClass() );
     }
 
 
@@ -208,7 +212,7 @@ public final class ConfigItemData {
             if( value instanceof ValueLink ) {
                 sb.append( ((ValueLink) value).toString() );
             } else {
-                sb.append( formatDefinition.valueToString( value ) );
+                sb.append( valueToString( value ) );
             }
 
             sb.append( ConfigFormatDefinition.VALUES_COMMA_DELIMITER );
@@ -242,5 +246,12 @@ public final class ConfigItemData {
         return defaultValues.containsAll( values ) &&
                 values.containsAll( defaultValues );
     }
+
+
+    protected abstract Class getValueClass();
+
+    protected abstract Object parseValue( RawValue value );
+
+    protected abstract String valueToString( Object value );
 
 }
