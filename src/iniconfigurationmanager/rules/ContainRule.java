@@ -5,10 +5,21 @@
 
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.validators.ValidationResult;
+
 /**
  *
  * @author KlonK
  */
-public class ContainRule {
+public class ContainRule implements  ValidationRule {
+
+    public boolean isAplicableOn(ConfigItemFormatDefinition format) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public <T> ValidationResult validate(T value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

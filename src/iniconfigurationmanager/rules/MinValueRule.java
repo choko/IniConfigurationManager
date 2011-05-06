@@ -21,7 +21,7 @@ import javax.naming.spi.DirStateFactory.Result;
  *
  * @author KlonK
  */
-public class BotomValueRule implements ValidationRule{
+public class MinValueRule implements ValidationRule{
 
     public boolean isAplicableOn(SignedOptionData item) {
         return true;

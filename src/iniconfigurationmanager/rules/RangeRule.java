@@ -17,13 +17,13 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class RangeRule implements ValidationRule {
 
-    private int from;
+    private int min;
 
-    private int to;
+    private int max;
 
-    public RangeRule( int from,int to ){
-        this.from = from;
-        this.to = to;
+    public RangeRule( int min,int max ){
+        this.min = min;
+        this.max = max;
     }
 
     public boolean isAplicableOn(SignedOptionData item) {
@@ -39,13 +39,26 @@ public class RangeRule implements ValidationRule {
     }
 
 
-    public ValidationResult validate(ConfigItemData item) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ValidationResult validate(int value) {
+        ValidationResult result = new ValidationResult();
+        if ( ( this.min > value ) || ( this.max < value ) ) {
+            result.addResult(true);
+        }
+        else {
+           result.addResult(false);
+           if ( this.min > value ) {
+               result.addErrorMsg("Value too low");
+           }
+           if ( this.max < value ) {
+               result.addErrorMsg("Value too large");
+           }
+        }
+        return result;
+
     }
 
-    public ValidationResult validate(SignedOptionData item) {
-        
-
+    public <T> ValidationResult validate(T value) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
