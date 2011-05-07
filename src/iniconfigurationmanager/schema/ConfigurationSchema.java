@@ -10,15 +10,15 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSchema implements Iterable< ConfigSectionSchema > {
+public class ConfigurationSchema implements Iterable< SectionSchema > {
 
-    private Map< String, ConfigSectionSchema > sections;
+    private Map< String, SectionSchema > sections;
 
-    public ConfigSchema() {
-        this.sections = new LinkedHashMap< String, ConfigSectionSchema >();
+    public ConfigurationSchema() {
+        this.sections = new LinkedHashMap< String, SectionSchema >();
     }
 
-    public void addSection ( String name, ConfigSectionSchema section ) {
+    public void addSection ( String name, SectionSchema section ) {
         section.setName( name );
 
         sections.put(name, section);
@@ -30,18 +30,18 @@ public class ConfigSchema implements Iterable< ConfigSectionSchema > {
     }
 
 
-    public ConfigSectionSchema getSection( String name ) {
+    public SectionSchema getSection( String name ) {
         return sections.get( name );
     }
 
 
-    public Iterator<ConfigSectionSchema> iterator() {
+    public Iterator<SectionSchema> iterator() {
         return sections.values().iterator();
     }
 
 
     public void accept( ValidatorVisitor visitor ) {
-        for( ConfigSectionSchema section : sections.values() ) {
+        for( SectionSchema section : sections.values() ) {
             section.accept( visitor );
         }
     }

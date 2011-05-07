@@ -1,11 +1,11 @@
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigSectionSchema;
-import iniconfigurationmanager.schema.ConfigData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.SectionSchema;
+import iniconfigurationmanager.schema.ConfigurationData;
 
 /**
  *
@@ -14,18 +14,18 @@ import iniconfigurationmanager.schema.ConfigData;
 public interface ValidatorVisitor {
 
 
-    public void visit(ConfigItemData item);
+    public void visit(OptionData option);
 
     
-    public void visit(ConfigItemSchema item);
+    public void visit(OptionSchema option);
 
     
-    public void visit(ConfigSectionData section);
+    public void visit(SectionData section);
 
 
-    public void visit(ConfigSectionSchema section);
+    public void visit(SectionSchema section);
 
-    public void visit(ConfigData data);
+    public void visit(ConfigurationData data);
 
     
     public ValidationResult getResult();

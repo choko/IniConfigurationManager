@@ -2,11 +2,11 @@
 package iniconfigurationmanager.validators;
 
 import iniconfigurationmanager.rules.ValidationRule;
-import iniconfigurationmanager.schema.ConfigData;
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigSectionSchema;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.SectionSchema;
 import java.util.List;
 import java.util.Map;
 
@@ -16,27 +16,27 @@ import java.util.Map;
  */
 public class RulesValidatorVisitor implements ValidatorVisitor {
 
-     private Map< String,ConfigItemSchema > schemaItems;
+     private Map< String,OptionSchema > schemaOptions;
 
      private ValidationResult result;
 
-    public void visit( ConfigItemData item ) {
-      ConfigItemSchema schema = schemaItems.get(item.getCanonicalName());
-      List<ValidationRule> itemRules = schema.getValidationRules();
-       for (ValidationRule validationRule : itemRules) {
-           result.mergeResults( validationRule.validate( item ) );
+    public void visit( OptionData option ) {
+      OptionSchema schema = schemaOptions.get(option.getCanonicalName());
+      List<ValidationRule> optionRules = schema.getValidationRules();
+       for (ValidationRule validationRule : optionRules) {
+           result.mergeResults( validationRule.validate( option ) );
         }
     }
 
-    public void visit(ConfigItemSchema item) {
-        schemaItems.put(item.getCanonicalName(), item);
+    public void visit(OptionSchema option) {
+        schemaOptions.put(option.getCanonicalName(), option);
     }
 
-    public void visit(ConfigSectionData section) {
+    public void visit(SectionData section) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void visit(ConfigSectionSchema section) {
+    public void visit(SectionSchema section) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -44,7 +44,7 @@ public class RulesValidatorVisitor implements ValidatorVisitor {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void visit(ConfigData data) {
+    public void visit(ConfigurationData data) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

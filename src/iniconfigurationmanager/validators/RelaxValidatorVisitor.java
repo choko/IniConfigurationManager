@@ -1,16 +1,15 @@
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.schema.ConfigData;
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSchema;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigSectionSchema;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.ConfigurationSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.SectionSchema;
 import java.util.HashSet;
 import java.util.Map;
 import iniconfigurationmanager.rules.ValidationRule;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public class RelaxValidatorVisitor implements ValidatorVisitor {
 
     private ValidationResult result;
 
-    private Map< String,ConfigItemSchema > schemaItems;
+    private Map< String,OptionSchema > schemaOptions;
 
     private HashSet< String > schemaSection;
 
@@ -29,27 +28,27 @@ public class RelaxValidatorVisitor implements ValidatorVisitor {
 
 
 
-    private ConfigSchema configSchema;
+    private ConfigurationSchema configSchema;
 
-    //private HashSet<String> enteredConfigItemSchema;
+    //private HashSet<String> enteredConfigOptionSchema;
 
-    public void visit( ConfigItemData item ) {
-       ConfigItemSchema schema = schemaItems.get(item.getCanonicalName());
-       List<ValidationRule> itemRules = schema.getValidationRules();
-        for (ValidationRule validationRule : itemRules) {
-            result.mergeResults( validationRule.validate( item ) );
+    public void visit( OptionData option ) {
+       OptionSchema schema = schemaOptions.get(option.getCanonicalName());
+       List<ValidationRule> optionRules = schema.getValidationRules();
+        for (ValidationRule validationRule : optionRules) {
+            result.mergeResults( validationRule.validate( option ) );
         }
     }
 
-    public void visit( ConfigItemSchema item ) {
-        schemaItems.put(item.getCanonicalName(), item);
+    public void visit( OptionSchema option ) {
+        schemaOptions.put(option.getCanonicalName(), option);
     }
 
-    public void visit( ConfigSectionData section ) {
+    public void visit( SectionData section ) {
      //podla mna nic, nekontroluje sekcie
     }
 
-    public void visit( ConfigSectionSchema section ) {
+    public void visit( SectionSchema section ) {
        schemaSection.add( section.getName() );
        if ( section.isRequired() ) {
            reqiedSection.add( section.getName() );
@@ -60,7 +59,7 @@ public class RelaxValidatorVisitor implements ValidatorVisitor {
         return result;
     }
 
-    public void visit( ConfigData data ) {
+    public void visit( ConfigurationData data ) {
 
     }
 

@@ -19,46 +19,46 @@ import iniconfigurationmanager.validators.ValidatorVisitor;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigData implements Iterable< ConfigSectionData > {
+public class ConfigurationData implements Iterable< SectionData > {
 
-    private ConfigSchema schema;
+    private ConfigurationSchema schema;
 
-    private Map< String, ConfigSectionData > sections;
+    private Map< String, SectionData > sections;
 
     
-    public static ConfigData loadFromString(
-        ConfigSchema schema,
+    public static ConfigurationData loadFromString(
+        ConfigurationSchema schema,
         String string
     ) throws ConfigParserException {
         return getReader( schema ).readFromString( string );
     }
 
 
-    public static ConfigData loadFromFile(
-        ConfigSchema schema,
+    public static ConfigurationData loadFromFile(
+        ConfigurationSchema schema,
         File file
     ) throws FileNotFoundException, ConfigParserException {
         return getReader( schema ).readFromFile( file );
     }
 
 
-    public static ConfigData loadFromInputStream(
-        ConfigSchema schema,
+    public static ConfigurationData loadFromInputStream(
+        ConfigurationSchema schema,
         InputStream stream
     ) throws ConfigParserException {
         return getReader( schema ).readFromInputStream( stream );
     }
 
     
-    private static ConfigReader getReader( ConfigSchema schema ) {
-        ConfigParser parser = new ConfigParser(schema, new ConfigData());
+    private static ConfigReader getReader( ConfigurationSchema schema ) {
+        ConfigParser parser = new ConfigParser(schema, new ConfigurationData());
 
         return new ConfigReader(parser);
     }
 
     
-    private ConfigData() {
-        this.sections = new LinkedHashMap< String, ConfigSectionData >();
+    private ConfigurationData() {
+        this.sections = new LinkedHashMap< String, SectionData >();
     }
 
 
@@ -72,17 +72,17 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     }
   
     
-    public void setSchema( ConfigSchema schema ) {
+    public void setSchema( ConfigurationSchema schema ) {
         this.schema = schema;
     }
 
 
-    public ConfigSchema getSchema() {
+    public ConfigurationSchema getSchema() {
         return schema;
     }
     
 
-    public void addSection ( String name, ConfigSectionData section ) {
+    public void addSection ( String name, SectionData section ) {
         section.setName( name )
             .setConfiguration( this );
 
@@ -95,7 +95,7 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     }
 
     
-    public ConfigSectionData getSection( String name ) {
+    public SectionData getSection( String name ) {
         return sections.get( name );
     }
 
@@ -104,21 +104,21 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        for( ConfigSectionData section : sections.values() ) {
+        for( SectionData section : sections.values() ) {
             sb.append( section.toString() );
         }
 
         return sb.toString().trim();
     }
 
-    public Iterator<ConfigSectionData> iterator() {
+    public Iterator<SectionData> iterator() {
         return sections.values().iterator();
     }
     
     public void accept(ValidatorVisitor visitor) {
         schema.accept( visitor );
 
-        for( ConfigSectionData section : sections.values() ) {
+        for( SectionData section : sections.values() ) {
             section.accept( visitor );
         }
     }

@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.schema.ConfigData;
+import iniconfigurationmanager.schema.ConfigurationData;
 
 /**
  *
@@ -9,7 +9,7 @@ import iniconfigurationmanager.schema.ConfigData;
  */
 public class Validator {
 
-    public static ValidationResult validateStrict( ConfigData data ) {
+    public static ValidationResult validateStrict( ConfigurationData data ) {
         StrictValidatorVisitor visitor = new StrictValidatorVisitor();
         data.accept( visitor );
 
@@ -17,7 +17,7 @@ public class Validator {
     }
 
 
-    public static ValidationResult validateRelax( ConfigData data ) {
+    public static ValidationResult validateRelax( ConfigurationData data ) {
         RelaxValidatorVisitor visitor = new RelaxValidatorVisitor();
         data.accept( visitor );
 
@@ -25,7 +25,7 @@ public class Validator {
     }
 
 
-    public static ValidationResult validateValidationRules( ConfigData data ) {
+    public static ValidationResult validateValidationRules( ConfigurationData data ) {
         RulesValidatorVisitor visitor = new RulesValidatorVisitor();
         data.accept( visitor );
 

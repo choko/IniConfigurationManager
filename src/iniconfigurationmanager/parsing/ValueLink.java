@@ -6,9 +6,9 @@
 package iniconfigurationmanager.parsing;
 
 import iniconfigurationmanager.LinkVisitor;
-import iniconfigurationmanager.schema.ConfigData;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.OptionData;
 import java.util.List;
 
 /**
@@ -19,14 +19,14 @@ public class ValueLink {
 
     private String sectionName;
 
-    private String itemName;
+    private String optionName;
 
-    private ConfigData configuration;
+    private ConfigurationData configuration;
 
     
-    public ValueLink( String link, ConfigData configuration ) {
+    public ValueLink( String link, ConfigurationData configuration ) {
         this.sectionName = getSectionName( link );
-        this.itemName = getItemName( link );
+        this.optionName = getOptionName( link );
         this.configuration = configuration;
     }
 
@@ -36,20 +36,20 @@ public class ValueLink {
     }
 
 
-    private String getItemName( String link ) {
+    private String getOptionName( String link ) {
         return link.substring( link.indexOf("#") + 1, link.length() - 1 );
     }
     
 
     public <T> List< T > getValues( T type ) {
         LinkVisitor< T > visitor = new LinkVisitor< T >();
-        getLinkedItem().accept( visitor );
+        getLinkedOption().accept( visitor );
 
         return visitor.getValues();
     }
 
 
-    public ConfigSectionData getLinkedSection() {
+    public SectionData getLinkedSection() {
         if( configuration.hasSection( sectionName ) ) {
             return configuration.getSection( sectionName );
         } else {
@@ -57,11 +57,11 @@ public class ValueLink {
         }
     }
 
-    public ConfigItemData getLinkedItem() {
-        ConfigSectionData section = getLinkedSection();
+    public OptionData getLinkedOption() {
+        SectionData section = getLinkedSection();
 
-        if( section.hasItem( itemName ) ) {
-            return section.getItem( itemName );
+        if( section.hasOption( optionName ) ) {
+            return section.getOption( optionName );
         } else {
             return null; //@throws error
         }
@@ -70,7 +70,7 @@ public class ValueLink {
     @Override
     public String toString() {
         return String.format( ConfigFormatDefinition.LINK_FORMAT, 
-                getLinkedItem().getCanonicalName() );
+                getLinkedOption().getCanonicalName() );
     }
    
 }

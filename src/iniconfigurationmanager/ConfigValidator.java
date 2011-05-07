@@ -5,7 +5,7 @@
 
 package iniconfigurationmanager;
 
-import iniconfigurationmanager.schema.ConfigSchema;
+import iniconfigurationmanager.schema.ConfigurationSchema;
 
 /**
  *
@@ -15,7 +15,7 @@ import iniconfigurationmanager.schema.ConfigSchema;
 
 public class ConfigValidator {
 
-    public  boolean  validateStrict( ConfigSchema schema) {
+    public  boolean  validateStrict( ConfigurationSchema schema) {
         return false;
     }
 

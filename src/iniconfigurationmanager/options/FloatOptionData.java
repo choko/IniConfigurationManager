@@ -3,27 +3,29 @@
  * and open the template in the editor.
  */
 
-package iniconfigurationmanager.items;
+package iniconfigurationmanager.options;
 
 import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.schema.OptionData;
 
 /**
  *
- * @author KlonK <jurko@bdi.sk>
+ * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class SignedOptionData  extends ConfigItemData {
+public class FloatOptionData extends  OptionData {
 
     public Class getValueClass() {
-        return int.class;
+       return Float.class;
     }
 
     public Object parseValue(RawValue value) {
-       return Integer.decode( value.getValue() );
+
+        return  Float.parseFloat( value.getValue() );
     }
 
     public String valueToString(Object value) {
         return value.toString();
     }
+
 
 }

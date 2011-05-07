@@ -5,14 +5,14 @@ package iniconfigurationmanager.schema;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class NullConfigSectionSchema extends ConfigSectionSchema {
+public class NullSectionSchema extends SectionSchema {
 
-    public NullConfigSectionSchema() {
+    public NullSectionSchema() {
         super();
     }
 
     @Override
-    public boolean hasItem(String name) {
+    public boolean hasOption(String name) {
         return false;
     }
     

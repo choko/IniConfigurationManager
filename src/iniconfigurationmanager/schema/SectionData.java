@@ -11,21 +11,21 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigSectionData implements Iterable< ConfigItemData > {
+public class SectionData implements Iterable< OptionData > {
 
     private String name;
 
-    private ConfigData configuration;
+    private ConfigurationData configuration;
 
-    private Map< String, ConfigItemData > items;
+    private Map< String, OptionData > options;
 
 
-    public ConfigSectionData() {
-        this.items = new LinkedHashMap<String, ConfigItemData>();
+    public SectionData() {
+        this.options = new LinkedHashMap<String, OptionData>();
     }
 
 
-    protected ConfigSectionData setName( String name ) {
+    protected SectionData setName( String name ) {
         this.name = name;
 
         return this;
@@ -37,45 +37,45 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
     }
 
 
-    protected ConfigSectionData setConfiguration( ConfigData configuration ) {
+    protected SectionData setConfiguration( ConfigurationData configuration ) {
         this.configuration = configuration;
 
         return this;
     }
 
 
-    public void addItem( String name, ConfigItemData item ) {
-        item.setName( name )
+    public void addOption( String name, OptionData option ) {
+        option.setName( name )
             .setSectionName( this.name )
             .setConfiguration( this.configuration );
 
-        items.put( name, item );
+        options.put( name, option );
     }
   
 
-    public boolean hasItem( String name ) {
-        return items.containsKey( name );
+    public boolean hasOption( String name ) {
+        return options.containsKey( name );
     }
 
 
-    public void removeItem( String name ) {
-        items.remove( name );
+    public void removeOption( String name ) {
+        options.remove( name );
     }
 
 
-    public ConfigItemData getItem( String name ) {
-        return items.get( name );
+    public OptionData getOption( String name ) {
+        return options.get( name );
     }
 
 
-    public Iterator<ConfigItemData> iterator() {
-        return items.values().iterator();
+    public Iterator<OptionData> iterator() {
+        return options.values().iterator();
     }
 
 
     public void accept( ValidatorVisitor visitor ) {
-        for( ConfigItemData item : items.values() ) {
-            item.accept( visitor );
+        for( OptionData option : options.values() ) {
+            option.accept( visitor );
         }
 
         visitor.visit( this );
@@ -91,8 +91,8 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
         sb.append( ConfigFormatDefinition.SECTION_DEFINITION_END );
         sb.append( ConfigFormatDefinition.NEWLINE );
 
-        for( ConfigItemData item : items.values() ) {
-            sb.append( item.toString() );
+        for( OptionData option : options.values() ) {
+            sb.append( option.toString() );
         }
 
         sb.append( ConfigFormatDefinition.NEWLINE );

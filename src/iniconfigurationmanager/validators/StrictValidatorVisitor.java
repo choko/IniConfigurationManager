@@ -1,11 +1,11 @@
 
 package iniconfigurationmanager.validators;
 
-import iniconfigurationmanager.schema.ConfigData;
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigSectionSchema;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.SectionSchema;
 import java.util.HashSet;
 
 /**
@@ -18,21 +18,21 @@ public class StrictValidatorVisitor implements ValidatorVisitor {
 
     private HashSet< String > schemaSection;
 
-    private HashSet< String > schemaItem;
+    private HashSet< String > schemaOption;
  
-    public void visit( ConfigItemData item ) {
-        boolean haveItem = schemaItem.remove( item.getCanonicalName() );
-        if ( !haveItem ) {
-            result.addErrorMsg( "missing item " ); //TODO ENUM
+    public void visit( OptionData option ) {
+        boolean hasOption = schemaOption.remove( option.getCanonicalName() );
+        if ( !hasOption ) {
+            result.addErrorMsg( "missing option " ); //TODO ENUM
         }
-        result.addResult( haveItem );
+        result.addResult( hasOption );
     }
 
-    public void visit( ConfigItemSchema item ) {
-      schemaItem.add( item.getCanonicalName() );
+    public void visit( OptionSchema option ) {
+      schemaOption.add( option.getCanonicalName() );
     }
 
-    public void visit( ConfigSectionData section ) {
+    public void visit( SectionData section ) {
       boolean haveSection =  schemaSection.remove( section.getName() );
       if ( !haveSection ) {
         result.addErrorMsg( "missing section "); //TODO ENUM
@@ -40,7 +40,7 @@ public class StrictValidatorVisitor implements ValidatorVisitor {
       result.addResult( haveSection );
     }
 
-    public void visit( ConfigSectionSchema section ) {
+    public void visit( SectionSchema section ) {
        schemaSection.add( section.getName() );
       }
 
@@ -48,7 +48,7 @@ public class StrictValidatorVisitor implements ValidatorVisitor {
         return result;
     }
 
-    public void visit(ConfigData data) {
+    public void visit(ConfigurationData data) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

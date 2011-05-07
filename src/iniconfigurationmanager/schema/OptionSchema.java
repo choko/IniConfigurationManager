@@ -1,7 +1,6 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.rules.ValidationRule;
 import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
@@ -11,13 +10,11 @@ import java.util.List;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public abstract class ConfigItemSchema {
+public abstract class OptionSchema {
 
     private String name;
 
     private String sectionName;
-
-    private ConfigItemFormatDefinition formatDefinition;
 
     private boolean required;
 
@@ -28,13 +25,13 @@ public abstract class ConfigItemSchema {
     private List defaultValues;
 
     
-    public ConfigItemSchema() {
+    public OptionSchema() {
         this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
     }
 
 
-    protected ConfigItemSchema setName( String name ) {
+    protected OptionSchema setName( String name ) {
         this.name = name;
 
         return this;
@@ -46,7 +43,7 @@ public abstract class ConfigItemSchema {
     }
 
 
-    protected ConfigItemSchema setSectionName( String sectionName ) {
+    protected OptionSchema setSectionName( String sectionName ) {
         this.sectionName = sectionName;
 
         return this;
@@ -62,7 +59,7 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public ConfigItemSchema setComment( String comment ) {
+    public OptionSchema setComment( String comment ) {
         this.comment = comment;
 
         return this;
@@ -74,7 +71,7 @@ public abstract class ConfigItemSchema {
     }
 
     
-    public ConfigItemSchema setRequired() {
+    public OptionSchema setRequired() {
         this.required = true;
 
         return this;
@@ -85,13 +82,8 @@ public abstract class ConfigItemSchema {
         return this.required;
     }
 
-    
-    public ConfigItemFormatDefinition getFormatDefinition() {
-        return formatDefinition;
-    }
 
-
-    public ConfigItemSchema addValidationRule( ValidationRule rule ) {
+    public OptionSchema addValidationRule( ValidationRule rule ) {
         validationRules.add( rule );
 
         return this;
@@ -103,7 +95,7 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public ConfigItemSchema setDefaultValues(List defaultValues) {
+    public OptionSchema setDefaultValues(List defaultValues) {
         this.defaultValues = defaultValues;
 
         return this;
@@ -125,6 +117,6 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public abstract ConfigItemData getItemData();
+    public abstract OptionData getOptionData();
     
 }

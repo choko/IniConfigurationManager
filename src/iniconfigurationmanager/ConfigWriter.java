@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager;
 
-import iniconfigurationmanager.schema.ConfigData;
+import iniconfigurationmanager.schema.ConfigurationData;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,19 +16,19 @@ import java.io.Writer;
 public class ConfigWriter {
 
     public static void writeToFile(
-        File file, ConfigData data
+        File file, ConfigurationData data
     ) throws IOException {
         write( new FileWriter( file ), data );
     }
 
     public static void writeToOutputStream( 
-        OutputStream stream, ConfigData data
+        OutputStream stream, ConfigurationData data
     ) throws IOException {
         write( new OutputStreamWriter( stream ), data );
     }
 
     private static void write(
-        Writer writer, ConfigData data
+        Writer writer, ConfigurationData data
     ) throws IOException {
         writer.write( data.toString() );
         writer.close();
