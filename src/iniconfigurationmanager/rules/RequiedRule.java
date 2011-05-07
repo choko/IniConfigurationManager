@@ -5,8 +5,8 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
-import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
 
 /**
@@ -15,21 +15,13 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class RequiedRule implements ValidationRule {
 
-    public boolean isAplicableOn(ConfigItemData item) {
+    public boolean isAplicableOn(OptionSchema option) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
-    public ValidationResult validate(ConfigItemData item) {
+    public ValidationResult validate(OptionData option) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean isAplicableOn(ConfigItemFormatDefinition item) {
-        return false;
-    }
-
-    public <T> ValidationResult validate(T value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
 }

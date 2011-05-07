@@ -5,8 +5,10 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
+import java.util.List;
 
 /**
  *
@@ -14,12 +16,23 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class CountRule implements ValidationRule {
 
-    public boolean isAplicableOn(ConfigItemFormatDefinition format) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    int count ;
+
+    public CountRule( int count ) {
+        this.count = count;
     }
 
-    public <T> ValidationResult validate(T value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean isAplicableOn(OptionSchema format) {
+        return true;
     }
 
+    public ValidationResult validate(OptionData option) {
+        ValidationResult result = new ValidationResult();
+        List<Object> options = option.getValues(new Object());
+        if ( options.size() != count ) {
+            result.addErrorMsg( "Option have incorect numbers of elements" );
+        }
+        return result;
+    }
+     
 }

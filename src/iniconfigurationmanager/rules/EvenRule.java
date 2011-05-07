@@ -5,12 +5,16 @@
 
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.options.FloatOptionData;
 import iniconfigurationmanager.options.FloatOptionSchema;
+import iniconfigurationmanager.options.SignedOptionData;
 import iniconfigurationmanager.options.SignedOptionSchema;
+import iniconfigurationmanager.options.UnsignedOptionData;
 import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
+import java.util.List;
 
 /**
  *
@@ -18,26 +22,50 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class EvenRule implements ValidationRule {
 
-    int minValue;
 
-    public EvenRule( int maxValue ) {
-        this.minValue = maxValue;
-    }
-
-    public ValidationResult validate(int value) {
+    public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        if ( ( this.minValue > value ) ) {
-            result.addResult(true);
-        }
-        else {
-           result.addResult(false);
-          result.addErrorMsg("Value too low");
-           }
-
+        result.addErrorMsg("Rule applicated on unsuporter Data");
         return result;
     }
 
-     public boolean isAplicableOn( OptionSchema option ) {
+    public ValidationResult validate (SignedOptionData option ) {
+        ValidationResult result = new ValidationResult();
+        List<Integer> optionIntValue = option.getValues(new Integer(0));
+        for (Integer integer : optionIntValue) {
+            if ( ( integer % 2) == 0 ) {
+            } else {
+                result.addErrorMsg("Option is not Even");
+                }
+            }
+        return result;
+    }
+
+    public ValidationResult validationResult ( FloatOptionData option ) {
+        ValidationResult result = new ValidationResult();
+        List<Float> optionFloatValue = option.getValues(new Float(0));
+        for (Float floatValue : optionFloatValue) {
+            if ( ( floatValue % 2) == 0 ) {
+            } else {
+                result.addErrorMsg( "Option is not Even" );
+                }
+        }
+        return result;
+    }
+
+    public ValidationResult validationResult ( UnsignedOptionData option ) {
+        ValidationResult result = new ValidationResult();
+        List<Long> optionLongValue = option.getValues(new Long(0));
+        for (Long longValue : optionLongValue) {
+             if ( ( longValue % 2) == 0 ) {
+            } else {
+                result.addErrorMsg( "Option is not Even" );
+                }
+            }
+        return result;
+    }
+
+    public boolean isAplicableOn( OptionSchema option ) {
        return false;
     }
 
@@ -51,10 +79,6 @@ public class EvenRule implements ValidationRule {
 
     public boolean isAplicableOn( FloatOptionSchema option ) {
         return true;
-    }
-
-    public ValidationResult validate(OptionData option) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

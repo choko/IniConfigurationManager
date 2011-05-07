@@ -34,19 +34,19 @@ public class RulesValidatorVisitor implements StructureVisitor {
     }
 
     public void visit(SectionData section) {
-        throw new UnsupportedOperationException("Not supported yet.");
+      //  throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void visit(SectionSchema section) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       // throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public ValidationResult getResult() {
-        throw new UnsupportedOperationException("Not supported yet.");
+      return result;
     }
 
     public void visit(ConfigurationData data) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       // throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

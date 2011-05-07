@@ -5,7 +5,8 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
 import java.util.List;
 
@@ -13,47 +14,25 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class ContainRule implements  ValidationRule {
+public class ContainRule implements ValidationRule {
 
-    String subString;
-    Object subObject;
-    public ContainRule( String subString ) {
-        this.subString = subString;
+    Object contain ;
+
+    public ContainRule( Object count ) {
+        this.contain = count;
     }
 
-    public ContainRule( Object subOject ) {
-        this.subObject = subOject;
+    public boolean isAplicableOn(OptionSchema format) {
+        return true;
     }
 
-    public boolean isAplicableOn(ConfigItemFormatDefinition format) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public <T> ValidationResult validate(T value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public ValidationResult validationResult( String value ) {
+    public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        if (value.contains( subString ) ) {
-            result.addResult( true );
-        } else {
-            result.addResult( false );
-            result.addErrorMsg("Substring missing");
+        List<Object> options = option.getValues(new Object());
+        if ( !options.contains( contain ) ) {
+            result.addErrorMsg( "Option doesnt have ruled item" );
         }
-
         return result;
     }
 
-    public<T> ValidationResult validate( List<T> value) {
-        ValidationResult result = new ValidationResult();
-        if (value.contains( subObject ) ) {
-            result.addResult( true );
-        } else {
-            result.addResult( false );
-            result.addErrorMsg("Item missing");
-        }
-
-        return result;
-    }
 }

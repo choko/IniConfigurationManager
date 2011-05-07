@@ -50,7 +50,7 @@ public class StrictValidatorVisitor implements StructureVisitor {
     }
 
     public void visit(ConfigurationData data) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
