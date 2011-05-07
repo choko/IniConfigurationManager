@@ -5,12 +5,16 @@
 
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.options.FloatOptionData;
 import iniconfigurationmanager.options.FloatOptionSchema;
+import iniconfigurationmanager.options.SignedOptionData;
 import iniconfigurationmanager.options.SignedOptionSchema;
+import iniconfigurationmanager.options.UnsignedOptionData;
 import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
+import java.util.List;
 
 /**
  *
@@ -18,22 +22,57 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class MinValueRule implements ValidationRule {
 
-    int minValue;
+    Object minValue;
 
-    public MinValueRule( int maxValue ) {
-        this.minValue = maxValue;
-    }   
+    public MinValueRule( int minValue ) {
+        this.minValue = minValue;
+    }
 
-    public ValidationResult validate(int value) {
+    public MinValueRule( float minValue ) {
+        this.minValue = minValue;
+    }
+
+    public MinValueRule( long minValue ) {
+        this.minValue = minValue;
+    }
+
+    MinValueRule(Object min) {
+        this.minValue = min;
+    }
+
+    public ValidationResult validate( SignedOptionData option ) {
         ValidationResult result = new ValidationResult();
-        if ( ( this.minValue > value ) ) {
-            result.addResult(true);
-        }
-        else {
-           result.addResult(false);
-          result.addErrorMsg("Value too low");
-           }
+        List<Integer> optionIntValue = option.getValues(new Integer(0));
+        for (Integer integer : optionIntValue) {
+            if ( integer < (Integer) this.minValue ) {
+            } else {
+                result.addErrorMsg("Option is less than minumalValue");
+                }
+            }
+        return result;
+    }
 
+    public ValidationResult validate( UnsignedOptionData option ) {
+        ValidationResult result = new ValidationResult();
+        List<Long> optionIntValue = option.getValues(new Long(0));
+        for (Long longValue : optionIntValue) {
+            if ( longValue < (Long) this.minValue ) {
+            } else {
+                result.addErrorMsg("Option is less than minumalValue");
+                }
+            }
+        return result;
+    }
+
+    public ValidationResult validate ( FloatOptionData option ) {
+        ValidationResult result = new ValidationResult();
+        List<Float> optionFloatValue = option.getValues(new Float(0));
+        for (Float floatValue : optionFloatValue) {
+            if ( floatValue < (Float) this.minValue ) {
+            } else {
+                result.addErrorMsg("Option is less than minumalValue");
+                }
+            }
         return result;
     }
 
@@ -54,7 +93,9 @@ public class MinValueRule implements ValidationRule {
     }
 
     public ValidationResult validate(OptionData option) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ValidationResult result = new ValidationResult();
+        result.addErrorMsg( "Rule applaed on unsuported Option" );
+        return result;
     }
 
 }
