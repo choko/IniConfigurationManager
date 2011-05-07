@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.utils.InvalidOperationException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,10 +18,19 @@ public class ConfigurationSchema implements Iterable< SectionSchema > {
         this.sections = new LinkedHashMap< String, SectionSchema >();
     }
 
-    public void addSection ( String name, SectionSchema section ) {
-        section.setName( name );
+    public ConfigurationSchema addSection ( String name, SectionSchema section ) {
+        if( hasSection( name ) ) {
+            throw new InvalidOperationException();
+        }
 
+        if( section == null ) {
+            throw new IllegalArgumentException();
+        }
+
+        section.setName( name );
         sections.put(name, section);
+
+        return this;
     }
 
 
@@ -33,6 +43,13 @@ public class ConfigurationSchema implements Iterable< SectionSchema > {
         return sections.get( name );
     }
 
+
+    public ConfigurationSchema removeSection( String name ) {
+        sections.remove( name );
+
+        return this;
+    }
+    
 
     public Iterator<SectionSchema> iterator() {
         return sections.values().iterator();

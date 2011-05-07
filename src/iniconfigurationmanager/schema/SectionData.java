@@ -2,6 +2,7 @@
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.Format;
+import iniconfigurationmanager.utils.InvalidOperationException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,12 +44,22 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
-    public void addOption( String name, OptionData option ) {
+    public SectionData addOption( String name, OptionData option ) {
+        if( hasOption( name ) ) {
+            throw new InvalidOperationException();
+        }
+
+        if( option == null ) {
+            throw new IllegalArgumentException();
+        }
+
         option.setName( name )
             .setSectionName( this.name )
             .setConfiguration( this.configuration );
 
         options.put( name, option );
+
+        return this;
     }
   
 
@@ -57,8 +68,10 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
-    public void removeOption( String name ) {
+    public SectionData removeOption( String name ) {
         options.remove( name );
+
+        return this;
     }
 
 
@@ -84,16 +97,9 @@ public class SectionData implements Iterable< OptionData > {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
         sb.append( Format.SECTION_DEFINITION_START );
         sb.append( name );
         sb.append( Format.SECTION_DEFINITION_END );
-        sb.append( Format.NEWLINE );
-
-        for( OptionData option : options.values() ) {
-            sb.append( option.toString() );
-        }
-
         sb.append( Format.NEWLINE );
 
         return sb.toString();

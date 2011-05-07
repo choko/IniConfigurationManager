@@ -123,7 +123,7 @@ public class ConfigParser {
                     ConfigParserError.UNDEFINED_SECTION, line.getText() );
         } catch( ClassCastException ex ) {
             throw new ConfigParserException(
-                    ConfigParserError.TYPE_PARSER_EXCEPTION, line.getText() );
+                    ConfigParserError.TYPE_PARSING_EXCEPTION, line.getText() );
         }
     }
 

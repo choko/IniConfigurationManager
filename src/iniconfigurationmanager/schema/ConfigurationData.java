@@ -1,10 +1,12 @@
 
 package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.ConfigPrinterVisitor;
 import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.ConfigReader;
 import iniconfigurationmanager.ConfigWriter;
 import iniconfigurationmanager.parsing.ConfigParserException;
+import iniconfigurationmanager.utils.InvalidOperationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -61,18 +63,26 @@ public class ConfigurationData implements Iterable< SectionData > {
     }
 
 
-    public void saveToFile(String path) throws IOException {
-        ConfigWriter.writeToFile( new File( path ), this);
+    public void saveToFile( String path, boolean printDefaults )
+            throws IOException {
+        ConfigWriter.writeToFile( new File( path ), this, printDefaults );
     }
 
 
-    public void saveToOuputStream(OutputStream stream) throws IOException {
-        ConfigWriter.writeToOutputStream( stream , this );
+    public void saveToOuputStream(OutputStream stream, boolean printDefaults)
+            throws IOException {
+        ConfigWriter.writeToOutputStream( stream , this, printDefaults );
     }
   
     
-    public void setSchema( ConfigurationSchema schema ) {
+    public ConfigurationData setSchema( ConfigurationSchema schema ) {
+        if( this.schema != null ) {
+            throw new InvalidOperationException();
+        }
+
         this.schema = schema;
+
+        return this;
     }
 
 
@@ -81,11 +91,21 @@ public class ConfigurationData implements Iterable< SectionData > {
     }
     
 
-    public void addSection ( String name, SectionData section ) {
+    public ConfigurationData addSection ( String name, SectionData section ) {
+        if( hasSection( name ) ) {
+            throw new InvalidOperationException();
+        }
+
+        if( section == null ) {
+            throw new IllegalArgumentException();
+        }
+
         section.setName( name )
             .setConfiguration( this );
 
         sections.put(name, section);
+
+        return this;
     }
 
 
@@ -99,23 +119,30 @@ public class ConfigurationData implements Iterable< SectionData > {
     }
 
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        
-        for( SectionData section : sections.values() ) {
-            sb.append( section.toString() );
-        }
+    public ConfigurationData removeSection( String name ) {
+        sections.remove( name );
 
-        return sb.toString().trim();
+        return this;
     }
+
+
+    public String toString( boolean printDefaults ) {
+        ConfigPrinterVisitor visitor = new ConfigPrinterVisitor();
+        visitor.setPrintDefaults( printDefaults );
+        this.accept( visitor );
+
+        return visitor.print();
+    }
+    
 
     public Iterator<SectionData> iterator() {
         return sections.values().iterator();
     }
+
     
     public void accept(StructureVisitor visitor) {
         schema.accept( visitor );
+        visitor.visit( this );
 
         for( SectionData section : sections.values() ) {
             section.accept( visitor );

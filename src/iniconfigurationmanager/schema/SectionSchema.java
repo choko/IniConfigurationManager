@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.utils.InvalidOperationException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -48,11 +49,21 @@ public class SectionSchema implements Iterable< OptionSchema > {
     }
 
 
-    public void addOption( String name, OptionSchema option ) {
+    public SectionSchema addOption( String name, OptionSchema option ) {
+        if( hasOption( name ) ) {
+            throw new InvalidOperationException();
+        }
+
+        if( option == null ) {
+            throw new IllegalArgumentException();
+        }
+
         option.setName( name )
             .setSectionName( this.name );
 
         options.put( name, option );
+
+        return this;
     }
 
 
@@ -61,8 +72,10 @@ public class SectionSchema implements Iterable< OptionSchema > {
     }
 
 
-    public void removeOption( String name ) {
+    public SectionSchema removeOption( String name ) {
         options.remove( name );
+
+        return this;
     }
 
 
