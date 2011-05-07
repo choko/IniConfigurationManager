@@ -26,7 +26,13 @@ public class StringOptionData extends ConfigItemData {
 
     @Override
     protected String valueToString(Object value) {
-        return (String) value;
+       String returnString = value.toString();
+       returnString.replaceAll(",", "\\,");
+       returnString.replaceAll(":", "\\:");
+       returnString.replaceAll(";", "\\;");
+       
+       return returnString;
+
     }
 
 

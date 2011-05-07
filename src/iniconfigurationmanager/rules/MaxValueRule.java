@@ -9,6 +9,6 @@ package iniconfigurationmanager.rules;
  *
  * @author KlonK
  */
-public class BotomValueRule {
+public class MaxValueRule {
 
 }

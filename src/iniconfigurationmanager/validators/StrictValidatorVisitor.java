@@ -4,14 +4,9 @@ package iniconfigurationmanager.validators;
 import iniconfigurationmanager.schema.ConfigData;
 import iniconfigurationmanager.schema.ConfigItemData;
 import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSchema;
 import iniconfigurationmanager.schema.ConfigSectionData;
 import iniconfigurationmanager.schema.ConfigSectionSchema;
 import java.util.HashSet;
-import java.util.Map;
-import iniconfigurationmanager.rules.ValidationRule;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -21,29 +16,20 @@ public class StrictValidatorVisitor implements ValidatorVisitor {
 
     private ValidationResult result;
 
-    private Map< String,ConfigItemSchema > schemaItems;
-
     private HashSet< String > schemaSection;
 
-    private HashSet< String > reqiedSection;
-
-
-
-    private ConfigSchema configSchema;
-    
-    //private HashSet<String> enteredConfigItemSchema;
-
+    private HashSet< String > schemaItem;
+ 
     public void visit( ConfigItemData item ) {
-       ConfigItemSchema schema = schemaItems.get(item.getCanonicalName());
-       List<ValidationRule> itemRules = schema.getValidationRules();
-        for (ValidationRule validationRule : itemRules) {
-            result.mergeResults( validationRule.validate( item ) );
+        boolean haveItem = schemaItem.remove( item.getCanonicalName() );
+        if ( !haveItem ) {
+            result.addErrorMsg( "missing item " ); //TODO ENUM
         }
-
+        result.addResult( haveItem );
     }
 
     public void visit( ConfigItemSchema item ) {
-        schemaItems.put(item.getCanonicalName(), item);
+      schemaItem.add( item.getCanonicalName() );
     }
 
     public void visit( ConfigSectionData section ) {
@@ -51,23 +37,19 @@ public class StrictValidatorVisitor implements ValidatorVisitor {
       if ( !haveSection ) {
         result.addErrorMsg( "missing section "); //TODO ENUM
       }
-
       result.addResult( haveSection );
     }
 
     public void visit( ConfigSectionSchema section ) {
        schemaSection.add( section.getName() );
-       if ( section.isRequired() ) {
-           reqiedSection.add( section.getName() );
-       }
-    }
+      }
 
     public ValidationResult getResult() {
         return result;
     }
 
-    public void visit( ConfigData data ) {
-
+    public void visit(ConfigData data) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
