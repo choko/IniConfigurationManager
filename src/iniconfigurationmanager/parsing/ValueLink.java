@@ -5,7 +5,7 @@
 
 package iniconfigurationmanager.parsing;
 
-import iniconfigurationmanager.LinkVisitor;
+import iniconfigurationmanager.schema.LinkVisitor;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.SectionData;
 import iniconfigurationmanager.schema.OptionData;

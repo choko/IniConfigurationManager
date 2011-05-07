@@ -1,6 +1,7 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.utils;
 
+import iniconfigurationmanager.parsing.ConfigLine;
 import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.parsing.ConfigParserError;
 import iniconfigurationmanager.parsing.ConfigParserException;

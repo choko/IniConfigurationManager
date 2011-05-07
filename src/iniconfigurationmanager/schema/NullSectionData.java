@@ -25,7 +25,8 @@ public class NullSectionData extends SectionData {
     
     @Override
     public SectionData addOption(String name, OptionData option) {
-        throw new InvalidOperationException();
+        throw new InvalidOperationException( String.format(
+                SchemaError.UNALLOWED_ADDING_OPTION.getMessage() ) );
     }
 
 }

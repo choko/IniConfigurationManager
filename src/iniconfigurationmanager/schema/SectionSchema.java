@@ -65,11 +65,13 @@ public class SectionSchema implements Iterable< OptionSchema > {
 
     public SectionSchema addOption( String name, OptionSchema option ) {
         if( hasOption( name ) ) {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException( String.format(
+                    SchemaError.DUPLICIT_OPTION_SCHEMA.getMessage(), name) );
         }
 
         if( option == null ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.NULL_OPTION_SCHEMA.getMessage(), name) );
         }
 
         option.setName( name )

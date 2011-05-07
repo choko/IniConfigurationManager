@@ -67,11 +67,13 @@ public class SectionData implements Iterable< OptionData > {
 
     public SectionData addOption( String name, OptionData option ) {
         if( hasOption( name ) ) {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException( String.format(
+                    SchemaError.DUPLICIT_OPTION_DATA.getMessage(), name ) );
         }
 
         if( option == null ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.NULL_OPTION_DATA.getMessage(), name) );
         }
 
         option.setName( name )

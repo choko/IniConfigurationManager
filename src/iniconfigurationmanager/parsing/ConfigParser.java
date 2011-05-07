@@ -1,7 +1,6 @@
 
 package iniconfigurationmanager.parsing;
 
-import iniconfigurationmanager.ConfigLine;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.ConfigurationSchema;
 import iniconfigurationmanager.schema.SectionData;
@@ -121,8 +120,7 @@ public class ConfigParser {
 
             currentSectionData.addOption( name, option );
         } catch( InvalidOperationException ex ) {
-            throw new ConfigParserException(
-                    ConfigParserError.UNDEFINED_SECTION, line.getText() );
+            throw new ConfigParserException( ex.getMessage() );
         } catch( ClassCastException ex ) {
             throw new ConfigParserException(
                     ConfigParserError.TYPE_PARSING_EXCEPTION, line.getText() );

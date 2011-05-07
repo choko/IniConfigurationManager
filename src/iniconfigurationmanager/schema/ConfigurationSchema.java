@@ -20,11 +20,13 @@ public class ConfigurationSchema implements Iterable< SectionSchema > {
 
     public ConfigurationSchema addSection ( String name, SectionSchema section ) {
         if( hasSection( name ) ) {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException( String.format(
+                    SchemaError.DUPLICIT_SECTION_SCHEMA.getMessage(), name ) );
         }
 
         if( section == null ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.NULL_SECTION_SCHEMA.getMessage(), name ) );
         }
 
         section.setName( name );

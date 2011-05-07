@@ -1,10 +1,10 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.ConfigPrinterVisitor;
+import iniconfigurationmanager.utils.ConfigPrinterVisitor;
 import iniconfigurationmanager.parsing.ConfigParser;
-import iniconfigurationmanager.ConfigReader;
-import iniconfigurationmanager.ConfigWriter;
+import iniconfigurationmanager.utils.ConfigReader;
+import iniconfigurationmanager.utils.ConfigWriter;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.utils.InvalidOperationException;
 import java.io.File;
@@ -77,7 +77,8 @@ public class ConfigurationData implements Iterable< SectionData > {
     
     public ConfigurationData setSchema( ConfigurationSchema schema ) {
         if( this.schema != null ) {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException( String.format(
+                    SchemaError.NULL_SCHEMA.getMessage()) );
         }
 
         this.schema = schema;
@@ -93,11 +94,13 @@ public class ConfigurationData implements Iterable< SectionData > {
 
     public ConfigurationData addSection ( String name, SectionData section ) {
         if( hasSection( name ) ) {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException( String.format(
+                    SchemaError.DUPLICIT_SECTION_DATA.getMessage(), name ) );
         }
 
         if( section == null ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.NULL_SECTION_DATA.getMessage(), name ) );
         }
 
         section.setName( name )
