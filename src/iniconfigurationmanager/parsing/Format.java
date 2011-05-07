@@ -14,7 +14,11 @@ public class Format {
     public static final String OPTION_FORMAT = "%s=%s\n";
 
     public static final String OPTION_WITH_COMMENT_FORMAT = ";%s\n%s=%s\n";
-    
+
+    public static final String SECTION_FORMAT = "[%s]\n";
+
+    public static final String SECTION_WITH_COMMENT_FORMAT = ";%s\n[%s]\n";
+
     public static final String EQUALS_SIGN = "=";
 
     public static final String VALUES_COMMA_DELIMITER = ",";

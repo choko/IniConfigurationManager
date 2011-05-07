@@ -25,8 +25,9 @@ public abstract class OptionSchema {
 
     
     public OptionSchema() {
-        this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
+        this.required = false;
+        this.comment = "";
     }
 
 

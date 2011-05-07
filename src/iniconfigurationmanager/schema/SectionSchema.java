@@ -14,6 +14,8 @@ public class SectionSchema implements Iterable< OptionSchema > {
 
     private String name;
 
+    private String comment;
+
     private Boolean required;
 
     private Map< String, OptionSchema > options;
@@ -22,6 +24,7 @@ public class SectionSchema implements Iterable< OptionSchema > {
     public SectionSchema() {
         this.options = new LinkedHashMap<String, OptionSchema>();
         this.required = false;
+        this.comment = "";
     }
 
 
@@ -43,6 +46,17 @@ public class SectionSchema implements Iterable< OptionSchema > {
         return this;
     }
 
+
+    public SectionSchema setComment( String comment ) {
+        this.comment = comment;
+
+        return this;
+    }
+
+
+    public String getComment() {
+        return this.comment;
+    }
 
     public boolean isRequired() {
         return this.required;
@@ -90,11 +104,11 @@ public class SectionSchema implements Iterable< OptionSchema > {
 
 
     public void accept( StructureVisitor visitor ) {
+        visitor.visit( this );
+
         for( OptionSchema option : options.values() ) {
             option.accept( visitor );
         }
-
-        visitor.visit( this );
     }
 
 }

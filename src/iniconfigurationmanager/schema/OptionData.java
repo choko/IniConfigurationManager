@@ -5,6 +5,7 @@ package iniconfigurationmanager.schema;
 import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.parsing.Format;
+import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public abstract class OptionData {
     
     public OptionData() {
         this.values = new LinkedList< Object >();
+        this.comment = "";
     }
 
 
@@ -58,24 +60,9 @@ public abstract class OptionData {
         sb.append( Format.NEWLINE );
         sb.append( inputComment );
 
-        this.comment = formatComment( sb.toString() );
+        this.comment = StringUtils.formatComment( sb.toString() );
 
         return this;
-    }
-
-
-    private String formatComment( String comment ) {
-        StringBuilder sb = new StringBuilder();
-
-        for( char ch : comment.trim().toCharArray() ) {
-            sb.append( ch );
-
-            if( ch == Format.NEWLINE.charAt( 0 ) ) {
-                sb.append( Format.COMMENT_START );
-            } 
-        }
-
-        return sb.toString();
     }
 
 

@@ -85,6 +85,8 @@ public class ConfigParser {
         }
 
         currentSectionData = new SectionData();
+        currentSectionData.setComment( getCommentForCurrentSection(),
+                getComment() );
 
         configuration.addSection( name, currentSectionData );
     }
@@ -217,6 +219,11 @@ public class ConfigParser {
         } else {
             return "";
         }
+    }
+
+
+    private String getCommentForCurrentSection() {
+        return currentSectionSchema.getComment();
     }
 
 

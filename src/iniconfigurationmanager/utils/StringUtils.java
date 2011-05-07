@@ -39,5 +39,20 @@ public class StringUtils {
 
         return line.substring(0, length);
     }
+
+
+    public static String formatComment(String comment) {
+        StringBuilder sb = new StringBuilder();
+
+        for (char ch : comment.trim().toCharArray()) {
+            sb.append(ch);
+
+            if (ch == Format.NEWLINE.charAt(0)) {
+                sb.append(Format.COMMENT_START);
+            }
+        }
+
+        return sb.toString();
+    }
     
 }
