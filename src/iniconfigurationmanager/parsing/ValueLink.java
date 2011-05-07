@@ -69,7 +69,7 @@ public class ValueLink {
 
     @Override
     public String toString() {
-        return String.format( ConfigFormatDefinition.LINK_FORMAT, 
+        return String.format( Format.LINK_FORMAT,
                 getLinkedOption().getCanonicalName() );
     }
    

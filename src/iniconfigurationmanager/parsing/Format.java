@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigFormatDefinition {
+public class Format {
 
     public static final String OPTION_CANONICAL_NAME_FORMAT = "%s#%s";
 

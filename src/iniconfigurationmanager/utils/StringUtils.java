@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager.utils;
 
-import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+import iniconfigurationmanager.parsing.Format;
 
 /**
  *
@@ -13,8 +13,8 @@ public class StringUtils {
     public static String trim( String text ) {
         String trimmedText = text.trim();
 
-        if( trimmedText.endsWith( "" + ConfigFormatDefinition.ESCAPE ) ) {
-            return trimmedText + ConfigFormatDefinition.WHITESPACE;
+        if( trimmedText.endsWith( "" + Format.ESCAPE ) ) {
+            return trimmedText + Format.WHITESPACE;
         } else {
             return trimmedText;
         }
@@ -27,8 +27,8 @@ public class StringUtils {
 
         for( int index = 0; index < line.length(); index++ ) {
             if(
-                line.charAt( index ) == ConfigFormatDefinition.COMMENT_START &&
-                last != ConfigFormatDefinition.ESCAPE
+                line.charAt( index ) == Format.COMMENT_START &&
+                last != Format.ESCAPE
             ) {
                 length = index;
                 break;

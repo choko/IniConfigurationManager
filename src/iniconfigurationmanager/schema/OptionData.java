@@ -3,9 +3,8 @@ package iniconfigurationmanager.schema;
 
 
 import iniconfigurationmanager.parsing.ValueLink;
-import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+import iniconfigurationmanager.parsing.Format;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public abstract class OptionData {
     public void setComment( String schemaComment, String inputComment ) {
         StringBuilder sb = new StringBuilder();
         sb.append( schemaComment );
-        sb.append( ConfigFormatDefinition.NEWLINE );
+        sb.append( Format.NEWLINE );
         sb.append( inputComment );
 
         this.comment = formatComment( sb.toString() );
@@ -69,8 +68,8 @@ public abstract class OptionData {
         for( char ch : comment.trim().toCharArray() ) {
             sb.append( ch );
 
-            if( ch == ConfigFormatDefinition.NEWLINE.charAt( 0 ) ) {
-                sb.append( ConfigFormatDefinition.COMMENT_START );
+            if( ch == Format.NEWLINE.charAt( 0 ) ) {
+                sb.append( Format.COMMENT_START );
             } 
         }
 
@@ -94,7 +93,7 @@ public abstract class OptionData {
     
 
     public String getCanonicalName() {
-        return String.format( ConfigFormatDefinition.OPTION_CANONICAL_NAME_FORMAT,
+        return String.format( Format.OPTION_CANONICAL_NAME_FORMAT,
                 sectionName, name);
     }
 
@@ -200,10 +199,10 @@ public abstract class OptionData {
         }
 
         if( hasComment() ) {
-            return String.format( ConfigFormatDefinition.OPTION_WITH_COMMENT_FORMAT,
+            return String.format( Format.OPTION_WITH_COMMENT_FORMAT,
                     comment, name, valuesToString() );
         } else {
-            return String.format( ConfigFormatDefinition.OPTION_FORMAT,
+            return String.format( Format.OPTION_FORMAT,
                 name, valuesToString() );
         }
     }
@@ -218,7 +217,7 @@ public abstract class OptionData {
                 sb.append( valueToString( value ) );
             }
 
-            sb.append( ConfigFormatDefinition.VALUES_COMMA_DELIMITER );
+            sb.append( Format.VALUES_COMMA_DELIMITER );
         }
 
         sb.deleteCharAt( sb.length() - 1 );

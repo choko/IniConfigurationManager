@@ -1,7 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+import iniconfigurationmanager.parsing.Format;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -85,16 +85,16 @@ public class SectionData implements Iterable< OptionData > {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        sb.append( ConfigFormatDefinition.SECTION_DEFINITION_START );
+        sb.append( Format.SECTION_DEFINITION_START );
         sb.append( name );
-        sb.append( ConfigFormatDefinition.SECTION_DEFINITION_END );
-        sb.append( ConfigFormatDefinition.NEWLINE );
+        sb.append( Format.SECTION_DEFINITION_END );
+        sb.append( Format.NEWLINE );
 
         for( OptionData option : options.values() ) {
             sb.append( option.toString() );
         }
 
-        sb.append( ConfigFormatDefinition.NEWLINE );
+        sb.append( Format.NEWLINE );
 
         return sb.toString();
     }

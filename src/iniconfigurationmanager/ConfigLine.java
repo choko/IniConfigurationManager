@@ -5,7 +5,7 @@
 
 package iniconfigurationmanager;
 
-import iniconfigurationmanager.parsing.ConfigFormatDefinition;
+import iniconfigurationmanager.parsing.Format;
 
 /**
  *
@@ -24,16 +24,16 @@ public class ConfigLine {
     }
     
     public boolean isSectionHeader() {
-        return text.startsWith(ConfigFormatDefinition.SECTION_DEFINITION_START);
+        return text.startsWith(Format.SECTION_DEFINITION_START);
     }
 
     public boolean isComment() {
-        String commentStart = "" + ConfigFormatDefinition.COMMENT_START;
+        String commentStart = "" + Format.COMMENT_START;
         return text.trim().startsWith( commentStart );
     }
 
     public boolean isOptionDefinition() {
-        return text.indexOf( ConfigFormatDefinition.EQUALS_SIGN ) != -1;
+        return text.indexOf( Format.EQUALS_SIGN ) != -1;
     }
 
     public boolean isEmpty() {
