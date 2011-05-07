@@ -1,5 +1,5 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.ValuesVisitor;

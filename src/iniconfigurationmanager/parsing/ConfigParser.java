@@ -1,7 +1,6 @@
 
 package iniconfigurationmanager.parsing;
 
-import iniconfigurationmanager.ConfigLine;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.ConfigurationSchema;
 import iniconfigurationmanager.schema.SectionData;

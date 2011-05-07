@@ -1,10 +1,10 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.ConfigPrinterVisitor;
+import iniconfigurationmanager.utils.ConfigPrinterVisitor;
 import iniconfigurationmanager.parsing.ConfigParser;
-import iniconfigurationmanager.ConfigReader;
-import iniconfigurationmanager.ConfigWriter;
+import iniconfigurationmanager.utils.ConfigReader;
+import iniconfigurationmanager.utils.ConfigWriter;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.utils.InvalidOperationException;
 import java.io.File;

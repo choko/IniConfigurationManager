@@ -1,5 +1,5 @@
 
-package iniconfigurationmanager;
+package iniconfigurationmanager.utils;
 
 import iniconfigurationmanager.schema.ConfigurationData;
 import java.io.File;
