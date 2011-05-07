@@ -5,9 +5,7 @@ package iniconfigurationmanager.schema;
 import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.parsing.ConfigFormatDefinition;
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public abstract class ConfigItemData {
+public abstract class OptionData {
 
     private String name;
 
@@ -24,29 +22,34 @@ public abstract class ConfigItemData {
 
     private String comment;
 
-    private ConfigData configuration;
-
-    private ConfigItemFormatDefinition formatDefinition;
+    private ConfigurationData configuration;
 
     private List< Object > values;
 
     
-    public ConfigItemData() {
-        
+    public OptionData() {
+        this.values = new LinkedList< Object >();
     }
 
 
-    public ConfigItemData(
-            String name,
-            String sectionName,
-            ConfigData configuration,
-            ConfigItemFormatDefinition formatDefinition
-    ) {
+    protected OptionData setName( String name ) {
         this.name = name;
-        this.sectionName = sectionName;
+
+        return this;
+    }
+
+
+    protected OptionData setSectionName( String sectioName ) {
+        this.sectionName = sectioName;
+
+        return this;
+    }
+
+
+    protected OptionData setConfiguration( ConfigurationData configuration ) {
         this.configuration = configuration;
-        this.formatDefinition = formatDefinition;
-        this.values = new LinkedList< Object >();
+
+        return this;
     }
 
 
@@ -91,12 +94,12 @@ public abstract class ConfigItemData {
     
 
     public String getCanonicalName() {
-        return String.format( ConfigFormatDefinition.ITEM_CANONICAL_NAME_FORMAT,
+        return String.format( ConfigFormatDefinition.OPTION_CANONICAL_NAME_FORMAT,
                 sectionName, name);
     }
 
 
-    public ValueLink getItemLink() {
+    public ValueLink getOptionLink() {
         return new ValueLink( getCanonicalName(), configuration );
     }
     
@@ -169,18 +172,18 @@ public abstract class ConfigItemData {
     }
 
 
-    public void accept( ValidatorVisitor visitor ) {
+    public void accept( StructureVisitor visitor ) {
         visitor.visit( this );
     }
 
 
-    public void accept( LinkVisitor visitor ) {
+    public void accept( ValuesVisitor visitor ) {
         visitor.enter( this );
 
         for( Object value : values ) {
             if( value instanceof ValueLink ) {
                 ValueLink link = (ValueLink) value;
-                link.getLinkedItem().accept( visitor );
+                link.getLinkedOption().accept( visitor );
             } else {
                 visitor.visit( value );
             }
@@ -197,10 +200,10 @@ public abstract class ConfigItemData {
         }
 
         if( hasComment() ) {
-            return String.format( ConfigFormatDefinition.ITEM_WITH_COMMENT_FORMAT,
+            return String.format( ConfigFormatDefinition.OPTION_WITH_COMMENT_FORMAT,
                     comment, name, valuesToString() );
         } else {
-            return String.format( ConfigFormatDefinition.ITEM_FORMAT,
+            return String.format( ConfigFormatDefinition.OPTION_FORMAT,
                 name, valuesToString() );
         }
     }
@@ -225,18 +228,18 @@ public abstract class ConfigItemData {
 
 
     private boolean containsOnlyDefaultValues() {
-        ConfigSchema schema = configuration.getSchema();
+        ConfigurationSchema schema = configuration.getSchema();
         if( ! schema.hasSection( sectionName ) ) {
             return false;
         }
 
-        ConfigSectionSchema sectionSchema = schema.getSection( sectionName );
-        if( ! sectionSchema.hasItem( name ) ) {
+        SectionSchema sectionSchema = schema.getSection( sectionName );
+        if( ! sectionSchema.hasOption( name ) ) {
             return false;
         }
 
-        ConfigItemSchema itemSchena = sectionSchema.getItem( name );
-        return containsSameValues( itemSchena.getDefaultValues(), values );
+        OptionSchema optionSchena = sectionSchema.getOption( name );
+        return containsSameValues( optionSchena.getDefaultValues(), values );
     }
 
 

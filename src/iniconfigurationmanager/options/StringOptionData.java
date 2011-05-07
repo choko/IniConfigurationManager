@@ -1,14 +1,14 @@
 
-package iniconfigurationmanager.items;
+package iniconfigurationmanager.options;
 
 import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.schema.ConfigItemData;
+import iniconfigurationmanager.schema.OptionData;
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class StringOptionData extends ConfigItemData {
+public class StringOptionData extends OptionData {
 
     public StringOptionData() {
         

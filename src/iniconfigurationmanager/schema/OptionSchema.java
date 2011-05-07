@@ -1,9 +1,7 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
 import iniconfigurationmanager.rules.ValidationRule;
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,13 +9,11 @@ import java.util.List;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public abstract class ConfigItemSchema {
+public abstract class OptionSchema {
 
     private String name;
 
     private String sectionName;
-
-    private ConfigItemFormatDefinition formatDefinition;
 
     private boolean required;
 
@@ -28,26 +24,16 @@ public abstract class ConfigItemSchema {
     private List defaultValues;
 
     
-    public ConfigItemSchema() {
-        
-    }
-
-
-    public ConfigItemSchema( String name, String section, ConfigItemFormatDefinition formatDefinition ) {
-        this.name = name;
-        this.sectionName = section;
-        this.formatDefinition = formatDefinition;
+    public OptionSchema() {
         this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
     }
 
 
-    public void setName( String name ) {
-        if( this.name != null ) {
-            throw new IllegalStateException();
-        }
-
+    protected OptionSchema setName( String name ) {
         this.name = name;
+
+        return this;
     }
 
 
@@ -56,12 +42,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setSectionName( String sectionName ) {
-        if( this.sectionName != null ) {
-            throw new IllegalStateException();
-        }
-
+    protected OptionSchema setSectionName( String sectionName ) {
         this.sectionName = sectionName;
+
+        return this;
     }
 
     public String getSectionName() {
@@ -74,8 +58,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setComment( String comment ) {
+    public OptionSchema setComment( String comment ) {
         this.comment = comment;
+
+        return this;
     }
 
 
@@ -84,8 +70,10 @@ public abstract class ConfigItemSchema {
     }
 
     
-    public void setRequired() {
+    public OptionSchema setRequired() {
         this.required = true;
+
+        return this;
     }
 
 
@@ -93,14 +81,11 @@ public abstract class ConfigItemSchema {
         return this.required;
     }
 
-    
-    public ConfigItemFormatDefinition getFormatDefinition() {
-        return formatDefinition;
-    }
 
-
-    public void addValidationRule( ValidationRule rule ) {
+    public OptionSchema addValidationRule( ValidationRule rule ) {
         validationRules.add( rule );
+
+        return this;
     }
 
 
@@ -109,8 +94,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setDefaultValues(List defaultValues) {
+    public OptionSchema setDefaultValues(List defaultValues) {
         this.defaultValues = defaultValues;
+
+        return this;
     }
 
 
@@ -124,11 +111,11 @@ public abstract class ConfigItemSchema {
     }
     
 
-    public void accept(ValidatorVisitor visitor) {
+    public void accept(StructureVisitor visitor) {
         visitor.visit( this );
     }
 
 
-    protected abstract ConfigItemData getItemData();
+    public abstract OptionData getOptionData();
     
 }

@@ -32,7 +32,7 @@ public class ConfigLine {
         return text.trim().startsWith( commentStart );
     }
 
-    public boolean isItemDefinition() {
+    public boolean isOptionDefinition() {
         return text.indexOf( ConfigFormatDefinition.EQUALS_SIGN ) != -1;
     }
 

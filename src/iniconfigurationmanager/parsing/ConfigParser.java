@@ -2,16 +2,15 @@
 package iniconfigurationmanager.parsing;
 
 import iniconfigurationmanager.ConfigLine;
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
-import iniconfigurationmanager.schema.ConfigData;
-import iniconfigurationmanager.schema.ConfigSchema;
-import iniconfigurationmanager.schema.ConfigSectionData;
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.items.StringConfigItem;
-import iniconfigurationmanager.schema.ConfigItemSchema;
-import iniconfigurationmanager.schema.ConfigSectionSchema;
-import iniconfigurationmanager.schema.NullConfigSectionData;
-import iniconfigurationmanager.schema.NullConfigSectionSchema;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.ConfigurationSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.options.StringOptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.SectionSchema;
+import iniconfigurationmanager.schema.NullSectionData;
+import iniconfigurationmanager.schema.NullSectionSchema;
 import iniconfigurationmanager.utils.InvalidOperationException;
 import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
@@ -25,36 +24,36 @@ import java.util.regex.Pattern;
  */
 public class ConfigParser {
 
-    private ConfigSchema schema;
+    private ConfigurationSchema schema;
 
-    private ConfigData configuration;
+    private ConfigurationData configuration;
 
-    private ConfigSectionSchema currentSectionSchema;
+    private SectionSchema currentSectionSchema;
 
-    private ConfigSectionData currentSectionData;
+    private SectionData currentSectionData;
     
     private StringBuilder currentComment;
     
 
-    public ConfigParser( ConfigSchema schema, ConfigData configuration ) {
+    public ConfigParser( ConfigurationSchema schema, ConfigurationData configuration ) {
         this.schema = schema;
         this.configuration = configuration;
         this.configuration.setSchema( schema );
-        this.currentSectionData = NullConfigSectionData.getInstance();
-        this.currentSectionSchema = new NullConfigSectionSchema( "" );
+        this.currentSectionData = NullSectionData.getInstance();
+        this.currentSectionSchema = new NullSectionSchema();
         this.currentComment = new StringBuilder();
     }
 
     
-    public ConfigData parse(List<ConfigLine> lines)
+    public ConfigurationData parse(List<ConfigLine> lines)
             throws ConfigParserException {
         for (ConfigLine line : lines) {
             if (line.isComment()) {
                 parseComment(line);
             } else if (line.isSectionHeader()) {
                 parseSectionHeader(line);
-            } else if (line.isItemDefinition()) {
-                parseItemDefinition(line);
+            } else if (line.isOptionDefinition()) {
+                parseOptionDefinition(line);
             } else {
                 if (!line.isEmpty()) {
                     throw new ConfigParserException(
@@ -63,7 +62,7 @@ public class ConfigParser {
             }
         }
 
-        addMissingItemsWithDefaultValue();
+        addMissingOptionsWithDefaultValue();
 
         return configuration;
     }
@@ -82,10 +81,10 @@ public class ConfigParser {
         if( schema.hasSection( name )) {
             currentSectionSchema = schema.getSection( name );
         } else {
-            currentSectionSchema = new NullConfigSectionSchema( name );
+            currentSectionSchema = new NullSectionSchema();
         }
 
-        currentSectionData = new ConfigSectionData( name );
+        currentSectionData = new SectionData();
 
         configuration.addSection( name, currentSectionData );
     }
@@ -108,21 +107,17 @@ public class ConfigParser {
     }
     
 
-    private void parseItemDefinition( ConfigLine line )
+    private void parseOptionDefinition( ConfigLine line )
             throws ConfigParserException {
         try {
-            String name = getItemName( line );
-            List< Object > values = getItemValues( line );
+            String name = getOptionName( line );
+            List< Object > values = getOptionValues( line );
 
-            ConfigItemData item = new ConfigItemData(
-                    name, getCurrentSectionName(),
-                    configuration, getFormatDefinition( name ));
+            OptionData option = getOptionData( name );
+            option.setValues( values );
+            option.setComment( getCommentForOption( name ), getComment() );
 
-            item.setValues( values );
-            item.setComment( getCommentForItem( name ), getComment() );
-
-            System.out.println("Adding " + name + " to " + currentSectionSchema.getName());
-            currentSectionData.addItem( name, item );
+            currentSectionData.addOption( name, option );
         } catch( InvalidOperationException ex ) {
             throw new ConfigParserException(
                     ConfigParserError.UNDEFINED_SECTION, line.getText() );
@@ -133,7 +128,7 @@ public class ConfigParser {
     }
 
     
-    private String getItemName( ConfigLine line )
+    private String getOptionName( ConfigLine line )
             throws ConfigParserException {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigFormatDefinition.EQUALS_SIGN );
@@ -142,7 +137,7 @@ public class ConfigParser {
 
         if( ! isValidName( name ) ) {
             throw new ConfigParserException(
-                    ConfigParserError.INVALID_ITEM_NAME, name);
+                    ConfigParserError.INVALID_OPTION_NAME, name);
         }
         
         return name;
@@ -156,8 +151,8 @@ public class ConfigParser {
     }
 
     
-    private List< Object > getItemValues( ConfigLine line ) {
-        String[] values = splitValues( getItemValuesDefinition( line ) );
+    private List< Object > getOptionValues( ConfigLine line ) {
+        String[] values = splitValues( getOptionValuesDefinition( line ) );
 
         List< Object > valuesList = new LinkedList< Object >();
         for( String value : values ) {
@@ -172,7 +167,7 @@ public class ConfigParser {
     }
     
 
-    private String getItemValuesDefinition( ConfigLine line ) {
+    private String getOptionValuesDefinition( ConfigLine line ) {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( ConfigFormatDefinition.EQUALS_SIGN );
         
@@ -183,17 +178,11 @@ public class ConfigParser {
     }
 
 
-    private String getCurrentSectionName() {
-        return currentSectionSchema.getName();
-    }
-    
-
-    private ConfigItemFormatDefinition getFormatDefinition( String name ) {
-        if( currentSectionSchema.hasItem( name ) ) {
-            ConfigItemSchema itemSchema = currentSectionSchema.getItem( name );
-            return itemSchema.getFormatDefinition();
+    private OptionData getOptionData( String name ) {
+        if( currentSectionSchema.hasOption( name ) ) {
+            return currentSectionSchema.getOption( name ).getOptionData();
         } else {
-            return new StringConfigItem();
+            return new StringOptionData();
         }
     }
 
@@ -222,9 +211,9 @@ public class ConfigParser {
     }
 
 
-    private String getCommentForItem( String name ) {
-        if( currentSectionSchema.hasItem( name ) ) {
-            return currentSectionSchema.getItem( name ).getComment();
+    private String getCommentForOption( String name ) {
+        if( currentSectionSchema.hasOption( name ) ) {
+            return currentSectionSchema.getOption( name ).getComment();
         } else {
             return "";
         }
@@ -257,26 +246,21 @@ public class ConfigParser {
     }
 
     
-    private void addMissingItemsWithDefaultValue() {
-        for( ConfigSectionSchema sectionSchema : configuration.getSchema() ) {
-            ConfigSectionData sectionData = configuration.getSection(
+    private void addMissingOptionsWithDefaultValue() {
+        for( SectionSchema sectionSchema : configuration.getSchema() ) {
+            SectionData sectionData = configuration.getSection(
                     sectionSchema.getName() );
 
-            for( ConfigItemSchema itemSchema : sectionSchema ) {
+            for( OptionSchema optionSchema : sectionSchema ) {
                 if( 
-                    itemSchema.hasDefaultValue() &&
-                    ! sectionData.hasItem( itemSchema.getName() )
+                    optionSchema.hasDefaultValue() &&
+                    ! sectionData.hasOption( optionSchema.getName() )
                 ) {
-                    ConfigItemData item = new ConfigItemData(
-                            itemSchema.getName(),
-                            sectionSchema.getName(),
-                            configuration,
-                            itemSchema.getFormatDefinition());
+                    OptionData option = optionSchema.getOptionData();
+                    option.setValues( optionSchema.getDefaultValues() );
+                    option.setComment( optionSchema.getComment(), "");
 
-                    item.setValues( itemSchema.getDefaultValues() );
-                    item.setComment( itemSchema.getComment(), "");
-
-                    sectionData.addItem( itemSchema.getName(), item );
+                    sectionData.addOption( optionSchema.getName(), option );
                 }
             }
         }

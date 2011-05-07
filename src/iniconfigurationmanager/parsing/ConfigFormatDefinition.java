@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
  */
 public class ConfigFormatDefinition {
 
-    public static final String ITEM_CANONICAL_NAME_FORMAT = "%s#%s";
+    public static final String OPTION_CANONICAL_NAME_FORMAT = "%s#%s";
 
-    public static final String ITEM_FORMAT = "%s=%s\n";
+    public static final String OPTION_FORMAT = "%s=%s\n";
 
-    public static final String ITEM_WITH_COMMENT_FORMAT = ";%s\n%s=%s\n";
+    public static final String OPTION_WITH_COMMENT_FORMAT = ";%s\n%s=%s\n";
     
     public static final String EQUALS_SIGN = "=";
 
