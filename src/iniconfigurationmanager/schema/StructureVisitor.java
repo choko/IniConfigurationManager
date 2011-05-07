@@ -1,17 +1,13 @@
 
-package iniconfigurationmanager.validators;
+package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.schema.SectionData;
-import iniconfigurationmanager.schema.SectionSchema;
-import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.validators.ValidationResult;
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public interface ValidatorVisitor {
+public interface StructureVisitor {
 
 
     public void visit(OptionData option);
@@ -25,6 +21,7 @@ public interface ValidatorVisitor {
 
     public void visit(SectionSchema section);
 
+    
     public void visit(ConfigurationData data);
 
     

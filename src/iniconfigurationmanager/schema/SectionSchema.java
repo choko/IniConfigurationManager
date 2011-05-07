@@ -1,7 +1,6 @@
 
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -77,7 +76,7 @@ public class SectionSchema implements Iterable< OptionSchema > {
     }
 
 
-    public void accept( ValidatorVisitor visitor ) {
+    public void accept( StructureVisitor visitor ) {
         for( OptionSchema option : options.values() ) {
             option.accept( visitor );
         }

@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.StructureVisitor;
 import iniconfigurationmanager.rules.ValidationRule;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.OptionData;
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class RulesValidatorVisitor implements ValidatorVisitor {
+public class RulesValidatorVisitor implements StructureVisitor {
 
      private Map< String,OptionSchema > schemaOptions;
 

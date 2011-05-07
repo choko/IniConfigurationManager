@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.StructureVisitor;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class RelaxValidatorVisitor implements ValidatorVisitor {
+public class RelaxValidatorVisitor implements StructureVisitor {
 
     private ValidationResult result;
 

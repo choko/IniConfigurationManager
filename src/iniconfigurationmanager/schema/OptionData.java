@@ -6,7 +6,6 @@ import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.LinkVisitor;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.parsing.ConfigFormatDefinition;
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -173,12 +172,12 @@ public abstract class OptionData {
     }
 
 
-    public void accept( ValidatorVisitor visitor ) {
+    public void accept( StructureVisitor visitor ) {
         visitor.visit( this );
     }
 
 
-    public void accept( LinkVisitor visitor ) {
+    public void accept( ValuesVisitor visitor ) {
         visitor.enter( this );
 
         for( Object value : values ) {

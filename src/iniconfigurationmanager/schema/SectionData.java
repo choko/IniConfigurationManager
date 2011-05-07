@@ -2,7 +2,6 @@
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.ConfigFormatDefinition;
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -73,7 +72,7 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
-    public void accept( ValidatorVisitor visitor ) {
+    public void accept( StructureVisitor visitor ) {
         for( OptionData option : options.values() ) {
             option.accept( visitor );
         }

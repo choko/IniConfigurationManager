@@ -1,6 +1,7 @@
 
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.StructureVisitor;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
@@ -12,7 +13,7 @@ import java.util.HashSet;
  *
  * @author KlonK
  */
-public class StrictValidatorVisitor implements ValidatorVisitor {
+public class StrictValidatorVisitor implements StructureVisitor {
 
     private ValidationResult result;
 

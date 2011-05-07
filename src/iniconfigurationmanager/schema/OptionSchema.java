@@ -2,7 +2,6 @@
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.rules.ValidationRule;
-import iniconfigurationmanager.validators.ValidatorVisitor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,7 +111,7 @@ public abstract class OptionSchema {
     }
     
 
-    public void accept(ValidatorVisitor visitor) {
+    public void accept(StructureVisitor visitor) {
         visitor.visit( this );
     }
 
