@@ -15,7 +15,7 @@ import iniconfigurationmanager.schema.ConfigItemSchema;
 public class UnsignedOptionSchema extends ConfigItemSchema{
 
     @Override
-    protected ConfigItemData getItemData() {
+    public ConfigItemData getItemData() {
        return new UnsignedOptionData();
     }
 
