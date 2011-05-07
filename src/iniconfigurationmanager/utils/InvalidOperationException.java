@@ -7,8 +7,8 @@ package iniconfigurationmanager.utils;
  */
 public class InvalidOperationException extends UnsupportedOperationException {
 
-    public InvalidOperationException() {
-        super();
+    public InvalidOperationException( String message ) {
+        super( message );
     }
 
 }

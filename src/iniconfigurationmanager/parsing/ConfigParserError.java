@@ -14,9 +14,9 @@ public enum ConfigParserError {
     UNEXPECTED_LINE ( "Line %s '%s' is unexpected." ),
     INVALID_SECTION_NAME ( "Section name '%s' is not valid." ),
     INVALID_OPTION_NAME ( "Option name '%s' is not valid." ),
-    UNDEFINED_SECTION ( "Section has to be defined before line '%s'." ),
     TYPE_PARSING_EXCEPTION( "Value cannot be parsed at line '%s'." ),
-    INPUT_ERROR( "Error occured during reading the configuration. %s" );
+    INPUT_ERROR( "Error occurred during reading the configuration. %s" ),
+    UNDEFINED_PARSER_ERROR ( "Undefined error occurred during parsing." );
 
 
     private final String message;
