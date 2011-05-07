@@ -19,6 +19,8 @@ public class ConfigSchema implements Iterable< ConfigSectionSchema > {
     }
 
     public void addSection ( String name, ConfigSectionSchema section ) {
+        section.setName( name );
+
         sections.put(name, section);
     }
 

@@ -7,7 +7,7 @@ import iniconfigurationmanager.schema.ConfigData;
 import iniconfigurationmanager.schema.ConfigSchema;
 import iniconfigurationmanager.schema.ConfigSectionData;
 import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.items.StringConfigItem;
+import iniconfigurationmanager.items.StringOptionData;
 import iniconfigurationmanager.schema.ConfigItemSchema;
 import iniconfigurationmanager.schema.ConfigSectionSchema;
 import iniconfigurationmanager.schema.NullConfigSectionData;
@@ -41,7 +41,7 @@ public class ConfigParser {
         this.configuration = configuration;
         this.configuration.setSchema( schema );
         this.currentSectionData = NullConfigSectionData.getInstance();
-        this.currentSectionSchema = new NullConfigSectionSchema( "" );
+        this.currentSectionSchema = new NullConfigSectionSchema();
         this.currentComment = new StringBuilder();
     }
 
@@ -82,10 +82,10 @@ public class ConfigParser {
         if( schema.hasSection( name )) {
             currentSectionSchema = schema.getSection( name );
         } else {
-            currentSectionSchema = new NullConfigSectionSchema( name );
+            currentSectionSchema = new NullConfigSectionSchema();
         }
 
-        currentSectionData = new ConfigSectionData( name );
+        currentSectionData = new ConfigSectionData();
 
         configuration.addSection( name, currentSectionData );
     }
@@ -114,14 +114,10 @@ public class ConfigParser {
             String name = getItemName( line );
             List< Object > values = getItemValues( line );
 
-            ConfigItemData item = new ConfigItemData(
-                    name, getCurrentSectionName(),
-                    configuration, getFormatDefinition( name ));
-
+            ConfigItemData item = getItemData( name );
             item.setValues( values );
             item.setComment( getCommentForItem( name ), getComment() );
 
-            System.out.println("Adding " + name + " to " + currentSectionSchema.getName());
             currentSectionData.addItem( name, item );
         } catch( InvalidOperationException ex ) {
             throw new ConfigParserException(
@@ -183,17 +179,11 @@ public class ConfigParser {
     }
 
 
-    private String getCurrentSectionName() {
-        return currentSectionSchema.getName();
-    }
-    
-
-    private ConfigItemFormatDefinition getFormatDefinition( String name ) {
+    private ConfigItemData getItemData( String name ) {
         if( currentSectionSchema.hasItem( name ) ) {
-            ConfigItemSchema itemSchema = currentSectionSchema.getItem( name );
-            return itemSchema.getFormatDefinition();
+            return currentSectionSchema.getItem( name ).getItemData();
         } else {
-            return new StringConfigItem();
+            return new StringOptionData();
         }
     }
 
@@ -267,12 +257,7 @@ public class ConfigParser {
                     itemSchema.hasDefaultValue() &&
                     ! sectionData.hasItem( itemSchema.getName() )
                 ) {
-                    ConfigItemData item = new ConfigItemData(
-                            itemSchema.getName(),
-                            sectionSchema.getName(),
-                            configuration,
-                            itemSchema.getFormatDefinition());
-
+                    ConfigItemData item = itemSchema.getItemData();
                     item.setValues( itemSchema.getDefaultValues() );
                     item.setComment( itemSchema.getComment(), "");
 

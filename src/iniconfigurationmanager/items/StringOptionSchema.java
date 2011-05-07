@@ -11,7 +11,7 @@ import iniconfigurationmanager.schema.ConfigItemSchema;
 public class StringOptionSchema extends ConfigItemSchema {
 
     @Override
-    protected ConfigItemData getItemData() {
+    public ConfigItemData getItemData() {
         return new StringOptionData();
     }
 

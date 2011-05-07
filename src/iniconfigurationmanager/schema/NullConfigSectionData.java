@@ -19,7 +19,7 @@ public class NullConfigSectionData extends ConfigSectionData {
 
     
     private NullConfigSectionData() {
-        super("");
+        super();
     }
 
     
@@ -28,5 +28,4 @@ public class NullConfigSectionData extends ConfigSectionData {
         throw new InvalidOperationException();
     }
 
-    
 }

@@ -83,6 +83,9 @@ public class ConfigData implements Iterable< ConfigSectionData > {
     
 
     public void addSection ( String name, ConfigSectionData section ) {
+        section.setName( name )
+            .setConfiguration( this );
+
         sections.put(name, section);
     }
 

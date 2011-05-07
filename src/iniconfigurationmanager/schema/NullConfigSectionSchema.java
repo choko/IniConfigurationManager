@@ -7,8 +7,8 @@ package iniconfigurationmanager.schema;
  */
 public class NullConfigSectionSchema extends ConfigSectionSchema {
 
-    public NullConfigSectionSchema( String name ) {
-        super( name );
+    public NullConfigSectionSchema() {
+        super();
     }
 
     @Override

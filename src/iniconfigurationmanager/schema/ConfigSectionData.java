@@ -15,16 +15,40 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
 
     private String name;
 
-    private Map< String, ConfigItemData > items;
-    
+    private ConfigData configuration;
 
-    public ConfigSectionData( String name ) {
-        this.name = name;
+    private Map< String, ConfigItemData > items;
+
+
+    public ConfigSectionData() {
         this.items = new LinkedHashMap<String, ConfigItemData>();
     }
 
 
+    protected ConfigSectionData setName( String name ) {
+        this.name = name;
+
+        return this;
+    }
+    
+
+    public String getName() {
+        return name;
+    }
+
+
+    protected ConfigSectionData setConfiguration( ConfigData configuration ) {
+        this.configuration = configuration;
+
+        return this;
+    }
+
+
     public void addItem( String name, ConfigItemData item ) {
+        item.setName( name )
+            .setSectionName( this.name )
+            .setConfiguration( this.configuration );
+
         items.put( name, item );
     }
   
@@ -46,10 +70,6 @@ public class ConfigSectionData implements Iterable< ConfigItemData > {
 
     public Iterator<ConfigItemData> iterator() {
         return items.values().iterator();
-    }
-
-    public String getName() {
-        return this.name;
     }
 
 

@@ -26,27 +26,32 @@ public abstract class ConfigItemData {
 
     private ConfigData configuration;
 
-    private ConfigItemFormatDefinition formatDefinition;
-
     private List< Object > values;
 
     
     public ConfigItemData() {
-        
+        this.values = new LinkedList< Object >();
     }
 
 
-    public ConfigItemData(
-            String name,
-            String sectionName,
-            ConfigData configuration,
-            ConfigItemFormatDefinition formatDefinition
-    ) {
+    protected ConfigItemData setName( String name ) {
         this.name = name;
-        this.sectionName = sectionName;
+
+        return this;
+    }
+
+
+    protected ConfigItemData setSectionName( String sectioName ) {
+        this.sectionName = sectioName;
+
+        return this;
+    }
+
+
+    protected ConfigItemData setConfiguration( ConfigData configuration ) {
         this.configuration = configuration;
-        this.formatDefinition = formatDefinition;
-        this.values = new LinkedList< Object >();
+
+        return this;
     }
 
 

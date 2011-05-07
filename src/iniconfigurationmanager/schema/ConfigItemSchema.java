@@ -29,25 +29,15 @@ public abstract class ConfigItemSchema {
 
     
     public ConfigItemSchema() {
-        
-    }
-
-
-    public ConfigItemSchema( String name, String section, ConfigItemFormatDefinition formatDefinition ) {
-        this.name = name;
-        this.sectionName = section;
-        this.formatDefinition = formatDefinition;
         this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
     }
 
 
-    public void setName( String name ) {
-        if( this.name != null ) {
-            throw new IllegalStateException();
-        }
-
+    protected ConfigItemSchema setName( String name ) {
         this.name = name;
+
+        return this;
     }
 
 
@@ -56,12 +46,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setSectionName( String sectionName ) {
-        if( this.sectionName != null ) {
-            throw new IllegalStateException();
-        }
-
+    protected ConfigItemSchema setSectionName( String sectionName ) {
         this.sectionName = sectionName;
+
+        return this;
     }
 
     public String getSectionName() {
@@ -74,8 +62,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setComment( String comment ) {
+    public ConfigItemSchema setComment( String comment ) {
         this.comment = comment;
+
+        return this;
     }
 
 
@@ -84,8 +74,10 @@ public abstract class ConfigItemSchema {
     }
 
     
-    public void setRequired() {
+    public ConfigItemSchema setRequired() {
         this.required = true;
+
+        return this;
     }
 
 
@@ -99,8 +91,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void addValidationRule( ValidationRule rule ) {
+    public ConfigItemSchema addValidationRule( ValidationRule rule ) {
         validationRules.add( rule );
+
+        return this;
     }
 
 
@@ -109,8 +103,10 @@ public abstract class ConfigItemSchema {
     }
 
 
-    public void setDefaultValues(List defaultValues) {
+    public ConfigItemSchema setDefaultValues(List defaultValues) {
         this.defaultValues = defaultValues;
+
+        return this;
     }
 
 
@@ -129,6 +125,6 @@ public abstract class ConfigItemSchema {
     }
 
 
-    protected abstract ConfigItemData getItemData();
+    public abstract ConfigItemData getItemData();
     
 }

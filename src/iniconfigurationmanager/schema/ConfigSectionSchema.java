@@ -19,20 +19,28 @@ public class ConfigSectionSchema implements Iterable< ConfigItemSchema > {
     private Map< String, ConfigItemSchema > items;
 
 
-    public ConfigSectionSchema( String name ) {
-        this.name = name;
+    public ConfigSectionSchema() {
         this.items = new LinkedHashMap<String, ConfigItemSchema>();
         this.required = false;
     }
 
 
+    protected ConfigSectionSchema setName( String name ) {
+        this.name = name;
+
+        return this;
+    }
+
+    
     public String getName() {
         return name;
     }
     
     
-    public void setReguired() {
+    public ConfigSectionSchema setReguired() {
         this.required = true;
+
+        return this;
     }
 
 
@@ -42,6 +50,9 @@ public class ConfigSectionSchema implements Iterable< ConfigItemSchema > {
 
 
     public void addItem( String name, ConfigItemSchema item ) {
+        item.setName( name )
+            .setSectionName( this.name );
+
         items.put( name, item );
     }
 
