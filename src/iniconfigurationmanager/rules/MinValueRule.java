@@ -12,7 +12,7 @@ import iniconfigurationmanager.validators.ValidationResult;
  *
  * @author KlonK
  */
-public class MínValueRule implements ValidationRule {
+public class MinValueRule implements ValidationRule {
 
     int minValue;
 
@@ -30,7 +30,7 @@ public class MínValueRule implements ValidationRule {
 
     public ValidationResult validate(int value) {
         ValidationResult result = new ValidationResult();
-        if ( ( this.intValue > value ) ) {
+        if ( ( this.minValue > value ) ) {
             result.addResult(true);
         }
         else {

@@ -5,11 +5,14 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
-import iniconfigurationmanager.schema.ConfigItemData;
-import iniconfigurationmanager.items.SignedOptionData;
-import iniconfigurationmanager.items.FloatOptionData;
+import iniconfigurationmanager.options.FloatOptionSchema;
+import iniconfigurationmanager.options.SignedOptionData;
+import iniconfigurationmanager.options.SignedOptionSchema;
+import iniconfigurationmanager.options.UnsignedOptionSchema;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
+import java.util.Collection;
 
 /**
  *
@@ -17,31 +20,28 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class RangeRule implements ValidationRule {
 
-    private int min;
+    private Object max;
 
-    private int max;
+    private Object min;
 
-    public RangeRule( int min,int max ){
+    public <T extends Comparable<T>> RangeRule (T min,T max){
         this.min = min;
         this.max = max;
     }
 
-    public boolean isAplicableOn(SignedOptionData item) {
-        return true;
-    }
-
-    public boolean isAplicableOn(FloatOptionData item) {
-        return true;
-    }
-
-     public boolean isAplicableOn(ConfigItemFormatDefinition item) {
-        return false;
-    }
-
-
     public ValidationResult validate(int value) {
         ValidationResult result = new ValidationResult();
-        if ( ( this.min > value ) || ( this.max < value ) ) {
+        
+
+
+    public ValidationResult validate(OptionData option) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public ValidationResult validate (SignedOptionData option ) {
+        ValidationResult result = new ValidationResult();
+
+        if ( ( this.min > option.getValue(int) ) || ( this.max < value ) ) {
             result.addResult(true);
         }
         else {
@@ -57,8 +57,20 @@ public class RangeRule implements ValidationRule {
 
     }
 
-    public <T> ValidationResult validate(T value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean isAplicableOn( OptionSchema option ) {
+       return false;
+    }
+
+    public boolean isAplicableOn( SignedOptionSchema option ) {
+       return true;
+    }
+
+    public boolean isAplicableOn( UnsignedOptionSchema option ) {
+        return true;
+    }
+
+    public boolean isAplicableOn( FloatOptionSchema option ) {
+        return true;
     }
 
 }
