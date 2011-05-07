@@ -43,36 +43,42 @@ public class MinValueRule implements ValidationRule {
     public ValidationResult validate( SignedOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Integer> optionIntValue = option.getValues(new Integer(0));
+
         for (Integer integer : optionIntValue) {
             if ( integer < (Integer) this.minValue ) {
             } else {
                 result.addErrorMsg("Option is less than minumalValue");
                 }
             }
+
         return result;
     }
 
     public ValidationResult validate( UnsignedOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Long> optionIntValue = option.getValues(new Long(0));
+
         for (Long longValue : optionIntValue) {
             if ( longValue < (Long) this.minValue ) {
             } else {
                 result.addErrorMsg("Option is less than minumalValue");
                 }
             }
+
         return result;
     }
 
     public ValidationResult validate ( FloatOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Float> optionFloatValue = option.getValues(new Float(0));
+
         for (Float floatValue : optionFloatValue) {
             if ( floatValue < (Float) this.minValue ) {
             } else {
                 result.addErrorMsg("Option is less than minumalValue");
                 }
             }
+        
         return result;
     }
 

@@ -32,36 +32,39 @@ public class EvenRule implements ValidationRule {
     public ValidationResult validate (SignedOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Integer> optionIntValue = option.getValues(new Integer(0));
+
         for (Integer integer : optionIntValue) {
             if ( ( integer % 2) == 0 ) {
-            } else {
                 result.addErrorMsg("Option is not Even");
                 }
             }
+
         return result;
     }
 
     public ValidationResult validationResult ( FloatOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Float> optionFloatValue = option.getValues(new Float(0));
+
         for (Float floatValue : optionFloatValue) {
             if ( ( floatValue % 2) == 0 ) {
-            } else {
                 result.addErrorMsg( "Option is not Even" );
                 }
         }
+
         return result;
     }
 
     public ValidationResult validationResult ( UnsignedOptionData option ) {
         ValidationResult result = new ValidationResult();
         List<Long> optionLongValue = option.getValues(new Long(0));
+
         for (Long longValue : optionLongValue) {
              if ( ( longValue % 2) == 0 ) {
-            } else {
                 result.addErrorMsg( "Option is not Even" );
                 }
             }
+
         return result;
     }
 

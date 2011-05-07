@@ -14,24 +14,24 @@ import java.util.List;
  *
  * @author KlonK
  */
-public class ContainRule implements ValidationRule {
+public class EnumRule implements ValidationRule {
 
-    Object contain ;
+    private List<Object> enumValue;
 
-    public ContainRule( Object contain ) {
-        this.contain = contain;
+    public EnumRule( List<Object> enumValue) {
+        this.enumValue = enumValue;
     }
 
-    public boolean isAplicableOn(OptionSchema format) {
+    public boolean isAplicableOn(OptionSchema option) {
         return true;
     }
 
     public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        List<Object> options = option.getValues( new Object() );
+        List<Object> optionValues = option.getValues();
 
-        if ( !options.contains( contain ) ) {
-            result.addErrorMsg( "Option doesnt have ruled item" );
+        if ( !optionValues.containsAll(enumValue) ) {
+            result.addErrorMsg( "Optian doesnt have all enums value");
         }
 
         return result;
