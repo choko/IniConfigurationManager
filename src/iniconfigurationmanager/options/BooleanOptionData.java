@@ -7,6 +7,7 @@ package iniconfigurationmanager.options;
 
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
+import sun.security.provider.PolicyParser.ParsingException;
 
 
 /**
@@ -42,12 +43,11 @@ public class BooleanOptionData extends OptionData {
          return true;
         }
 
-        return false;
+         throw new ParsingException( "Error in parsing Bool Option");
 
-       // throw new ConfigParserException(
-         //       ConfigParserError.TYPE_PARSER_EXCEPTION , "" );
+    }
 
-        }
+      
 
 
     
@@ -64,21 +64,19 @@ public class BooleanOptionData extends OptionData {
 
 
     static final String ZERO = "0";
-     static final String SHORT_FALSE = "f";
-     static final String SHORT_NO = "n";
-     static final String FALSE = "false";
-     static final String OFF = "off";
-     static final String NO = "no";
-     static final String DISABLED = "disabled";
+    static final String SHORT_FALSE = "f";
+    static final String SHORT_NO = "n";
+    static final String FALSE = "false";
+    static final String OFF = "off";
+    static final String NO = "no";
+    static final String DISABLED = "disabled";
 
-     static final String ONE = "1";
-     static final String SHORT_TRUE = "t";
-     static final String SHORT_YES = "y";
-     static final String TRUE = "true";
-     static final String ON = "on";
-     static final String YES = "yes";
-     static final String ENABLED = "enebled";
-   
-
+    static final String ONE = "1";
+    static final String SHORT_TRUE = "t";
+    static final String SHORT_YES = "y";
+    static final String TRUE = "true";
+    static final String ON = "on";
+    static final String YES = "yes";
+    static final String ENABLED = "enebled";
 
 }

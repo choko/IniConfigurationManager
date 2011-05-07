@@ -15,11 +15,12 @@ import iniconfigurationmanager.schema.OptionData;
 public class SignedOptionData  extends OptionData {
 
     public Class getValueClass() {
-        return int.class;
+        return Long.class;
     }
 
     public Object parseValue(RawValue value) {
-       return Integer.decode( value.getValue() );
+         return Long.decode( value.getValue() );
+      
     }
 
     public String valueToString(Object value) {
