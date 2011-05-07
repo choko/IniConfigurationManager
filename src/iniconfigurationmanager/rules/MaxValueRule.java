@@ -5,7 +5,11 @@
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.options.FloatOptionSchema;
+import iniconfigurationmanager.options.SignedOptionSchema;
+import iniconfigurationmanager.options.UnsignedOptionSchema;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
 
 /**
@@ -14,31 +18,43 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public class MaxValueRule implements ValidationRule {
 
-    int maxValue;
+    int minValue;
 
     public MaxValueRule( int maxValue ) {
-        this.maxValue = maxValue;
-    }
-
-    public boolean isAplicableOn(ConfigItemFormatDefinition format) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public <T> ValidationResult validate(T value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.minValue = maxValue;
     }
 
     public ValidationResult validate(int value) {
         ValidationResult result = new ValidationResult();
-        if ( ( this.maxValue < value ) ) {
+        if ( ( this.minValue > value ) ) {
             result.addResult(true);
         }
         else {
-           result.addResult(false);        
-          result.addErrorMsg("Value too large");
+           result.addResult(false);
+          result.addErrorMsg("Value too low");
            }
-        
+
         return result;
+    }
+
+     public boolean isAplicableOn( OptionSchema option ) {
+       return false;
+    }
+
+    public boolean isAplicableOn( SignedOptionSchema option ) {
+       return true;
+    }
+
+    public boolean isAplicableOn( UnsignedOptionSchema option ) {
+        return true;
+    }
+
+    public boolean isAplicableOn( FloatOptionSchema option ) {
+        return true;
+    }
+
+    public ValidationResult validate(OptionData option) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

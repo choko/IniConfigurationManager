@@ -16,13 +16,13 @@ import iniconfigurationmanager.validators.ValidationResult;
  *
  * @author KlonK
  */
-public class MinValueRule implements ValidationRule {
+public class OddRule implements ValidationRule {
 
     int minValue;
 
-    public MinValueRule( int maxValue ) {
+    public OddRule( int maxValue ) {
         this.minValue = maxValue;
-    }   
+    }
 
     public ValidationResult validate(int value) {
         ValidationResult result = new ValidationResult();
