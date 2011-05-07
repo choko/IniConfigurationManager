@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package iniconfigurationmanager.rules;
 
-import iniconfigurationmanager.items.ConfigItemFormatDefinition;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
 
 /**
@@ -14,8 +11,8 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public interface ValidationRule {
 
-    public boolean isAplicableOn( ConfigItemFormatDefinition format );
+    public boolean isAplicableOn( OptionSchema option );
     
-    public <T> ValidationResult validate( T value );
+    public ValidationResult validate( OptionData option );
 
 }
