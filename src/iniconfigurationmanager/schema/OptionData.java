@@ -5,6 +5,7 @@ package iniconfigurationmanager.schema;
 import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.parsing.Format;
+import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public abstract class OptionData {
     
     public OptionData() {
         this.values = new LinkedList< Object >();
+        this.comment = "";
     }
 
 
@@ -52,28 +54,15 @@ public abstract class OptionData {
     }
 
 
-    public void setComment( String schemaComment, String inputComment ) {
+    public OptionData setComment( String schemaComment, String inputComment ) {
         StringBuilder sb = new StringBuilder();
         sb.append( schemaComment );
         sb.append( Format.NEWLINE );
         sb.append( inputComment );
 
-        this.comment = formatComment( sb.toString() );
-    }
+        this.comment = StringUtils.formatComment( sb.toString() );
 
-
-    private String formatComment( String comment ) {
-        StringBuilder sb = new StringBuilder();
-
-        for( char ch : comment.trim().toCharArray() ) {
-            sb.append( ch );
-
-            if( ch == Format.NEWLINE.charAt( 0 ) ) {
-                sb.append( Format.COMMENT_START );
-            } 
-        }
-
-        return sb.toString();
+        return this;
     }
 
 
@@ -102,12 +91,14 @@ public abstract class OptionData {
         return new ValueLink( getCanonicalName(), configuration );
     }
     
-    public void clear() {
+    public OptionData clear() {
         values.clear();
+
+        return this;
     }
     
 
-    public void addValue( Object value ) {
+    public OptionData addValue( Object value ) {
         if( value instanceof ValueLink) {
             values.add( (ValueLink) value );
         } else if ( value instanceof RawValue ) {
@@ -115,20 +106,26 @@ public abstract class OptionData {
         } else {
             values.add( getValueClass().cast( value ) );
         }
+
+        return this;
     }
 
     
-    public void setValue( Object value ) {
+    public OptionData setValue( Object value ) {
         clear();
         addValue( value );
+
+        return this;
     }
 
 
-    public void setValues( List< Object > values ) {
+    public OptionData setValues( List< Object > values ) {
         clear();
         for( Object value : values ) {
             addValue( value );
         }
+
+        return this;
     }
 
 
@@ -190,14 +187,33 @@ public abstract class OptionData {
 
         visitor.leave( this );
     }
-    
+
+
+    public boolean hasOnlyDefaultValues() {
+        ConfigurationSchema schema = configuration.getSchema();
+        if( ! schema.hasSection( sectionName ) ) {
+            return false;
+        }
+
+        SectionSchema sectionSchema = schema.getSection( sectionName );
+        if( ! sectionSchema.hasOption( name ) ) {
+            return false;
+        }
+
+        OptionSchema optionSchena = sectionSchema.getOption( name );
+        return containsSameValues( optionSchena.getDefaultValues(), values );
+    }
+
+
+    private boolean containsSameValues(
+            List defaultValues, List<Object> values
+    ) {
+        return defaultValues.containsAll( values ) &&
+                values.containsAll( defaultValues );
+    }
 
     @Override
     public String toString() {
-        if( containsOnlyDefaultValues() ) {
-            return "";
-        }
-
         if( hasComment() ) {
             return String.format( Format.OPTION_WITH_COMMENT_FORMAT,
                     comment, name, valuesToString() );
@@ -223,30 +239,6 @@ public abstract class OptionData {
         sb.deleteCharAt( sb.length() - 1 );
 
         return sb.toString();
-    }
-
-
-    private boolean containsOnlyDefaultValues() {
-        ConfigurationSchema schema = configuration.getSchema();
-        if( ! schema.hasSection( sectionName ) ) {
-            return false;
-        }
-
-        SectionSchema sectionSchema = schema.getSection( sectionName );
-        if( ! sectionSchema.hasOption( name ) ) {
-            return false;
-        }
-
-        OptionSchema optionSchena = sectionSchema.getOption( name );
-        return containsSameValues( optionSchena.getDefaultValues(), values );
-    }
-
-
-    private boolean containsSameValues( 
-            List defaultValues, List<Object> values
-    ) {
-        return defaultValues.containsAll( values ) &&
-                values.containsAll( defaultValues );
     }
 
 

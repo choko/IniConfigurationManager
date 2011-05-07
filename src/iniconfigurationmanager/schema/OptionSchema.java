@@ -25,8 +25,9 @@ public abstract class OptionSchema {
 
     
     public OptionSchema() {
-        this.required = false;
         this.validationRules = new LinkedList<ValidationRule>();
+        this.required = false;
+        this.comment = "";
     }
 
 
@@ -83,6 +84,10 @@ public abstract class OptionSchema {
 
 
     public OptionSchema addValidationRule( ValidationRule rule ) {
+        if( rule == null ) {
+            throw new IllegalArgumentException();
+        }
+
         validationRules.add( rule );
 
         return this;

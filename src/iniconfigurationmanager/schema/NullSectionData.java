@@ -24,7 +24,7 @@ public class NullSectionData extends SectionData {
 
     
     @Override
-    public void addOption(String name, OptionData option) {
+    public SectionData addOption(String name, OptionData option) {
         throw new InvalidOperationException();
     }
 

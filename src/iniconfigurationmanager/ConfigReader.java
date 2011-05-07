@@ -2,6 +2,7 @@
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.parsing.ConfigParser;
+import iniconfigurationmanager.parsing.ConfigParserError;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.schema.ConfigurationData;
 import java.io.BufferedReader;
@@ -58,7 +59,8 @@ public class ConfigReader {
 
             bf.close();
         } catch( IOException e ) {
-            //@TODO solve problem with exception handling
+            throw new ConfigParserException( ConfigParserError.INPUT_ERROR,
+                    e.getMessage() );
         }
         
 

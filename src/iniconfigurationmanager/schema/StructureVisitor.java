@@ -24,8 +24,4 @@ public interface StructureVisitor {
     
     public void visit(ConfigurationData data);
 
-    
-    public ValidationResult getResult();
-
-
 }

@@ -2,6 +2,8 @@
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.Format;
+import iniconfigurationmanager.utils.InvalidOperationException;
+import iniconfigurationmanager.utils.StringUtils;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,6 +16,8 @@ public class SectionData implements Iterable< OptionData > {
 
     private String name;
 
+    private String comment;
+
     private ConfigurationData configuration;
 
     private Map< String, OptionData > options;
@@ -21,6 +25,7 @@ public class SectionData implements Iterable< OptionData > {
 
     public SectionData() {
         this.options = new LinkedHashMap<String, OptionData>();
+        this.comment = "";
     }
 
 
@@ -36,6 +41,23 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
+    public SectionData setComment( String schemaComment, String inputComment ) {
+        StringBuilder sb = new StringBuilder();
+        sb.append( schemaComment );
+        sb.append( Format.NEWLINE );
+        sb.append( inputComment );
+
+        this.comment = StringUtils.formatComment( sb.toString() );
+
+        return this;
+    }
+
+
+    public boolean hasComment() {
+        return ! comment.trim().isEmpty();
+    }
+
+
     protected SectionData setConfiguration( ConfigurationData configuration ) {
         this.configuration = configuration;
 
@@ -43,12 +65,22 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
-    public void addOption( String name, OptionData option ) {
+    public SectionData addOption( String name, OptionData option ) {
+        if( hasOption( name ) ) {
+            throw new InvalidOperationException();
+        }
+
+        if( option == null ) {
+            throw new IllegalArgumentException();
+        }
+
         option.setName( name )
             .setSectionName( this.name )
             .setConfiguration( this.configuration );
 
         options.put( name, option );
+
+        return this;
     }
   
 
@@ -57,8 +89,10 @@ public class SectionData implements Iterable< OptionData > {
     }
 
 
-    public void removeOption( String name ) {
+    public SectionData removeOption( String name ) {
         options.remove( name );
+
+        return this;
     }
 
 
@@ -73,30 +107,22 @@ public class SectionData implements Iterable< OptionData > {
 
 
     public void accept( StructureVisitor visitor ) {
+        visitor.visit( this );
+
         for( OptionData option : options.values() ) {
             option.accept( visitor );
         }
-
-        visitor.visit( this );
     }
     
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        
-        sb.append( Format.SECTION_DEFINITION_START );
-        sb.append( name );
-        sb.append( Format.SECTION_DEFINITION_END );
-        sb.append( Format.NEWLINE );
-
-        for( OptionData option : options.values() ) {
-            sb.append( option.toString() );
+        if( hasComment() ) {
+            return String.format( Format.SECTION_WITH_COMMENT_FORMAT,
+                    comment, name);
+        } else {
+            return String.format( Format.SECTION_FORMAT, name);
         }
-
-        sb.append( Format.NEWLINE );
-
-        return sb.toString();
     }
     
 }
