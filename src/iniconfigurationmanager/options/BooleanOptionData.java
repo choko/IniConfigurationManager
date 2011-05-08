@@ -9,7 +9,6 @@ import iniconfigurationmanager.parsing.ConfigParserError;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
-import sun.security.provider.PolicyParser.ParsingException;
 
 
 /**
@@ -18,15 +17,15 @@ import sun.security.provider.PolicyParser.ParsingException;
  */
 public class BooleanOptionData extends OptionData {
 
-    boolean parsedValue;
+    String rawBoolean;
 
     public Class getValueClass() {
        return Boolean.class;
     }
 
     public Object parseValue(RawValue value) {
-        
-        if (    value.getValue().equalsIgnoreCase( ZERO ) ||
+        try {
+            if (value.getValue().equalsIgnoreCase( ZERO ) ||
                 value.getValue().equalsIgnoreCase( SHORT_FALSE ) ||
                 value.getValue().equalsIgnoreCase( SHORT_NO ) ||
                 value.getValue().equalsIgnoreCase( FALSE ) ||
@@ -35,34 +34,112 @@ public class BooleanOptionData extends OptionData {
                 value.getValue().equalsIgnoreCase( DISABLED ) ) {
          return false;
         } else {
-        if (   value.getValue().equalsIgnoreCase( ONE ) ||
+            if (value.getValue().equalsIgnoreCase( ONE ) ||
                 value.getValue().equalsIgnoreCase( SHORT_TRUE ) ||
                 value.getValue().equalsIgnoreCase( SHORT_YES ) ||
                 value.getValue().equalsIgnoreCase( TRUE ) ||
                 value.getValue().equalsIgnoreCase( ON ) ||
                 value.getValue().equalsIgnoreCase( YES ) ||
-                value.getValue().equalsIgnoreCase( ENABLED ) ) 
+                value.getValue().equalsIgnoreCase( ENABLED ) )
          return true;
         }
-
-       throw new ConfigParserException(
+        } catch (Exception e) {
+            throw new ConfigParserException(
                             ConfigParserError.TYPE_PARSING_EXCEPTION,null );
+        }
+ 
+        
+
+       
 
     }
 
-      
-
-
-    
-
     public String valueToString(Object value) {
-        if ( parsedValue ) {
-            return FALSE;
+        if ((Boolean) value  ) {
+            return  getFormatedTrue( rawBoolean );
         }
         else
         {
+            return  getFormatedFalse( rawBoolean );
+        }
+    }
+
+    private String getFormatedFalse( String rawBoolean ) {
+        if ( rawBoolean.equalsIgnoreCase( ZERO ) ||
+             rawBoolean.equalsIgnoreCase( ONE ) ) {
+            return ZERO;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( SHORT_FALSE ) ||
+             rawBoolean.equalsIgnoreCase( SHORT_TRUE ) ) {
+            return SHORT_FALSE;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( SHORT_NO ) ||
+             rawBoolean.equalsIgnoreCase( SHORT_TRUE ) ) {
+            return SHORT_NO;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( FALSE ) ||
+             rawBoolean.equalsIgnoreCase( TRUE ) ) {
+            return FALSE;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( OFF ) ||
+             rawBoolean.equalsIgnoreCase( ON ) ) {
+            return OFF;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( NO ) ||
+             rawBoolean.equalsIgnoreCase( YES ) ) {
+            return NO;
+        }
+
+         if ( rawBoolean.equalsIgnoreCase( DISABLED ) ||
+             rawBoolean.equalsIgnoreCase( ENABLED ) ) {
+            return DISABLED;
+        }
+
+        return FALSE;
+    }
+
+    private String getFormatedTrue( String rawBoolean ) {
+        if ( rawBoolean.equalsIgnoreCase( ZERO ) ||
+             rawBoolean.equalsIgnoreCase( ONE ) ) {
+            return ONE;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( SHORT_FALSE ) ||
+             rawBoolean.equalsIgnoreCase( SHORT_TRUE ) ) {
+            return SHORT_TRUE;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( SHORT_NO ) ||
+             rawBoolean.equalsIgnoreCase( SHORT_TRUE ) ) {
+            return SHORT_YES;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( FALSE ) ||
+             rawBoolean.equalsIgnoreCase( TRUE ) ) {
             return TRUE;
         }
+
+        if ( rawBoolean.equalsIgnoreCase( OFF ) ||
+             rawBoolean.equalsIgnoreCase( ON ) ) {
+            return ON;
+        }
+
+        if ( rawBoolean.equalsIgnoreCase( NO ) ||
+             rawBoolean.equalsIgnoreCase( YES ) ) {
+            return YES;
+        }
+
+         if ( rawBoolean.equalsIgnoreCase( DISABLED ) ||
+             rawBoolean.equalsIgnoreCase( ENABLED ) ) {
+            return ENABLED;
+        }
+
+        return TRUE;
     }
 
 

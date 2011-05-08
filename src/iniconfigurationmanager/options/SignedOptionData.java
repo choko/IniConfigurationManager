@@ -23,14 +23,14 @@ public class SignedOptionData  extends OptionData {
     }
 
     public Object parseValue(RawValue value) {
-        long longValue;
-        rawStringvalue = value.getValue();
         try {
+            long longValue;
+            rawStringvalue = value.getValue();
             longValue = Long.decode( value.getValue() );
             return  longValue;
         } catch (Exception e) {
             throw new ConfigParserException(
-                    ConfigParserError.INPUT_ERROR, null );
+                    ConfigParserError.INPUT_ERROR,null);
         }
          
       
@@ -38,19 +38,36 @@ public class SignedOptionData  extends OptionData {
 
     public String valueToString(Object value) {
       Long longValue = (Long) value;
-      if ( rawStringvalue.startsWith("0x") ) {
+      if ( isHexFormat( rawStringvalue ) ) {
           return  Long.toHexString( longValue );
       }
 
-      if ( rawStringvalue.startsWith("0b") ) {
+      if ( isOCtaFormat( rawStringvalue ) ) {
           return Long.toOctalString( longValue );
       }
 
-      if ( rawStringvalue.startsWith("0") ) {
+      if ( isBinaryFormat( rawStringvalue ) ) {
           return Long.toBinaryString( longValue );
       }
 
       return longValue.toString();
     }
+
+    private static String HEXPREFIX = "0x";
+    private static String OCTAPREFIX = "0b";
+    private static String BINARYPREFIX = "0";
+
+    private boolean  isHexFormat(String string) {
+       return  rawStringvalue.startsWith(HEXPREFIX);
+    }
+
+     private boolean  isOCtaFormat(String string) {
+       return  rawStringvalue.startsWith(OCTAPREFIX);
+    }
+
+      private boolean  isBinaryFormat(String string) {
+       return  rawStringvalue.startsWith(BINARYPREFIX);
+    }
+
 
 }

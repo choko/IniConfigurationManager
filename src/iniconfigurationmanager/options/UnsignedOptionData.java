@@ -5,6 +5,7 @@
 
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.ConfigParserError;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
@@ -35,7 +36,7 @@ private class UnsignedInt64 {
 
     private BigInteger uint64;
 
-    public UnsignedInt64( String string ) {
+    public UnsignedInt64( String string ) throws ConfigParserException {
         BigInteger rawUint64 = new BigInteger(string);
         if ( rawUint64.equals(rawUint64.min( BigInteger.TEN.not() ) )  ) {
             uint64 = rawUint64;
@@ -59,5 +60,5 @@ private class UnsignedInt64 {
             return String.valueOf(num);
         return BigInteger.valueOf(num).add(B64).toString();
     }
-}
+    }
 }
