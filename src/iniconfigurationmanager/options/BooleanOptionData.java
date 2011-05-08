@@ -1,29 +1,43 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package iniconfigurationmanager.options;
 
-import iniconfigurationmanager.parsing.ConfigParserError;
-import iniconfigurationmanager.parsing.ConfigParserException;
+/**
+ * The <code>BooleanOptionData</code> class extends OptionData of
+ * <code>boolean</code> value type.
+ * <p>
+ * In addition, this class provides method for
+ * parsing a <code>RawValue</code> to a <code>boolean</code>,
+ * method for returnig class of <code>BooleanOptionData</code>
+ * parsning method and valueToString method that returns <code>string</code>
+ */
+
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 
-/**
- *
- * @author KlonK <jurko@bdi.sk>
- */
+
 public class BooleanOptionData
         extends OptionData {
 
+    /**
+     * The <code>rawBoolean</code> <code>String</code> holds unparsed value
+     * of item for same valueToString outout as imput
+     */
     String rawBoolean;
 
 
+    /**
+     * The <code>getValueClass</code> method return <code>Class</code> of witch
+     * is result of parsing
+     */
     public Class getValueClass() {
         return Boolean.class;
     }
 
 
+    /**
+     * The <code>parseValue</code> provade parsing of <code>RawValue</code>
+     * value to the <code>boolean</code> value. It can parse all valid
+     * meaning of true or false
+     */
     public Object parseValue( RawValue value ) {
         rawBoolean = value.getValue();
         try {
@@ -53,7 +67,11 @@ public class BooleanOptionData
         return true;
     }
 
-
+    /**
+     * The <code>valueToString</code> provade oposite of parseValue.
+     * Its return <code>String</code> from value in same syntax as original
+     * unparsed string-value
+     */
     public String valueToString( Object value ) {
         if ( (Boolean) value ) {
             return getFormatedTrue( rawBoolean );
@@ -62,7 +80,10 @@ public class BooleanOptionData
         }
     }
 
-
+    /**
+     * The <code>getFormatedFalse</code> return string that reprezents
+     * false value in same syntax as original value;
+     */
     private String getFormatedFalse( String rawBoolean ) {
         if ( rawBoolean.equalsIgnoreCase( ZERO ) ||
                 rawBoolean.equalsIgnoreCase( ONE ) ) {
@@ -102,7 +123,10 @@ public class BooleanOptionData
         return FALSE;
     }
 
-
+    /**
+     * The <code>getFormatedFalse</code> return string that reprezents
+     * true value in same syntax as original value;
+     */
     private String getFormatedTrue( String rawBoolean ) {
         if ( rawBoolean.equalsIgnoreCase( ZERO ) ||
                 rawBoolean.equalsIgnoreCase( ONE ) ) {
@@ -142,6 +166,9 @@ public class BooleanOptionData
         return TRUE;
     }
 
+    /**
+     * This constant hold all posible string reprezentation of false string
+     */
     static final String ZERO = "0";
 
     static final String SHORT_FALSE = "f";
@@ -156,6 +183,9 @@ public class BooleanOptionData
 
     static final String DISABLED = "disabled";
 
+     /**
+     * This constant hold all posible string reprezentation of false string
+     */
     static final String ONE = "1";
 
     static final String SHORT_TRUE = "t";
