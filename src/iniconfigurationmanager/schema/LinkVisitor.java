@@ -25,7 +25,8 @@ public class LinkVisitor<T> implements ValuesVisitor {
 
     public void enter( OptionData option ) {
         if( enteredConfigOptions.contains( option ) ) {
-            //@TODO throw new exception
+            throw new OutOfMemoryError( String.format(
+                    SchemaError.CYCLIC_LINK.getMessage() ) );
         }
 
         enteredConfigOptions.add( option );

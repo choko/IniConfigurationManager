@@ -1,5 +1,5 @@
 
-package iniconfigurationmanager.utils;
+package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.ConfigLine;
 import iniconfigurationmanager.parsing.ConfigParser;

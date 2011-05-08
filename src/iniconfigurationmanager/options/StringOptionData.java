@@ -22,7 +22,7 @@ public class StringOptionData extends OptionData {
 
     @Override
     protected Object parseValue(RawValue value) {
-        return StringUtils.removeSlashes( value.toString() );
+        return StringUtils.removeSlashes( value.getValue() );
     }
 
 

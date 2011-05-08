@@ -85,7 +85,13 @@ public abstract class OptionSchema {
 
     public OptionSchema addValidationRule( ValidationRule rule ) {
         if( rule == null ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.NULL_VALIDATION_RULE.getMessage() ) );
+        }
+
+        if( ! rule.isAplicableOn( this ) ) {
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.UNALLOWED_VALIDATION_RULE.getMessage() ) );
         }
 
         validationRules.add( rule );
@@ -112,7 +118,7 @@ public abstract class OptionSchema {
 
 
     public boolean hasDefaultValue() {
-        return ! defaultValues.isEmpty();
+        return defaultValues != null && ! defaultValues.isEmpty();
     }
     
 
