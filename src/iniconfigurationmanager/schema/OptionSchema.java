@@ -118,7 +118,7 @@ public abstract class OptionSchema {
 
 
     public boolean hasDefaultValue() {
-        return ! defaultValues.isEmpty();
+        return defaultValues != null && ! defaultValues.isEmpty();
     }
     
 

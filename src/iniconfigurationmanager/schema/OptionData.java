@@ -200,8 +200,13 @@ public abstract class OptionData {
             return false;
         }
 
-        OptionSchema optionSchena = sectionSchema.getOption( name );
-        return containsSameValues( optionSchena.getDefaultValues(), values );
+        OptionSchema optionSchema = sectionSchema.getOption( name );
+        if( ! optionSchema.hasDefaultValue() ) {
+            return false;
+        }
+        
+        
+        return containsSameValues( optionSchema.getDefaultValues(), values );
     }
 
 
