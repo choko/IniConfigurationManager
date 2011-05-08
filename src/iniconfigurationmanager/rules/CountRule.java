@@ -1,7 +1,7 @@
 package iniconfigurationmanager.rules;
 
 /**
- * The <code>CountRule</code> provides rule that chack if
+ * The <code>CountRule</code> provides rule that check if
  * count of number of element in Option data is specfi number
  * <p>
  * This rule is applicable on evry Data that extends OptionSchema
@@ -16,7 +16,7 @@ public class CountRule
 
      /**
      * <code>int</code> stores how many elements must be in OptionData
-      * to pass the rule.
+     * to pass the rule.
      */
     int count;
 
@@ -28,7 +28,7 @@ public class CountRule
     /**
      * <Code>isAplicableOn</code> return always true, when
      * as @param came Class that extends OptionScheme Class.
-     * Its mean that <code>ContainRule</code> is applicable on
+     * Its mean that <code>CountRule</code> is applicable on
      * every posible OptionSchema.
      */
     public boolean isAplicableOn( OptionSchema format ) {

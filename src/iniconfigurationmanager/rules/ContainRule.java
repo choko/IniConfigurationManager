@@ -36,7 +36,7 @@ public class ContainRule
     }
 
     /**
-     * <Code>ValidationResult</code> check if object contain in
+     * <Code>validate</code> check if object contain in
      * Option data. If not add Error message to the result.
      */
     public ValidationResult validate( OptionData option ) {
