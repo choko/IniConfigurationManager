@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class ValidationResult {
 
-    private LinkedList<String> errorMsgs;
+    private LinkedList<String> errorMessages;
 
     private boolean result;
 
 
     public ValidationResult() {
-        this.errorMsgs = new LinkedList<String>();
+        this.errorMessages = new LinkedList<String>();
     }
 
 
@@ -33,18 +33,18 @@ public class ValidationResult {
     }
 
 
-    public void addErrorMsg( String errorMsg ) {
-        this.errorMsgs.add( errorMsg );
+    public void addErrorMessage( String errorMessage ) {
+        this.errorMessages.add( errorMessage );
     }
 
 
-    public List<String> getErrorMsgs() {
-        return this.errorMsgs;
+    public List<String> getErrorMessages() {
+        return this.errorMessages;
     }
 
 
     public void mergeResults( ValidationResult result ) {
-        this.errorMsgs.addAll( result.getErrorMsgs() );
+        this.errorMessages.addAll( result.getErrorMessages() );
         this.result = result.isOk();
     }
 
