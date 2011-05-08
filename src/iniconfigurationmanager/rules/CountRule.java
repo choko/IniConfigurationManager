@@ -45,7 +45,7 @@ public class CountRule
         List<Object> options = option.getValues( new Object() );
 
         if ( options.size() != count ) {
-            result.addErrorMsg( INVALID_COUNT );
+            result.addErrorMessage( INVALID_COUNT );
         }
 
         return result;

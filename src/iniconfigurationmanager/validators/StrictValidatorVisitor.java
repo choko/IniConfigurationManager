@@ -38,7 +38,7 @@ public class StrictValidatorVisitor
     public void visit( OptionData option ) {
         boolean hasOption = schemaOption.remove( option.getCanonicalName() );
         if ( !hasOption ) {
-            result.addErrorMsg( ValidationResult.INVALID_OPTION_ITEM );
+            result.addErrorMessage( ValidationResult.INVALID_OPTION_ITEM );
         }
         result.addResult( hasOption );
     }
@@ -56,7 +56,7 @@ public class StrictValidatorVisitor
     public void visit( SectionData section ) {
         boolean haveSection = schemaSection.remove( section.getName() );
         if ( !haveSection ) {
-            result.addErrorMsg( ValidationResult.INVALID_SCHEMA );
+            result.addErrorMessage( ValidationResult.INVALID_SCHEMA );
         }
         result.addResult( haveSection );
     }

@@ -63,7 +63,7 @@ public class MaxValueRule
         for ( Integer integer : optionIntValue ) {
             if ( integer > (Integer) this.maxValue ) {
             } else {
-                result.addErrorMsg( HIGH_VALUE );
+                result.addErrorMessage( HIGH_VALUE );
             }
         }
         return result;
@@ -80,7 +80,7 @@ public class MaxValueRule
         for ( Long longValue : optionIntValue ) {
             if ( longValue > (Long) this.maxValue ) {
             } else {
-                result.addErrorMsg( HIGH_VALUE );
+                result.addErrorMessage( HIGH_VALUE );
             }
         }
         return result;
@@ -97,7 +97,7 @@ public class MaxValueRule
         for ( Float floatValue : optionFloatValue ) {
             if ( floatValue > (Float) this.maxValue ) {
             } else {
-                result.addErrorMsg( HIGH_VALUE );
+                result.addErrorMessage( HIGH_VALUE );
             }
         }
         return result;
@@ -133,7 +133,7 @@ public class MaxValueRule
      */    
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
+        result.addErrorMessage( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 

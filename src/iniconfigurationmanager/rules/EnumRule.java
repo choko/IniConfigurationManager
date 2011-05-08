@@ -44,7 +44,7 @@ public class EnumRule
         List<Object> optionValues = option.getValues();
 
         if ( !optionValues.containsAll( enumValue ) ) {
-            result.addErrorMsg( ENUM_INVALID_VALUE );
+            result.addErrorMessage( ENUM_INVALID_VALUE );
         }
 
         return result;

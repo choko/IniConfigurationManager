@@ -29,7 +29,7 @@ public class EvenRule
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
+        result.addErrorMessage( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 
@@ -43,7 +43,7 @@ public class EvenRule
 
         for ( Integer integer : optionIntValue ) {
             if ( (integer % 2) == 0 ) {
-                result.addErrorMsg( NOT_EVEN_VALUE );
+                result.addErrorMessage( NOT_EVEN_VALUE );
             }
         }
 
@@ -60,7 +60,7 @@ public class EvenRule
 
         for ( Float floatValue : optionFloatValue ) {
             if ( (floatValue % 2) == 0 ) {
-                result.addErrorMsg( NOT_EVEN_VALUE );
+                result.addErrorMessage( NOT_EVEN_VALUE );
             }
         }
 
@@ -77,7 +77,7 @@ public class EvenRule
 
         for ( Long longValue : optionLongValue ) {
             if ( (longValue % 2) == 0 ) {
-                result.addErrorMsg( NOT_EVEN_VALUE );
+                result.addErrorMessage( NOT_EVEN_VALUE );
             }
         }
 

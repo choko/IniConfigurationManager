@@ -62,7 +62,7 @@ public class MinValueRule
         for ( Integer integer : optionIntValue ) {
             if ( integer < (Integer) this.minValue ) {
             } else {
-                result.addErrorMsg( LOW_VALUE );
+                result.addErrorMessage( LOW_VALUE );
             }
         }
 
@@ -81,7 +81,7 @@ public class MinValueRule
         for ( Long longValue : optionIntValue ) {
             if ( longValue < (Long) this.minValue ) {
             } else {
-                result.addErrorMsg( LOW_VALUE );
+                result.addErrorMessage( LOW_VALUE );
             }
         }
 
@@ -100,7 +100,7 @@ public class MinValueRule
         for ( Float floatValue : optionFloatValue ) {
             if ( floatValue < (Float) this.minValue ) {
             } else {
-                result.addErrorMsg( LOW_VALUE );
+                result.addErrorMessage( LOW_VALUE );
             }
         }
 
@@ -142,7 +142,7 @@ public class MinValueRule
      */    
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
+        result.addErrorMessage( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 }

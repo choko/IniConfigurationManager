@@ -73,10 +73,10 @@ public class RelaxValidatorVisitor
         ValidationResult result = new ValidationResult();
 
         if ( !schemaOption.isEmpty() ) {
-           result.addErrorMsg( ValidationResult.INVALID_OPTION_ITEM );
+           result.addErrorMessage( ValidationResult.INVALID_OPTION_ITEM );
        }
        if ( !schemaSection.isEmpty() ) {
-           result.addErrorMsg( ValidationResult.INVALID_SCHEMA );
+           result.addErrorMessage( ValidationResult.INVALID_SCHEMA );
        }
 
        return result;

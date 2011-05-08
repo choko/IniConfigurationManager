@@ -44,7 +44,7 @@ public class ContainRule
         List<Object> options = option.getValues( new Object() );
 
         if ( !options.contains( contain ) ) {
-            result.addErrorMsg( NOT_CONTAIN_VALUE );
+            result.addErrorMessage( NOT_CONTAIN_VALUE );
         }
 
         return result;

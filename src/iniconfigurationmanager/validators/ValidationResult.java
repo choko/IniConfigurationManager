@@ -13,13 +13,13 @@ public class ValidationResult {
     /**
      * errorMsgs contains every Report of error during validation
      */
-    private LinkedList<String> errorMsgs;
+    private LinkedList<String> errorMessages;
 
     private boolean result;
 
 
     public ValidationResult() {
-        this.errorMsgs = new LinkedList<String>();
+        this.errorMessages = new LinkedList<String>();
     }
 
     /**
@@ -35,8 +35,8 @@ public class ValidationResult {
      * Its return<code>TRUE</code> if none error report.
      * return <code>FALSE</code> if it has any error report.
      */
-    public boolean getResult() {
-       if ( errorMsgs.isEmpty() ) {
+    public boolean isOk() {
+       if ( errorMessages.isEmpty() ) {
            return true;
        } else {
            return false;
@@ -47,23 +47,23 @@ public class ValidationResult {
     /**
      * Method added error report that trow validator
      */
-    public void addErrorMsg( String errorMsg ) {
-        this.errorMsgs.add( errorMsg );
+    public void addErrorMessage( String errorMessage ) {
+        this.errorMessages.add( errorMessage );
     }
 
     /**
      * Method return all error reports
      */
-    public List<String> getErrorMsgs() {
-        return this.errorMsgs;
+    public List<String> getErrorMessages() {
+        return this.errorMessages;
     }
 
     /**
      * Method merge two ValidationResult to one
      */
     public void mergeResults( ValidationResult result ) {
-        this.errorMsgs.addAll( result.getErrorMsgs() );
-        this.result = result.getResult();
+        this.errorMessages.addAll( result.getErrorMessages() );
+        this.result = result.isOk();
     }
     
     /**

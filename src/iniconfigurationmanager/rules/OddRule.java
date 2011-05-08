@@ -33,7 +33,7 @@ public class OddRule
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
+        result.addErrorMessage( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 
@@ -47,7 +47,7 @@ public class OddRule
 
         for ( Integer integer : optionIntValue ) {
             if ( (integer % 2) == 1 ) {
-                result.addErrorMsg( NOT_ODD_VALUE );
+                result.addErrorMessage( NOT_ODD_VALUE );
             }
         }
 
@@ -64,7 +64,7 @@ public class OddRule
 
         for ( Float floatValue : optionFloatValue ) {
             if ( (floatValue % 2) == 1 ) {
-                result.addErrorMsg( NOT_ODD_VALUE );
+                result.addErrorMessage( NOT_ODD_VALUE );
             }
         }
 
@@ -81,7 +81,7 @@ public class OddRule
 
         for ( Long longValue : optionLongValue ) {
             if ( (longValue % 2) == 1 ) {
-                result.addErrorMsg( NOT_ODD_VALUE );
+                result.addErrorMessage( NOT_ODD_VALUE );
             }
         }
 
