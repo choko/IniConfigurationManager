@@ -5,6 +5,7 @@
 
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 import java.math.BigInteger;
@@ -20,7 +21,7 @@ public class UnsignedOptionData extends OptionData {
     }
 
     public Object parseValue(RawValue value) {
-        UInt64Test uInt64value = new UInt64Test( value.getValue() );
+        UnsignedInt64 uInt64value = new UnsignedInt64( value.getValue() );
         return uInt64value.toBigInteger();
 
     }
@@ -30,16 +31,17 @@ public class UnsignedOptionData extends OptionData {
     }
 
 
-private class UInt64Test {
+private class UnsignedInt64 {
 
     private BigInteger uint64;
 
-    public UInt64Test( String string ) {
+    public UnsignedInt64( String string ) {
         BigInteger rawUint64 = new BigInteger(string);
         if ( rawUint64.equals(rawUint64.min( BigInteger.TEN.not() ) )  ) {
             uint64 = rawUint64;
         } else {
-            throw new NumberFormatException();
+            throw new ConfigParserException(
+                    ConfigParserError.INPUT_ERROR, null );
         }
 
     }

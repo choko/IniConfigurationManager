@@ -41,7 +41,7 @@ public class StringUtils {
     }
 
 
-    public static String formatComment(String comment) {
+    public static String formatComment( String comment ) {
         StringBuilder sb = new StringBuilder();
 
         for (char ch : comment.trim().toCharArray()) {
@@ -53,6 +53,27 @@ public class StringUtils {
         }
 
         return sb.toString();
+    }
+
+    public static String addSlashes( String slashedString ) {
+       String slashedFreeString = slashedString;
+       
+       slashedFreeString.replaceAll(",", "\\,");
+       slashedFreeString.replaceAll(":", "\\:");
+       slashedFreeString.replaceAll(";", "\\;");
+
+       return slashedFreeString;
+    }
+
+    public static String removeSlashes( String slashlessString ) {
+       String slashedString = slashlessString;
+
+       slashedString.replaceAll( "\\,","," );
+       slashedString.replaceAll( "\\:",":" );
+       slashedString.replaceAll( "\\;",";" );
+
+       return slashedString;
+
     }
     
 }

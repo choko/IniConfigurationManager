@@ -5,6 +5,8 @@
 
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.ConfigParserError;
+import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 
@@ -20,6 +22,14 @@ public class FloatOptionData extends  OptionData {
 
     public Object parseValue(RawValue value) {
 
+        float floatValue;
+        try {
+            floatValue = Float.parseFloat( value.getValue() );
+
+        } catch (Exception e) {
+            throw new ConfigParserException(
+                    ConfigParserError.INPUT_ERROR, null );
+        }
         return  Float.parseFloat( value.getValue() );
     }
 

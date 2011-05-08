@@ -5,6 +5,8 @@
 
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.ConfigParserError;
+import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 import sun.security.provider.PolicyParser.ParsingException;
@@ -32,18 +34,19 @@ public class BooleanOptionData extends OptionData {
                 value.getValue().equalsIgnoreCase( NO ) ||
                 value.getValue().equalsIgnoreCase( DISABLED ) ) {
          return false;
-        } else
+        } else {
         if (   value.getValue().equalsIgnoreCase( ONE ) ||
                 value.getValue().equalsIgnoreCase( SHORT_TRUE ) ||
                 value.getValue().equalsIgnoreCase( SHORT_YES ) ||
                 value.getValue().equalsIgnoreCase( TRUE ) ||
                 value.getValue().equalsIgnoreCase( ON ) ||
                 value.getValue().equalsIgnoreCase( YES ) ||
-                value.getValue().equalsIgnoreCase( ENABLED ) ) {
+                value.getValue().equalsIgnoreCase( ENABLED ) ) 
          return true;
         }
 
-         throw new ParsingException( "Error in parsing Bool Option");
+       throw new ConfigParserException(
+                            ConfigParserError.TYPE_PARSING_EXCEPTION,null );
 
     }
 
