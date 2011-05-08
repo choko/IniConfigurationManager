@@ -22,6 +22,7 @@ public class SignedOptionData  extends OptionData {
 
     public Object parseValue(RawValue value) {
         try {
+            rawStringvalue = value.getValue();
             return Long.decode( value.getValue() );
         } catch (Exception e) {
             throw new ClassCastException();

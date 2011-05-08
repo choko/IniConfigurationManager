@@ -25,7 +25,7 @@ public class EvenRule implements ValidationRule {
 
     public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg("Rule applicated on unsuporter Data");
+        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 
@@ -35,7 +35,7 @@ public class EvenRule implements ValidationRule {
 
         for (Integer integer : optionIntValue) {
             if ( ( integer % 2) == 0 ) {
-                result.addErrorMsg("Option is not Even");
+                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
                 }
             }
 
@@ -48,7 +48,7 @@ public class EvenRule implements ValidationRule {
 
         for (Float floatValue : optionFloatValue) {
             if ( ( floatValue % 2) == 0 ) {
-                result.addErrorMsg( "Option is not Even" );
+                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
                 }
         }
 
@@ -61,7 +61,7 @@ public class EvenRule implements ValidationRule {
 
         for (Long longValue : optionLongValue) {
              if ( ( longValue % 2) == 0 ) {
-                result.addErrorMsg( "Option is not Even" );
+                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
                 }
             }
 

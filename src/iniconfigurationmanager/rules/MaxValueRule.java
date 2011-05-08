@@ -42,11 +42,11 @@ public class MaxValueRule implements ValidationRule {
 
     public ValidationResult validate( SignedOptionData option ) {
         ValidationResult result = new ValidationResult();
-        List<Integer> optionIntValue = option.getValues(new Integer(0));
+        List<Integer> optionIntValue = option.getValues( new Integer(0) );
         for (Integer integer : optionIntValue) {
             if ( integer > (Integer) this.maxValue ) {
             } else {
-                result.addErrorMsg("Option is bigger than minumalValue");
+                result.addErrorMsg( ValidationResult.HIGH_VALUE );
                 }
             }
         return result;
@@ -54,11 +54,11 @@ public class MaxValueRule implements ValidationRule {
 
     public ValidationResult validate( UnsignedOptionData option ) {
         ValidationResult result = new ValidationResult();
-        List<Long> optionIntValue = option.getValues(new Long(0));
+        List<Long> optionIntValue = option.getValues( new Long(0) );
         for (Long longValue : optionIntValue) {
             if ( longValue > (Long) this.maxValue ) {
             } else {
-                result.addErrorMsg("Option is bigger than minumalValue");
+                result.addErrorMsg( ValidationResult.HIGH_VALUE );
                 }
             }
         return result;
@@ -66,11 +66,11 @@ public class MaxValueRule implements ValidationRule {
 
     public ValidationResult validate ( FloatOptionData option ) {
         ValidationResult result = new ValidationResult();
-        List<Float> optionFloatValue = option.getValues(new Float(0));
+        List<Float> optionFloatValue = option.getValues( new Float(0) );
         for (Float floatValue : optionFloatValue) {
             if ( floatValue > (Float) this.maxValue ) {
             } else {
-                result.addErrorMsg("Option is bigger than minumalValue");
+                result.addErrorMsg( ValidationResult.HIGH_VALUE );
                 }
             }
         return result;
@@ -94,7 +94,7 @@ public class MaxValueRule implements ValidationRule {
 
     public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( "Rule applaed on unsuported Option" );
+        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 

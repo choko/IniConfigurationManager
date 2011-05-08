@@ -31,7 +31,7 @@ public class ContainRule implements ValidationRule {
         List<Object> options = option.getValues( new Object() );
 
         if ( !options.contains( contain ) ) {
-            result.addErrorMsg( "Option doesnt have ruled item" );
+            result.addErrorMsg( ValidationResult.NOT_CONTAIN_VALUE );
         }
 
         return result;

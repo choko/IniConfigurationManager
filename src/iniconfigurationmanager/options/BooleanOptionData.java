@@ -24,6 +24,7 @@ public class BooleanOptionData extends OptionData {
     }
 
     public Object parseValue(RawValue value) {
+        rawBoolean = value.getValue();
         try {
             if (value.getValue().equalsIgnoreCase( ZERO ) ||
                 value.getValue().equalsIgnoreCase( SHORT_FALSE ) ||

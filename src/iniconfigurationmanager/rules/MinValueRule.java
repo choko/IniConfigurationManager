@@ -47,7 +47,7 @@ public class MinValueRule implements ValidationRule {
         for (Integer integer : optionIntValue) {
             if ( integer < (Integer) this.minValue ) {
             } else {
-                result.addErrorMsg("Option is less than minumalValue");
+                result.addErrorMsg( ValidationResult.LOW_VALUE );
                 }
             }
 
@@ -61,7 +61,7 @@ public class MinValueRule implements ValidationRule {
         for (Long longValue : optionIntValue) {
             if ( longValue < (Long) this.minValue ) {
             } else {
-                result.addErrorMsg("Option is less than minumalValue");
+                result.addErrorMsg( ValidationResult.LOW_VALUE );
                 }
             }
 
@@ -75,7 +75,7 @@ public class MinValueRule implements ValidationRule {
         for (Float floatValue : optionFloatValue) {
             if ( floatValue < (Float) this.minValue ) {
             } else {
-                result.addErrorMsg("Option is less than minumalValue");
+                result.addErrorMsg( ValidationResult.LOW_VALUE );
                 }
             }
         
@@ -100,7 +100,7 @@ public class MinValueRule implements ValidationRule {
 
     public ValidationResult validate(OptionData option) {
         ValidationResult result = new ValidationResult();
-        result.addErrorMsg( "Rule applaed on unsuported Option" );
+        result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
 

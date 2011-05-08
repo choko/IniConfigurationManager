@@ -31,7 +31,7 @@ public class CountRule implements ValidationRule {
         List<Object> options = option.getValues(new Object());
 
         if ( options.size() != count ) {
-            result.addErrorMsg( "Option have incorect numbers of elements" );
+            result.addErrorMsg( ValidationResult.INVALID_COUNT );
         }
 
         return result;
