@@ -30,8 +30,8 @@ public class SectionSchema
     /**
      * Sets name of this section.
      *
-     * @param String name
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param name
+     * @return this instance for fluent interface implementation
      */
     protected SectionSchema setName( String name ) {
         this.name = name;
@@ -43,7 +43,7 @@ public class SectionSchema
     /**
      * Returns name of this section.
      * 
-     * @return String
+     * @return
      */
     public String getName() {
         return name;
@@ -53,7 +53,7 @@ public class SectionSchema
     /**
      * Sets this section required.
      *
-     * @return SectionSchema this instance for fluent interface implementation
+     * @return this instance for fluent interface implementation
      */
     public SectionSchema setReguired() {
         this.required = true;
@@ -65,7 +65,7 @@ public class SectionSchema
     /**
      * Determines whether this section is required.
      * 
-     * @return boolean
+     * @return
      */
     public boolean isRequired() {
         return this.required;
@@ -75,8 +75,8 @@ public class SectionSchema
     /**
      * Sets comment for this section schema.
      *
-     * @param String comment
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param comment
+     * @return this instance for fluent interface implementation
      */
     public SectionSchema setComment( String comment ) {
         this.comment = comment;
@@ -88,7 +88,7 @@ public class SectionSchema
     /**
      * Returns comment of this section.
      *
-     * @return String
+     * @return
      */
     public String getComment() {
         return this.comment;
@@ -98,9 +98,9 @@ public class SectionSchema
     /**
      * Adds option to this options list.
      *
-     * @param String name
-     * @param String option
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param name
+     * @param option
+     * @return this instance for fluent interface implementation
      * @throws InvalidOperationException whether the option already exists
      * @throws IllegalArgumentException whether the option is null
      */
@@ -126,8 +126,8 @@ public class SectionSchema
     /**
      * Determines whether the option exists.
      *
-     * @param String name
-     * @return boolean
+     * @param name
+     * @return
      */
     public boolean hasOption( String name ) {
         return options.containsKey( name );
@@ -137,8 +137,8 @@ public class SectionSchema
     /**
      * Removes option from the options list.
      * 
-     * @param String name
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param name
+     * @return this instance for fluent interface implementation
      */
     public SectionSchema removeOption( String name ) {
         options.remove( name );
@@ -150,8 +150,8 @@ public class SectionSchema
     /**
      * Returns option with the name.
      * 
-     * @param String name
-     * @return OptionSchema
+     * @param name
+     * @return
      * @throws IllegalArgumentException whether the option doesn't exist
      */
     public OptionSchema getOption( String name ) {
@@ -167,7 +167,7 @@ public class SectionSchema
     /**
      * Returns iterator for iterating over option's schemas
      * 
-     * @return Iterator<OptionSchema>
+     * @return<OptionSchema>
      */
     public Iterator<OptionSchema> iterator() {
         return options.values().iterator();
@@ -177,8 +177,8 @@ public class SectionSchema
     /**
      * Accepts visitors implementing StructureVisitor interface.
      * 
-     * @param visitor
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param
+     * @return this instance for fluent interface implementation
      */
     public SectionSchema accept( StructureVisitor visitor ) {
         visitor.visit( this );

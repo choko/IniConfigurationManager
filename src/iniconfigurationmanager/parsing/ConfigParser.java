@@ -47,8 +47,8 @@ public class ConfigParser {
     /**
      * Parses given preprocessed configuration input into configuration data.
      *
-     * @param List<ConfigLine> lines preprocessed configuration input
-     * @return ConfigurationData configuration data
+     * @param lines preprocessed configuration input
+     * @return configuration data
      * @throws ConfigParserException
      */
     public ConfigurationData parse( List<ConfigLine> lines )
@@ -77,7 +77,7 @@ public class ConfigParser {
     /**
      * Removes ; symbol and adds comment to the current comment buffer.
      *
-     * @param ConfigLine line
+     * @param line
      */
     private void parseComment( ConfigLine line ) {
         currentComment.append( line.getText().trim().substring( 1 ) );
@@ -90,7 +90,7 @@ public class ConfigParser {
      * configuration data. Also checks if the appropriate schema for this
      * sections exists.
      *
-     * @param ConfigLine line
+     * @param line
      * @throws ConfigParserException
      */
     private void parseSectionHeader( ConfigLine line )
@@ -114,8 +114,8 @@ public class ConfigParser {
     /**
      * Retrieves a section name from the line
      *
-     * @param ConfigLine line
-     * @return String section name
+     * @param line
+     * @return section name
      * @throws ConfigParserException whether the section name is not valid
      */
     private String getSectionName( ConfigLine line )
@@ -139,7 +139,7 @@ public class ConfigParser {
      * exists, values are parsed with this schema.
      * Otherwise the StringOptionData class is used.
      *
-     * @param ConfigLine line
+     * @param line
      * @throws ConfigParserException
      */
     private void parseOptionDefinition( ConfigLine line )
@@ -165,8 +165,8 @@ public class ConfigParser {
     /**
      * Retrieves an option name from the line
      *
-     * @param ConfigLine line
-     * @return String option name
+     * @param line
+     * @return option name
      * @throws ConfigParserException whether the option name is not valid
      */
     private String getOptionName( ConfigLine line )
@@ -189,7 +189,7 @@ public class ConfigParser {
      * Determines whether the given name is valid - it matches pattern
      * [a-zA-Z.:$][a-zA-Z0-9_~.:$ -]*
      *
-     * @param String name
+     * @param name
      * @return boolean
      */
     private boolean isValidName( String name ) {
@@ -202,8 +202,8 @@ public class ConfigParser {
     /**
      * Retrieve list of values from the line
      *
-     * @param ConfigLine line
-     * @return List<Object> values
+     * @param line
+     * @return values
      */
     private List<Object> getOptionValues( ConfigLine line ) {
         String[] values = splitValues( getOptionValuesDefinition( line ) );
@@ -224,8 +224,8 @@ public class ConfigParser {
     /**
      * Retrieve option values as a string from the line
      *
-     * @param ConfigLine line
-     * @return String values in string separated by , or :
+     * @param line
+     * @return values in string separated by , or :
      */
     private String getOptionValuesDefinition( ConfigLine line ) {
         String text = line.getText();
@@ -243,8 +243,8 @@ public class ConfigParser {
      * If option with the name has schema it return appropriate OptionData
      * descendant. Otherwise default StringOptionData class is used.
      *
-     * @param String name name of the option
-     * @return OptionData
+     * @param name name of the option
+     * @return 
      */
     private OptionData getOptionData( String name ) {
         if ( currentSectionSchema.hasOption( name ) ) {
@@ -258,8 +258,8 @@ public class ConfigParser {
     /**
      * Split list of values in the string using , or : delimiter.
      * 
-     * @param String values
-     * @return String[]
+     * @param values
+     * @return values as an array
      */
     private String[] splitValues( String values ) {
         return getDelimiterPattern( values ).split( values );
@@ -270,7 +270,7 @@ public class ConfigParser {
      * Returns delimiter pattern which matches the values string.
      *
      * @param values
-     * @return Pattern
+     * @return delimiter pattern
      */
     private Pattern getDelimiterPattern( String values ) {
         if ( isDelimitedByComma( values ) ) {
@@ -286,7 +286,7 @@ public class ConfigParser {
     /**
      * Returns a comment from the comment buffer and resets the buffer.
      *
-     * @return String comment
+     * @return comment
      */
     private String getComment() {
         String comment = currentComment.toString();
@@ -299,8 +299,8 @@ public class ConfigParser {
     /**
      * Returns a comment from the appropriate option schema definition.
      *
-     * @param String name Option name
-     * @return String comment in option schema
+     * @param name Option name
+     * @return comment in option schema
      */
     private String getCommentForOption( String name ) {
         if ( currentSectionSchema.hasOption( name ) ) {
@@ -314,7 +314,7 @@ public class ConfigParser {
     /**
      * Returns a comment from the current section schema
      *
-     * @return String comment in section schema
+     * @return comment in section schema
      */
     private String getCommentForCurrentSection() {
         return currentSectionSchema.getComment();
@@ -324,8 +324,8 @@ public class ConfigParser {
     /**
      *  Determines whether the given value is a link definition
      * 
-     * @param String value
-     * @return boolean
+     * @param value
+     * @return 
      */
     private boolean isLinkDefinition( String value ) {
         return value.startsWith( Format.LINK_DEFINITION_START );
@@ -335,8 +335,8 @@ public class ConfigParser {
     /**
      * Determines whether the values in the given string are delimited by comma
      *
-     * @param String values
-     * @return boolean
+     * @param values
+     * @return 
      */
     private boolean isDelimitedByComma( String values ) {
         Pattern pattern = Format.COMMA_DELIMITER_PATTERN;
@@ -348,8 +348,8 @@ public class ConfigParser {
     /**
      * Determines whether the values in the given string are delimited by colon
      *
-     * @param String values
-     * @return boolean
+     * @param values
+     * @return 
      */
     private boolean isDelimitedByColon( String values ) {
         Pattern pattern = Format.COLON_DELIMITER_PATTERN;
@@ -361,9 +361,9 @@ public class ConfigParser {
     /**
      * Determine whether the text contains occurence of the pattern
      * 
-     * @param Pattern pattern
-     * @param String text
-     * @return boolean
+     * @param pattern
+     * @param text
+     * @return
      */
     private boolean findOccurence( Pattern pattern, String text ) {
         Matcher m = pattern.matcher( text );

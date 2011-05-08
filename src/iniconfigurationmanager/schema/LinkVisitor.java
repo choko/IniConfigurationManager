@@ -26,7 +26,7 @@ public class LinkVisitor<T>
      * Adds the option to the entered options for determining, whether the links
      * make a cycle.
      *
-     * @param OptionData option
+     * @param option
      */
     public void enter( OptionData option ) {
         if ( enteredOptions.contains( option ) ) {
@@ -41,7 +41,7 @@ public class LinkVisitor<T>
     /**
      * Adds the value to the values list.
      * 
-     * @param Object value
+     * @param value
      */
     public void visit( Object value ) {
         values.add( (T) value );
@@ -51,7 +51,7 @@ public class LinkVisitor<T>
     /**
      * Removes the option from the entered options.
      *
-     * @param OptionData option
+     * @param option
      */
     public void leave( OptionData option ) {
         enteredOptions.remove( option );
@@ -61,7 +61,7 @@ public class LinkVisitor<T>
     /**
      * Returns values that are linked by this link
      * 
-     * @return List<T>
+     * @return<T>
      */
     public List<T> getValues() {
         return values;

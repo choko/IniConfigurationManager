@@ -21,7 +21,7 @@ public class ConfigPrinterVisitor
     /**
      * Sets whether the option with defaults values has to be printed
      *
-     * @param boolean printDefaults
+     * @param printDefaults
      */
     public void setPrintDefaults( boolean printDefaults ) {
         this.printDefaults = printDefaults;
@@ -31,7 +31,7 @@ public class ConfigPrinterVisitor
     /**
      * Adds option's definition in a string to the string buffer.
      * 
-     * @param OptionData option
+     * @param option
      */
     public void visit( OptionData option ) {
         if ( !this.printDefaults && option.hasOnlyDefaultValues() ) {
@@ -45,7 +45,7 @@ public class ConfigPrinterVisitor
     /**
      * Does nothing. It is not necessary when writing a configuration data.
      *
-     * @param OptionSchema option
+     * @param option
      */
     public void visit( OptionSchema option ) {
         return;
@@ -55,7 +55,7 @@ public class ConfigPrinterVisitor
     /**
      * Adds section's header in a string to the string buffer.
      *
-     * @param SectionData section
+     * @param section
      */
     public void visit( SectionData section ) {
         this.sb.append( section.toString() );
@@ -65,7 +65,7 @@ public class ConfigPrinterVisitor
     /**
      * Does nothing. It is not necessary when writing a configuration data.
      *
-     * @param SectionSchema section
+     * @param section
      */
     public void visit( SectionSchema section ) {
         return;
@@ -75,7 +75,7 @@ public class ConfigPrinterVisitor
     /**
      * Initializes string buffer for the given configuration data.
      *
-     * @param ConfigurationData data
+     * @param data
      */
     public void visit( ConfigurationData data ) {
         this.sb = new StringBuilder();

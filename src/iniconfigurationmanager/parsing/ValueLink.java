@@ -29,8 +29,8 @@ public class ValueLink {
     /**
      * Retrieves a section name from the given link.
      *
-     * @param String link
-     * @return String section name
+     * @param link
+     * @return section name
      */
     private String getSectionName( String link ) {
         return link.substring( 2, link.indexOf( "#" ) );
@@ -40,8 +40,8 @@ public class ValueLink {
     /**
      * Retrieves a option name from the given link.
      * 
-     * @param String link
-     * @return String option name
+     * @param link
+     * @return option name
      */
     private String getOptionName( String link ) {
         return link.substring( link.indexOf( "#" ) + 1, link.length() - 1 );
@@ -52,8 +52,8 @@ public class ValueLink {
      * Retrieves values from the linked option
      * 
      * @param <T> a type to which the values has to be casted
-     * @param type instance of the type
-     * @return List<T> list of values
+     * @param instance of the type
+     * @return list of values
      */
     public <T> List<T> getValues( T type ) {
         LinkVisitor<T> visitor = new LinkVisitor<T>();
@@ -66,7 +66,7 @@ public class ValueLink {
     /**
      * Returns linked section's data
      *
-     * @return SectionData linked section's data
+     * @return linked section's data
      */
     public SectionData getLinkedSection() {
         if ( configuration.hasSection( sectionName ) ) {
@@ -81,7 +81,7 @@ public class ValueLink {
     /**
      * Returns linked option's data
      * 
-     * @return OptionData linked option's data
+     * @return linked option's data
      */
     public OptionData getLinkedOption() {
         SectionData section = getLinkedSection();

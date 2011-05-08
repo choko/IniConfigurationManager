@@ -33,8 +33,8 @@ public class ConfigReader {
     /**
      * Reads a configuration data from the file.
      *
-     * @param File file input file
-     * @return ConfigurationData configuration data
+     * @param file input file
+     * @return configuration data
      * @throws FileNotFoundException whether the given file doesn't exist
      * @throws ConfigParserException whether the error occured during parsing
      */
@@ -47,8 +47,8 @@ public class ConfigReader {
     /**
      * Reads a configuration data from the input stream.
      * 
-     * @param InputStream stream input stream
-     * @return ConfigurationData configuration data
+     * @param stream input stream
+     * @return configuration data
      * @throws ConfigParserException whether the error occured during parsing
      */
     public ConfigurationData readFromInputStream( InputStream stream )
@@ -60,8 +60,8 @@ public class ConfigReader {
     /**
      * Reads a configuration data from the string
      * 
-     * @param String string input string
-     * @return ConfigurationData configuration data
+     * @param string input string
+     * @return configuration data
      * @throws ConfigParserException whether the error occured during parsing
      */
     public ConfigurationData readFromString( String string )
@@ -74,8 +74,8 @@ public class ConfigReader {
      * Reads all lines from the given reader. Creates list of lines represented
      * by ConfigLine and parse it by using ConfigParser.
      * 
-     * @param Reader reader input reader
-     * @return ConfigurationData configuration data
+     * @param reader input reader
+     * @return configuration data
      * @throws ConfigParserException whether the error occured during parsing
      */
     private ConfigurationData read( Reader reader )

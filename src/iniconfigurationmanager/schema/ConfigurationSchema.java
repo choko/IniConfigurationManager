@@ -22,9 +22,9 @@ public class ConfigurationSchema
     /**
      * Adds section to the sections list.
      *
-     * @param String name section name
-     * @param SectionSchema section
-     * @return ConfigurationSchema this instance for fluent interface
+     * @param section name
+     * @param section
+     * @return this instance for fluent interface
      * @throws InvalidOperationException whether the section already exists
      * @throws IllegalArgumentException whether the section is null
      */
@@ -49,8 +49,8 @@ public class ConfigurationSchema
     /**
      * Determines whether a section with the name exists.
      *
-     * @param String name section name
-     * @return boolean
+     * @param name section name
+     * @return
      */
     public boolean hasSection( String name ) {
         return sections.containsKey( name );
@@ -60,8 +60,8 @@ public class ConfigurationSchema
     /**
      * Return section with the given name.
      *
-     * @param String name section name
-     * @return SectionSchema
+     * @param name section name
+     * @return
      * @throws IllegalArgumentException whether section doesn't exist
      */
     public SectionSchema getSection( String name ) {
@@ -77,8 +77,8 @@ public class ConfigurationSchema
     /**
      * Removes section from the sections list.
      *
-     * @param String name section name
-     * @return ConfigurationSchema this instance for fluent interface
+     * @param name section name
+     * @return this instance for fluent interface
      */
     public ConfigurationSchema removeSection( String name ) {
         sections.remove( name );
@@ -90,7 +90,7 @@ public class ConfigurationSchema
     /**
      * Returns iterator for iterating over section's schemas.
      *
-     * @return Iterator<SectionSchema>
+     * @return<SectionSchema>
      */
     public Iterator<SectionSchema> iterator() {
         return sections.values().iterator();
@@ -100,8 +100,8 @@ public class ConfigurationSchema
     /**
      * Accepts visitors implementing StructureVisitor pattern
      *
-     * @param StructureVisitor visitor
-     * @return ConfigurationSchema this instance for fluent interface
+     * @param visitor
+     * @return this instance for fluent interface
      */
     public ConfigurationSchema accept( StructureVisitor visitor ) {
         for ( SectionSchema section : sections.values() ) {

@@ -31,8 +31,8 @@ public class SectionData
     /**
      * Sets name of this section.
      *
-     * @param String name
-     * @return SectionData this instance for fluent interface implementation
+     * @param name
+     * @return this instance for fluent interface implementation
      */
     protected SectionData setName( String name ) {
         this.name = name;
@@ -44,7 +44,7 @@ public class SectionData
     /**
      * Returns name of this section.
      *
-     * @return String
+     * @return
      */
     public String getName() {
         return name;
@@ -55,8 +55,8 @@ public class SectionData
      * Sets comment for this section data by merging comment from the section
      * schema and from the configuration input.
      *
-     * @param String comment
-     * @return SectionData this instance for fluent interface implementation
+     * @param comment
+     * @return this instance for fluent interface implementation
      */
     public SectionData setComment( String schemaComment, String inputComment ) {
         StringBuilder sb = new StringBuilder();
@@ -73,7 +73,7 @@ public class SectionData
     /**
      * Determines whether this section has a comment.
      *
-     * @return boolean
+     * @return
      */
     public boolean hasComment() {
         return !comment.trim().isEmpty();
@@ -83,8 +83,8 @@ public class SectionData
     /**
      * Sets configuration that this section belongs to
      * 
-     * @param ConfigurationData configuration
-     * @return SectionData this instance for fluent interface implementation
+     * @param configuration
+     * @return this instance for fluent interface implementation
      */
     protected SectionData setConfiguration( ConfigurationData configuration ) {
         this.configuration = configuration;
@@ -96,9 +96,9 @@ public class SectionData
     /**
      * Adds option to this options list.
      *
-     * @param String name
-     * @param String option
-     * @return SectionData this instance for fluent interface implementation
+     * @param name
+     * @param option
+     * @return this instance for fluent interface implementation
      * @throws InvalidOperationException whether the option already exists
      * @throws IllegalArgumentException whether the option is null
      */
@@ -125,8 +125,8 @@ public class SectionData
     /**
      * Determines whether the option exists.
      *
-     * @param String name
-     * @return boolean
+     * @param name
+     * @return
      */
     public boolean hasOption( String name ) {
         return options.containsKey( name );
@@ -136,8 +136,8 @@ public class SectionData
     /**
      * Removes option from the options list.
      *
-     * @param String name
-     * @return SectionData this instance for fluent interface implementation
+     * @param name
+     * @return this instance for fluent interface implementation
      */
     public SectionData removeOption( String name ) {
         options.remove( name );
@@ -149,8 +149,8 @@ public class SectionData
     /**
      * Returns option with the name.
      *
-     * @param String name
-     * @return OptionData
+     * @param name
+     * @return
      * @throws IllegalArgumentException whether the option doesn't exist
      */
     public OptionData getOption( String name ) {
@@ -166,7 +166,7 @@ public class SectionData
     /**
      * Returns iterator for iterating over option's schemas
      *
-     * @return Iterator<OptionSchema>
+     * @return<OptionSchema>
      */
     public Iterator<OptionData> iterator() {
         return options.values().iterator();
@@ -176,8 +176,8 @@ public class SectionData
     /**
      * Accepts visitors implementing StructureVisitor interface.
      *
-     * @param visitor
-     * @return SectionSchema this instance for fluent interface implementation
+     * @param
+     * @return this instance for fluent interface implementation
      */
     public SectionData accept( StructureVisitor visitor ) {
         visitor.visit( this );
@@ -193,7 +193,7 @@ public class SectionData
     /**
      * Prints this section to the string.
      *
-     * @return String
+     * @return
      */
     @Override
     public String toString() {

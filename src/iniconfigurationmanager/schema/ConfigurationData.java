@@ -26,9 +26,9 @@ public class ConfigurationData
     /**
      * Loads configuration from the string by parsing it against the schema.
      *
-     * @param ConfigurationSchema schema
-     * @param String string input string
-     * @return ConfigurationData configuration data
+     * @param schema
+     * @param string input string
+     * @return configuration data
      * @throws ConfigParserException whether the error occured during parsing
      */
     public static ConfigurationData loadFromString( ConfigurationSchema schema,
@@ -41,9 +41,9 @@ public class ConfigurationData
     /**
      * Loads configuration from the file by parsing it against the schema.
      *
-     * @param schema
-     * @param file
-     * @return ConfigurationData configuration data
+     * @param
+     * @param
+     * @return configuration data
      * @throws FileNotFoundException whether the file doesn't exist
      * @throws ConfigParserException whether the error occured during parsing
      */
@@ -58,9 +58,9 @@ public class ConfigurationData
      * Loads configuration from the input stream by parsing it against the
      * schema.
      *
-     * @param ConfigurationSchema schema
-     * @param String string input string
-     * @return ConfigurationData configuration data
+     * @param schema
+     * @param string input string
+     * @return configuration data
      * @throws ConfigParserException whether the error occured during parsing
      */
     public static ConfigurationData loadFromInputStream(
@@ -73,8 +73,8 @@ public class ConfigurationData
     /**
      * Returns reader for the configuration schema
      *
-     * @param ConfigurationSchema schema
-     * @return ConfigReader
+     * @param schema
+     * @return
      */
     private static ConfigReader getReader( ConfigurationSchema schema ) {
         ConfigParser parser = new ConfigParser(
@@ -92,8 +92,8 @@ public class ConfigurationData
     /**
      * Saves configuration data to the file
      *
-     * @param String path output file path
-     * @param printDefaults
+     * @param path output file path
+     * @param
      * @throws IOException
      */
     public void saveToFile( String path, boolean printDefaults )
@@ -105,8 +105,8 @@ public class ConfigurationData
     /**
      * Saves configuration data to the output stream
      *
-     * @param OutputStream stream
-     * @param printDefaults
+     * @param stream
+     * @param
      * @throws IOException
      */
     public void saveToOuputStream( OutputStream stream, boolean printDefaults )
@@ -119,7 +119,7 @@ public class ConfigurationData
      * Set schema for this instance. Schema can be set only once. It is set
      * during parsing.
      *
-     * @param ConfigurationSchema schema
+     * @param schema
      * @return
      * @throws InvalidOperationException whether the schema is already set
      */
@@ -138,7 +138,7 @@ public class ConfigurationData
     /**
      * Returns configuration schema of this instance.
      * 
-     * @return ConfigurationSchema
+     * @return
      */
     public ConfigurationSchema getSchema() {
         return schema;
@@ -148,9 +148,9 @@ public class ConfigurationData
     /**
      * Adds section to the sections list.
      * 
-     * @param String name section name
-     * @param SectionData section
-     * @return ConfigurationData this instance for fluent interface
+     * @param name section name
+     * @param section
+     * @return this instance for fluent interface
      * @throws InvalidOperationException whether the section already exists
      * @throws IllegalArgumentException whether the section is null
      */
@@ -176,8 +176,8 @@ public class ConfigurationData
     /**
      * Determines whether a section with the name exists.
      *
-     * @param String name section name
-     * @return boolean
+     * @param name section name
+     * @return
      */
     public boolean hasSection( String name ) {
         return sections.containsKey( name );
@@ -187,8 +187,8 @@ public class ConfigurationData
     /**
      * Return section with the given name.
      * 
-     * @param String name section name
-     * @return SectionData
+     * @param name section name
+     * @return
      * @throws IllegalArgumentException whether section doesn't exist
      */
     public SectionData getSection( String name ) {
@@ -204,8 +204,8 @@ public class ConfigurationData
     /**
      * Removes section from the sections list.
      *
-     * @param String name section name
-     * @return ConfigurationData this instance for fluent interface
+     * @param name section name
+     * @return this instance for fluent interface
      */
     public ConfigurationData removeSection( String name ) {
         sections.remove( name );
@@ -217,8 +217,8 @@ public class ConfigurationData
     /**
      * Prints this instance into a string by using ConfigPrinterVisitor.
      * 
-     * @param boolean printDefaults
-     * @return String
+     * @param printDefaults
+     * @return
      */
     public String toString( boolean printDefaults ) {
         ConfigPrinterVisitor visitor = new ConfigPrinterVisitor();
@@ -232,7 +232,7 @@ public class ConfigurationData
     /**
      * Returns iterator for iterating over section's datas.
      *
-     * @return Iterator<SectionData>
+     * @return<SectionData>
      */
     public Iterator<SectionData> iterator() {
         return sections.values().iterator();
@@ -242,8 +242,8 @@ public class ConfigurationData
     /**
      * Accepts visitors implementing StructureVisitor pattern.
      *
-     * @param StructureVisitor visitor
-     * @return ConfigurationData this instance for fluent interface
+     * @param visitor
+     * @return this instance for fluent interface
      */
     public ConfigurationData accept( StructureVisitor visitor ) {
         schema.accept( visitor );

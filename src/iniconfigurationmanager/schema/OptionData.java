@@ -32,8 +32,8 @@ public abstract class OptionData {
     /**
      * Sets name of this option
      * 
-     * @param String name
-     * @return OptionData this instance for fluent interface
+     * @param name
+     * @return this instance for fluent interface
      */
     protected OptionData setName( String name ) {
         this.name = name;
@@ -45,8 +45,8 @@ public abstract class OptionData {
     /**
      * Sets name of section that this option belongs to
      *
-     * @param String sectionName
-     * @return OptionData this instance for fluent interface
+     * @param sectionName
+     * @return this instance for fluent interface
      */
     protected OptionData setSectionName( String sectionName ) {
         this.sectionName = sectionName;
@@ -58,8 +58,8 @@ public abstract class OptionData {
     /**
      * Sets configuration data that this option belongs to
      *
-     * @param configuration
-     * @return OptionData this instance for fluent interface
+     * @param
+     * @return this instance for fluent interface
      */
     protected OptionData setConfiguration( ConfigurationData configuration ) {
         this.configuration = configuration;
@@ -72,9 +72,9 @@ public abstract class OptionData {
      * Sets comment for this option by merging the comment from the schema and
      * the comment from the configuration input.
      * 
-     * @param String schemaComment
-     * @param String inputComment
-     * @return OptionData this instance for fluent interface
+     * @param schemaComment
+     * @param inputComment
+     * @return this instance for fluent interface
      */
     public OptionData setComment( String schemaComment, String inputComment ) {
         StringBuilder sb = new StringBuilder();
@@ -100,7 +100,7 @@ public abstract class OptionData {
     /**
      * Returns name of this option
      * 
-     * @return String
+     * @return
      */
     public String getName() {
         return name;
@@ -110,7 +110,7 @@ public abstract class OptionData {
     /**
      * Returns name of the section that this option belongs to
      * 
-     * @return String
+     * @return
      */
     public String getSectionName() {
         return sectionName;
@@ -121,7 +121,7 @@ public abstract class OptionData {
      * Returns canonical name of this option. It's a string in
      * section_name#option_name format.
      * 
-     * @return String
+     * @return
      */
     public String getCanonicalName() {
         return String.format( Format.OPTION_CANONICAL_NAME_FORMAT,
@@ -132,7 +132,7 @@ public abstract class OptionData {
     /**
      * Return ValueLink to this option
      * 
-     * @return ValueLink
+     * @return
      */
     public ValueLink getOptionLink() {
         return new ValueLink( getCanonicalName(), configuration );
@@ -142,7 +142,7 @@ public abstract class OptionData {
     /**
      * Sets values of this option to empty list.
      *
-     * @return OptionData this instance for fluent interface
+     * @return this instance for fluent interface
      */
     public OptionData clear() {
         values.clear();
@@ -157,8 +157,8 @@ public abstract class OptionData {
      * RawValue is parsed by parseValue method and then added.
      * The rest is casted to the type defined by geValueClass and then added.
      * 
-     * @param Object value
-     * @return OptionData this instance for fluent interface
+     * @param value
+     * @return this instance for fluent interface
      */
     public OptionData addValue( Object value ) {
         if ( value instanceof ValueLink ) {
@@ -177,8 +177,8 @@ public abstract class OptionData {
      * Sets this values list to the value by clearing that list by clear()
      * method and then adding this value by addValue() method.
      * 
-     * @param Object value
-     * @return OptionData this instance for fluent interface
+     * @param value
+     * @return this instance for fluent interface
      */
     public OptionData setValue( Object value ) {
         clear();
@@ -192,8 +192,8 @@ public abstract class OptionData {
      * Sets this values list to the values by clearing that list by clear()
      * method and then adding every value from values by addValue() method.
      *
-     * @param List<Object> values
-     * @return OptionData this instance for fluent interface
+     * @param<Object> values
+     * @return this instance for fluent interface
      */
     public OptionData setValues( List<Object> values ) {
         clear();
@@ -208,7 +208,7 @@ public abstract class OptionData {
     /**
      * Return first value of the values list.
      *
-     * @return Object
+     * @return
      */
     public Object getValue() {
         return values.iterator().next();
@@ -218,9 +218,9 @@ public abstract class OptionData {
     /**
      * Return first value of the values list casted to the T type.
      *
-     * @param <T> type to which the value has to be casted.
-     * @param type instance of the T
-     * @return T 
+     * @param<T> type to which the value has to be casted.
+     * @param instance of the T
+     * @return
      */
     public <T> T getValue( T type ) {
         return (T) getValue();
@@ -230,7 +230,7 @@ public abstract class OptionData {
     /**
      * Returns values as list of Object
      * 
-     * @return List<Object>
+     * @return<Object>
      */
     public List<Object> getValues() {
         return getValues( new Object() );
@@ -240,9 +240,9 @@ public abstract class OptionData {
     /**
      * Returns values as a list of objects casted to T type
      *
-     * @param <T> type to which the value has to be casted.
-     * @param type instance of the T
-     * @return List<T>
+     * @param<T> type to which the value has to be casted.
+     * @param instance of the T
+     * @return<T>
      */
     public <T> List<T> getValues( T type ) {
         if ( !typeMatches( type ) ) {
@@ -267,9 +267,9 @@ public abstract class OptionData {
      * Determine whether the given type mathes with type defined by 
      * getValueClass()
      * 
-     * @param <T> type to which the value has to be casted.
-     * @param type instance of the T
-     * @return boolean
+     * @param<T> type to which the value has to be casted.
+     * @param instance of the T
+     * @return
      */
     private <T> boolean typeMatches( T type ) {
         return type.getClass().isAssignableFrom( getValueClass() );
@@ -279,8 +279,8 @@ public abstract class OptionData {
     /**
      * Accepts visitors implementing StructureVisitor pattern
      *
-     * @param StructureVisitor visitor
-     * @return OptionData this instance for fluent interface
+     * @param visitor
+     * @return this instance for fluent interface
      */
     public OptionData accept( StructureVisitor visitor ) {
         visitor.visit( this );
@@ -292,8 +292,8 @@ public abstract class OptionData {
     /**
      * Accepts visitors implementing ValuesVisitor pattern
      *
-     * @param visitor
-     * @return OptionData this instance for fluent interface
+     * @param
+     * @return this instance for fluent interface
      */
     public OptionData accept( ValuesVisitor visitor ) {
         visitor.enter( this );
@@ -316,7 +316,7 @@ public abstract class OptionData {
     /**
      * Determines whether this option has only default values.
      *
-     * @return boolean
+     * @return
      */
     public boolean hasOnlyDefaultValues() {
         ConfigurationSchema schema = configuration.getSchema();
@@ -342,9 +342,9 @@ public abstract class OptionData {
     /**
      * Determines whether the given lists are equal.
      *
-     * @param List defaultValues
-     * @param List<Object> values
-     * @return boolean
+     * @param defaultValues
+     * @param<Object> values
+     * @return
      */
     private boolean containsSameValues(
             List defaultValues, List<Object> values ) {
@@ -368,7 +368,7 @@ public abstract class OptionData {
     /**
      * Prints values to the list separated by ,
      *
-     * @return String
+     * @return
      */
     private String valuesToString() {
         StringBuilder sb = new StringBuilder();
@@ -392,7 +392,7 @@ public abstract class OptionData {
      * Returns class reflection of a type that represents this option's values
      * type.
      * 
-     * @return Class
+     * @return
      */
     protected abstract Class getValueClass();
 
@@ -401,8 +401,8 @@ public abstract class OptionData {
      * Parses value into object that is compatible with type defined by
      * getValueClass().
      * 
-     * @param RawValue value
-     * @return Object
+     * @param value
+     * @return
      */
     protected abstract Object parseValue( RawValue value );
 
@@ -410,8 +410,8 @@ public abstract class OptionData {
     /**
      * Prints given value to string.
      * 
-     * @param Object value
-     * @return String
+     * @param value
+     * @return
      */
     protected abstract String valueToString( Object value );
 }

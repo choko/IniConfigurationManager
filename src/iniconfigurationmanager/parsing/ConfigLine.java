@@ -15,7 +15,7 @@ public class ConfigLine {
     /**
      * Returns text of the line
      *
-     * @return String text of the line
+     * @return text of the line
      */
     public String getText() {
         return text;
