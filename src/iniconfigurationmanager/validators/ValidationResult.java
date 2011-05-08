@@ -28,7 +28,7 @@ public class ValidationResult {
     }
 
 
-    public boolean getResult() {
+    public boolean isOk() {
         return this.result;
     }
 
@@ -45,7 +45,7 @@ public class ValidationResult {
 
     public void mergeResults( ValidationResult result ) {
         this.errorMsgs.addAll( result.getErrorMsgs() );
-        this.result = result.getResult();
+        this.result = result.isOk();
     }
 
     // Rules error msgs
