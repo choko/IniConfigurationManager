@@ -36,13 +36,13 @@ private class UnsignedInt64 {
 
     private BigInteger uint64;
 
-    public UnsignedInt64( String string ) throws ConfigParserException {
+    public UnsignedInt64( String string ) {
         BigInteger rawUint64 = new BigInteger(string);
         if ( rawUint64.equals(rawUint64.min( BigInteger.TEN.not() ) )  ) {
             uint64 = rawUint64;
         } else {
-            throw new ConfigParserException(
-                    ConfigParserError.INPUT_ERROR, null );
+            throw new ClassCastException();
+
         }
 
     }

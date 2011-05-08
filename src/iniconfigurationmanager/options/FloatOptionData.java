@@ -27,8 +27,7 @@ public class FloatOptionData extends  OptionData {
             floatValue = Float.parseFloat( value.getValue() );
 
         } catch (Exception e) {
-            throw new ConfigParserException(
-                    ConfigParserError.INPUT_ERROR, null );
+            throw new ClassCastException();
         }
         return  Float.parseFloat( value.getValue() );
     }

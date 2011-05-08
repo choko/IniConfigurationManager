@@ -44,14 +44,10 @@ public class BooleanOptionData extends OptionData {
          return true;
         }
         } catch (Exception e) {
-            throw new ConfigParserException(
-                            ConfigParserError.TYPE_PARSING_EXCEPTION,null );
+            throw new  ClassCastException();
         }
- 
-        
 
-       
-
+        return true;
     }
 
     public String valueToString(Object value) {

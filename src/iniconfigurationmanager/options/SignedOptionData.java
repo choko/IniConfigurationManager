@@ -5,8 +5,6 @@
 
 package iniconfigurationmanager.options;
 
-import iniconfigurationmanager.parsing.ConfigParserError;
-import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 
@@ -24,13 +22,9 @@ public class SignedOptionData  extends OptionData {
 
     public Object parseValue(RawValue value) {
         try {
-            long longValue;
-            rawStringvalue = value.getValue();
-            longValue = Long.decode( value.getValue() );
-            return  longValue;
+            return Long.decode( value.getValue() );
         } catch (Exception e) {
-            throw new ConfigParserException(
-                    ConfigParserError.INPUT_ERROR,null);
+            throw new ClassCastException();
         }
          
       
@@ -39,7 +33,7 @@ public class SignedOptionData  extends OptionData {
     public String valueToString(Object value) {
       Long longValue = (Long) value;
       if ( isHexFormat( rawStringvalue ) ) {
-          return  Long.toHexString( longValue );
+          return Long.toOctalString( longValue );
       }
 
       if ( isOCtaFormat( rawStringvalue ) ) {
