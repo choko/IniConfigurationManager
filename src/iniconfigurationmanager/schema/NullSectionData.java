@@ -3,8 +3,9 @@ package iniconfigurationmanager.schema;
 import iniconfigurationmanager.utils.InvalidOperationException;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * NullSectionData implements Null object pattern. It is used for handling
+ * special cases during the parsing of a configuration input. Specially when the
+ * is no defined section schema.
  */
 public class NullSectionData
         extends SectionData {

@@ -1,49 +1,68 @@
 package iniconfigurationmanager.schema;
 
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.ValuesVisitor;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * LinkVisitor is implementation of ValuesVisitor interface, it is used for
+ * retrieving data of a value link.
  */
 public class LinkVisitor<T>
         implements ValuesVisitor {
 
-    private HashSet<OptionData> enteredConfigOptions;
+    private HashSet<OptionData> enteredOptions;
 
     private List<T> values;
 
 
     public LinkVisitor() {
-        this.enteredConfigOptions = new HashSet<OptionData>();
+        this.enteredOptions = new HashSet<OptionData>();
         this.values = new LinkedList<T>();
     }
 
 
+    /**
+     * Adds the option to the entered options for determining, whether the links
+     * make a cycle.
+     *
+     * @param OptionData option
+     */
     public void enter( OptionData option ) {
-        if ( enteredConfigOptions.contains( option ) ) {
-            throw new OutOfMemoryError( String.format(
+        if ( enteredOptions.contains( option ) ) {
+            throw new IllegalStateException( String.format(
                     SchemaError.CYCLIC_LINK.getMessage() ) );
         }
 
-        enteredConfigOptions.add( option );
+        enteredOptions.add( option );
     }
 
 
+    /**
+     * Adds the value to the values list.
+     * 
+     * @param Object value
+     */
     public void visit( Object value ) {
         values.add( (T) value );
     }
 
 
+    /**
+     * Removes the option from the entered options.
+     *
+     * @param OptionData option
+     */
     public void leave( OptionData option ) {
-        enteredConfigOptions.remove( option );
+        enteredOptions.remove( option );
     }
 
 
+    /**
+     * Returns values that are linked by this link
+     * 
+     * @return List<T>
+     */
     public List<T> getValues() {
         return values;
     }

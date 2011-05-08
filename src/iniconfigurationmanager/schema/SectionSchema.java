@@ -6,8 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * SectionSchema represents section's schema in the configuration schema.
  */
 public class SectionSchema
         implements Iterable<OptionSchema> {
@@ -28,6 +27,12 @@ public class SectionSchema
     }
 
 
+    /**
+     * Sets name of this section.
+     *
+     * @param String name
+     * @return SectionSchema this instance for fluent interface implementation
+     */
     protected SectionSchema setName( String name ) {
         this.name = name;
 
@@ -35,11 +40,21 @@ public class SectionSchema
     }
 
 
+    /**
+     * Returns name of this section.
+     * 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
 
+    /**
+     * Sets this section required.
+     *
+     * @return SectionSchema this instance for fluent interface implementation
+     */
     public SectionSchema setReguired() {
         this.required = true;
 
@@ -47,6 +62,22 @@ public class SectionSchema
     }
 
 
+    /**
+     * Determines whether this section is required.
+     * 
+     * @return boolean
+     */
+    public boolean isRequired() {
+        return this.required;
+    }
+
+
+    /**
+     * Sets comment for this section schema.
+     *
+     * @param String comment
+     * @return SectionSchema this instance for fluent interface implementation
+     */
     public SectionSchema setComment( String comment ) {
         this.comment = comment;
 
@@ -54,16 +85,25 @@ public class SectionSchema
     }
 
 
+    /**
+     * Returns comment of this section.
+     *
+     * @return String
+     */
     public String getComment() {
         return this.comment;
     }
 
 
-    public boolean isRequired() {
-        return this.required;
-    }
-
-
+    /**
+     * Adds option to this options list.
+     *
+     * @param String name
+     * @param String option
+     * @return SectionSchema this instance for fluent interface implementation
+     * @throws InvalidOperationException whether the option already exists
+     * @throws IllegalArgumentException whether the option is null
+     */
     public SectionSchema addOption( String name, OptionSchema option ) {
         if ( hasOption( name ) ) {
             throw new InvalidOperationException( String.format(
@@ -83,11 +123,23 @@ public class SectionSchema
     }
 
 
+    /**
+     * Determines whether the option exists.
+     *
+     * @param String name
+     * @return boolean
+     */
     public boolean hasOption( String name ) {
         return options.containsKey( name );
     }
 
 
+    /**
+     * Removes option from the options list.
+     * 
+     * @param String name
+     * @return SectionSchema this instance for fluent interface implementation
+     */
     public SectionSchema removeOption( String name ) {
         options.remove( name );
 
@@ -95,21 +147,46 @@ public class SectionSchema
     }
 
 
+    /**
+     * Returns option with the name.
+     * 
+     * @param String name
+     * @return OptionSchema
+     * @throws IllegalArgumentException whether the option doesn't exist
+     */
     public OptionSchema getOption( String name ) {
+        if ( !hasOption( name ) ) {
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.UNDEFINED_OPTION_SCHEMA.getMessage(), name ) );
+        }
+
         return options.get( name );
     }
 
 
+    /**
+     * Returns iterator for iterating over option's schemas
+     * 
+     * @return Iterator<OptionSchema>
+     */
     public Iterator<OptionSchema> iterator() {
         return options.values().iterator();
     }
 
 
-    public void accept( StructureVisitor visitor ) {
+    /**
+     * Accepts visitors implementing StructureVisitor interface.
+     * 
+     * @param visitor
+     * @return SectionSchema this instance for fluent interface implementation
+     */
+    public SectionSchema accept( StructureVisitor visitor ) {
         visitor.visit( this );
 
         for ( OptionSchema option : options.values() ) {
             option.accept( visitor );
         }
+
+        return this;
     }
 }
