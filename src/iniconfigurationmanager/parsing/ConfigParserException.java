@@ -1,8 +1,8 @@
 package iniconfigurationmanager.parsing;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ConfigurationParserException represents errors which can occur durin parsing
+ * configuration input.
  */
 public class ConfigParserException
         extends Exception {
