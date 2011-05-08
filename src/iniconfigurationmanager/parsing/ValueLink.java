@@ -9,6 +9,7 @@ import iniconfigurationmanager.schema.LinkVisitor;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.SectionData;
 import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.SchemaError;
 import java.util.List;
 
 /**
@@ -53,7 +54,8 @@ public class ValueLink {
         if( configuration.hasSection( sectionName ) ) {
             return configuration.getSection( sectionName );
         } else {
-            return null; //@throws error
+            throw new IllegalStateException( String.format(
+                    SchemaError.NULL_SECTION_DATA.getMessage(), sectionName ) );
         }
     }
 
@@ -63,7 +65,8 @@ public class ValueLink {
         if( section.hasOption( optionName ) ) {
             return section.getOption( optionName );
         } else {
-            return null; //@throws error
+            throw new IllegalStateException( String.format(
+                    SchemaError.NULL_OPTION_DATA.getMessage(), optionName ) );
         }
     }
 
