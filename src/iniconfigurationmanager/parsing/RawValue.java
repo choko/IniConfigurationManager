@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package iniconfigurationmanager.parsing;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * RawValue represents raw value retrieved from the configuration input.
  */
 public class RawValue {
 

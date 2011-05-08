@@ -3,8 +3,8 @@ package iniconfigurationmanager.parsing;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * Format unites strings and patterns which defines format of the configuration
+ * input and output.
  */
 public class Format {
 
