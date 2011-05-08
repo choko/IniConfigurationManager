@@ -1,5 +1,5 @@
 
-package iniconfigurationmanager.utils;
+package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.OptionData;
