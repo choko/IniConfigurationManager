@@ -7,7 +7,7 @@ package iniconfigurationmanager.options;
  * In addition, this class provides method for
  * parsing a <code>RawValue</code> to a <code>boolean</code>,
  * method for returnig class of <code>BooleanOptionData</code>
- * parsning method and valueToString method that returns <code>string</code>
+ * parsing method and valueToString method that returns <code>string</code>
  */
 
 import iniconfigurationmanager.parsing.RawValue;
@@ -28,6 +28,7 @@ public class BooleanOptionData
      * The <code>getValueClass</code> method return <code>Class</code> of witch
      * is result of parsing
      */
+    @Override
     public Class getValueClass() {
         return Boolean.class;
     }
@@ -38,6 +39,7 @@ public class BooleanOptionData
      * value to the <code>boolean</code> value. It can parse all valid
      * meaning of true or false
      */
+    @Override
     public Object parseValue( RawValue value ) {
         rawBoolean = value.getValue();
         try {
@@ -72,6 +74,7 @@ public class BooleanOptionData
      * Its return <code>String</code> from value in same syntax as original
      * unparsed string-value
      */
+    @Override
     public String valueToString( Object value ) {
         if ( (Boolean) value ) {
             return getFormatedTrue( rawBoolean );
