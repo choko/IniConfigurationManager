@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package iniconfigurationmanager.utils;
 
 /**
- *
- * @author KlonK
+ * NumberUtils unites usefull methods for working with numbers.
  */
 public class NumberUtils {
 
@@ -17,17 +12,35 @@ public class NumberUtils {
     public static String BINARYPREFIX = "0";
 
 
-    public boolean isHexFormat( String string ) {
-        return string.startsWith( HEXPREFIX );
+    /**
+     * Determines whether the given number is in hexadecimal format.
+     *
+     * @param String number
+     * @return boolean
+     */
+    public boolean isHexFormat( String number ) {
+        return number.startsWith( HEXPREFIX );
     }
 
 
-    public boolean isOCtaFormat( String string ) {
-        return string.startsWith( OCTAPREFIX );
+    /**
+     * Determines whether the given number is in octal format.
+     *
+     * @param String number
+     * @return boolean
+     */
+    public boolean isOctaFormat( String number ) {
+        return number.startsWith( OCTAPREFIX );
     }
 
 
-    public boolean isBinaryFormat( String string ) {
-        return string.startsWith( BINARYPREFIX );
+    /**
+     * Determines whether the given number is in binary format.
+     *
+     * @param String number
+     * @return boolean
+     */
+    public boolean isBinaryFormat( String format ) {
+        return format.startsWith( BINARYPREFIX );
     }
 }

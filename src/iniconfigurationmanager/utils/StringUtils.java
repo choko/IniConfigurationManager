@@ -3,11 +3,16 @@ package iniconfigurationmanager.utils;
 import iniconfigurationmanager.parsing.Format;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * StringUtils unites usefull methods for working with strings.
  */
 public class StringUtils {
 
+    /**
+     * Trims unescaped whitespaces from the start and from the end of the text.
+     *
+     * @param String text
+     * @return String
+     */
     public static String trim( String text ) {
         String trimmedText = text.trim();
 
@@ -19,6 +24,12 @@ public class StringUtils {
     }
 
 
+    /**
+     * Trims inline comments from the line.
+     * 
+     * @param String line
+     * @return String
+     */
     public static String trimInlineComments( String line ) {
         int length = line.length();
         char last = ' ';
@@ -37,6 +48,13 @@ public class StringUtils {
     }
 
 
+    /**
+     *  Formats comment by adding Format.COMMENT_START sign after every newline
+     *  character.
+     *
+     * @param String comment
+     * @return String
+     */
     public static String formatComment( String comment ) {
         StringBuilder sb = new StringBuilder();
 
@@ -52,26 +70,38 @@ public class StringUtils {
     }
 
 
-    public static String addSlashes( String slashedString ) {
-        String unslashedString = slashedString;
+    /**
+     * Adds slashes before every  ,:;$ character.
+     * 
+     * @param String unslashedString
+     * @return String
+     */
+    public static String addSlashes( String unslashedString ) {
+        String slashedString = unslashedString;
 
-        unslashedString.replaceAll( ",", "\\," );
-        unslashedString.replaceAll( ":", "\\:" );
-        unslashedString.replaceAll( ";", "\\;" );
-        unslashedString.replaceAll( "$", "\\$" );
+        slashedString.replaceAll( ",", "\\," );
+        slashedString.replaceAll( ":", "\\:" );
+        slashedString.replaceAll( ";", "\\;" );
+        slashedString.replaceAll( "$", "\\$" );
 
-        return unslashedString;
+        return slashedString;
     }
 
 
-    public static String removeSlashes( String slashlessString ) {
-        String slashedString = slashlessString;
+    /**
+     * Removes slashes before every ,:;$ character.
+     * 
+     * @param String slashedString
+     * @return String
+     */
+    public static String removeSlashes( String slashedString ) {
+        String unslashedString = slashedString;
 
-        slashedString.replaceAll( "\\,", "," );
-        slashedString.replaceAll( "\\:", ":" );
-        slashedString.replaceAll( "\\;", ";" );
-        slashedString.replaceAll( "\\$", "$" );
+        unslashedString.replaceAll( "\\,", "," );
+        unslashedString.replaceAll( "\\:", ":" );
+        unslashedString.replaceAll( "\\;", ";" );
+        unslashedString.replaceAll( "\\$", "$" );
 
-        return slashedString;
+        return unslashedString;
     }
 }

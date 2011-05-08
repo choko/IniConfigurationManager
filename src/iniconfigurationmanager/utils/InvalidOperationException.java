@@ -1,8 +1,8 @@
 package iniconfigurationmanager.utils;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * InvalidOperationException represents errors which can occur by doing
+ * unallowed operations to the configuration schema.
  */
 public class InvalidOperationException
         extends UnsupportedOperationException {
