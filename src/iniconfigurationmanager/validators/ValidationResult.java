@@ -1,18 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package iniconfigurationmanager.validators;
 
+/**
+ * <code>ValidationResult</code> handle validating result
+ * It contains every Report of error during validation
+ */
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author KlonK
- */
+
 public class ValidationResult {
 
+    /**
+     * errorMsgs contains every Report of error during validation
+     */
     private LinkedList<String> errorMsgs;
 
     private boolean result;
@@ -22,52 +22,53 @@ public class ValidationResult {
         this.errorMsgs = new LinkedList<String>();
     }
 
-
+    /**
+     * Method <code>addResult</code> merge @param value result
+     */
     public void addResult( boolean result ) {
         this.result = this.result && result;
     }
 
 
+    /**
+     * Method returns <code>boolean</code> result.
+     * Its return<code>TRUE</code> if none error report.
+     * return <code>FALSE</code> if it has any error report.
+     */
     public boolean getResult() {
-        return this.result;
+       if ( errorMsgs.isEmpty() ) {
+           return true;
+       } else {
+           return false;
+       }
+
     }
 
-
+    /**
+     * Method added error report that trow validator
+     */
     public void addErrorMsg( String errorMsg ) {
         this.errorMsgs.add( errorMsg );
     }
 
-
+    /**
+     * Method return all error reports
+     */
     public List<String> getErrorMsgs() {
         return this.errorMsgs;
     }
 
-
+    /**
+     * Method merge two ValidationResult to one
+     */
     public void mergeResults( ValidationResult result ) {
         this.errorMsgs.addAll( result.getErrorMsgs() );
         this.result = result.getResult();
     }
-
-    // Rules error msgs
-    public static String MISSING_ITEM = " ";
-
-    public static String LOW_VALUE = "Option value is lower that rule";
-
-    public static String HIGH_VALUE = "Option value is higher that rule";
-
-    public static String INVALID_COUNT =
-            "Option value doesnt have valid count";
-
-    public static String NOT_ODD_VALUE = "Option value is not a odd number";
-
-    public static String NOT_EVEN_VALUE = "Option value is not a even number";
-
-    public static String NOT_CONTAIN_VALUE =
-            "Option doesnt containt ruled value";
-
-    public static String ENUM_INVALID_VALUE =
-            "Option doesnt have all ruled value";
-
+    
+    /**
+     * Constant errors report
+     */
     public static String INVALID_OPTION_ITEM = "Item is not define in schema";
 
     public static String INVALID_SCHEMA =

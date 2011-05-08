@@ -62,7 +62,7 @@ public class MinValueRule
         for ( Integer integer : optionIntValue ) {
             if ( integer < (Integer) this.minValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.LOW_VALUE );
+                result.addErrorMsg( LOW_VALUE );
             }
         }
 

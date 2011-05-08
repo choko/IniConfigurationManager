@@ -63,7 +63,7 @@ public class MaxValueRule
         for ( Integer integer : optionIntValue ) {
             if ( integer > (Integer) this.maxValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.HIGH_VALUE );
+                result.addErrorMsg( HIGH_VALUE );
             }
         }
         return result;
