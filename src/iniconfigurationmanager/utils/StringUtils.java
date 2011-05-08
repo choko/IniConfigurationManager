@@ -56,13 +56,14 @@ public class StringUtils {
     }
 
     public static String addSlashes( String slashedString ) {
-       String slashedFreeString = slashedString;
+       String unslashedString = slashedString;
        
-       slashedFreeString.replaceAll(",", "\\,");
-       slashedFreeString.replaceAll(":", "\\:");
-       slashedFreeString.replaceAll(";", "\\;");
+       unslashedString.replaceAll(",", "\\,");
+       unslashedString.replaceAll(":", "\\:");
+       unslashedString.replaceAll(";", "\\;");
+       unslashedString.replaceAll("$", "\\$");
 
-       return slashedFreeString;
+       return unslashedString;
     }
 
     public static String removeSlashes( String slashlessString ) {
@@ -71,9 +72,9 @@ public class StringUtils {
        slashedString.replaceAll( "\\,","," );
        slashedString.replaceAll( "\\:",":" );
        slashedString.replaceAll( "\\;",";" );
+       slashedString.replaceAll("\\$", "$");
 
        return slashedString;
-
     }
     
 }
