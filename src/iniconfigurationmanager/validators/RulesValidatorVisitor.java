@@ -34,11 +34,11 @@ public class RulesValidatorVisitor implements StructureVisitor {
     }
 
     public void visit(SectionData section) {
-      //  throw new UnsupportedOperationException("Not supported yet.");
+        return;
     }
 
     public void visit(SectionSchema section) {
-       // throw new UnsupportedOperationException("Not supported yet.");
+        return;
     }
 
     public ValidationResult getResult() {
@@ -46,7 +46,7 @@ public class RulesValidatorVisitor implements StructureVisitor {
     }
 
     public void visit(ConfigurationData data) {
-       // throw new UnsupportedOperationException("Not supported yet.");
+      return;
     }
 
 }

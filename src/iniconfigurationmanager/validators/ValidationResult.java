@@ -55,8 +55,14 @@ public class ValidationResult {
     public static String ENUM_INVALID_VALUE= 
             "Option doesnt have all ruled value";
 
+    public static String INVALID_OPTION_ITEM
+            = "Item is not define in schema";
+    public static String INVALID_SCHEMA =
+            "Section is not define in schema";
 
     public static String INVALID_RULE_APPLICATED = 
             "Unsuported rule applicated on OptionSchema";
+
+
 
 }

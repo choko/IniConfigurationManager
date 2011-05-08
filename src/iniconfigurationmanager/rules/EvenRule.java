@@ -35,7 +35,7 @@ public class EvenRule implements ValidationRule {
 
         for (Integer integer : optionIntValue) {
             if ( ( integer % 2) == 0 ) {
-                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
+                result.addErrorMsg( NOT_EVEN_VALUE );
                 }
             }
 
@@ -48,7 +48,7 @@ public class EvenRule implements ValidationRule {
 
         for (Float floatValue : optionFloatValue) {
             if ( ( floatValue % 2) == 0 ) {
-                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
+                result.addErrorMsg( NOT_EVEN_VALUE );
                 }
         }
 
@@ -61,12 +61,15 @@ public class EvenRule implements ValidationRule {
 
         for (Long longValue : optionLongValue) {
              if ( ( longValue % 2) == 0 ) {
-                result.addErrorMsg( ValidationResult.NOT_EVEN_VALUE );
+                result.addErrorMsg( NOT_EVEN_VALUE );
                 }
             }
 
         return result;
     }
+
+    private final String NOT_EVEN_VALUE =
+            "Option value is not a even number";
 
     public boolean isAplicableOn( OptionSchema option ) {
        return false;

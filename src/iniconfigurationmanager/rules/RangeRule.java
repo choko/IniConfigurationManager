@@ -26,17 +26,26 @@ public class RangeRule implements ValidationRule {
     public  RangeRule ( int min,int max ) {
         this.min = min;
         this.max = max;
+        if ( min > max ) {
+            throw  new NumberFormatException();
+        }
 
     }
 
     public RangeRule ( float min,float max ){
         this.min = min;
         this.max = max;
+        if ( min > max ) {
+            throw  new NumberFormatException();
+        }
     }
 
     public RangeRule ( long min,long max ){
         this.min = min;
         this.max = max;
+        if ( min > max ) {
+            throw  new NumberFormatException();
+        }
     } 
     
     public ValidationResult validate(OptionData option) {
@@ -50,11 +59,7 @@ public class RangeRule implements ValidationRule {
 
         return result;
     }
-   
-    public boolean isAplicableOn( OptionSchema option ) {
-       return false;
-    }
-
+      
     public boolean isAplicableOn( SignedOptionSchema option ) {
        return true;
     }
@@ -66,5 +71,8 @@ public class RangeRule implements ValidationRule {
     public boolean isAplicableOn( FloatOptionSchema option ) {
         return true;
     }
-
+    
+    public boolean isAplicableOn( OptionSchema option ) {
+       return false;
+    }
 }

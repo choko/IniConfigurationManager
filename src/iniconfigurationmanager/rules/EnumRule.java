@@ -31,10 +31,13 @@ public class EnumRule implements ValidationRule {
         List<Object> optionValues = option.getValues();
 
         if ( !optionValues.containsAll(enumValue) ) {
-            result.addErrorMsg( ValidationResult.ENUM_INVALID_VALUE);
+            result.addErrorMsg( ENUM_INVALID_VALUE);
         }
 
         return result;
     }
+
+    private final String ENUM_INVALID_VALUE =
+            "Option doesnt have all ruled value";
 
 }

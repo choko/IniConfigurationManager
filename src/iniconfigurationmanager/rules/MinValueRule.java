@@ -61,7 +61,7 @@ public class MinValueRule implements ValidationRule {
         for (Long longValue : optionIntValue) {
             if ( longValue < (Long) this.minValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.LOW_VALUE );
+                result.addErrorMsg( LOW_VALUE );
                 }
             }
 
@@ -75,12 +75,15 @@ public class MinValueRule implements ValidationRule {
         for (Float floatValue : optionFloatValue) {
             if ( floatValue < (Float) this.minValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.LOW_VALUE );
+                result.addErrorMsg( LOW_VALUE );
                 }
             }
         
         return result;
     }
+
+    private static String LOW_VALUE =
+            "Option value is lower that rule";
 
      public boolean isAplicableOn( OptionSchema option ) {
        return false;

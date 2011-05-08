@@ -31,10 +31,13 @@ public class CountRule implements ValidationRule {
         List<Object> options = option.getValues(new Object());
 
         if ( options.size() != count ) {
-            result.addErrorMsg( ValidationResult.INVALID_COUNT );
+            result.addErrorMsg( INVALID_COUNT );
         }
 
         return result;
     }
+
+    private final String INVALID_COUNT = 
+            "Option value doesnt have valid count";
      
 }

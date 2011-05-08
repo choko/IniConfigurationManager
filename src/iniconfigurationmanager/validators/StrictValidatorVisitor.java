@@ -24,7 +24,7 @@ public class StrictValidatorVisitor implements StructureVisitor {
     public void visit( OptionData option ) {
         boolean hasOption = schemaOption.remove( option.getCanonicalName() );
         if ( !hasOption ) {
-            result.addErrorMsg( "missing option " ); //TODO ENUM
+            result.addErrorMsg( ValidationResult.INVALID_OPTION_ITEM );
         }
         result.addResult( hasOption );
     }
@@ -36,7 +36,7 @@ public class StrictValidatorVisitor implements StructureVisitor {
     public void visit( SectionData section ) {
       boolean haveSection =  schemaSection.remove( section.getName() );
       if ( !haveSection ) {
-        result.addErrorMsg( "missing section "); //TODO ENUM
+        result.addErrorMsg( ValidationResult.INVALID_SCHEMA );
       }
       result.addResult( haveSection );
     }

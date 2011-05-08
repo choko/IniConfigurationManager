@@ -5,10 +5,9 @@
 
 package iniconfigurationmanager.options;
 
-import iniconfigurationmanager.parsing.ConfigParserError;
-import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.utils.NumberUtils;
 import java.math.BigInteger;
 
 /**
@@ -17,18 +16,36 @@ import java.math.BigInteger;
  */
 public class UnsignedOptionData extends OptionData {
 
+    private String rawStringvalue;
+
     public Class getValueClass() {
         return BigInteger.class;
     }
 
     public Object parseValue(RawValue value) {
+        rawStringvalue = value.getValue();
         UnsignedInt64 uInt64value = new UnsignedInt64( value.getValue() );
         return uInt64value.toBigInteger();
 
     }
 
     public String valueToString(Object value) {
-      return  value.toString();
+          BigInteger bigInteger = (BigInteger) value;
+          NumberUtils utils = new NumberUtils();
+
+      if ( utils.isHexFormat( rawStringvalue ) ) {
+          return NumberUtils.HEXPREFIX.concat( bigInteger.toString( 16 ) );
+      }
+
+      if ( utils.isOCtaFormat( rawStringvalue ) ) {
+          return NumberUtils.OCTAPREFIX.concat( bigInteger.toString( 8 ) );
+      }
+
+      if ( utils.isBinaryFormat( rawStringvalue ) ) {
+          return NumberUtils.BINARYPREFIX.concat(bigInteger.toString( 2 ) );
+      }
+
+      return bigInteger.toString();
     }
 
 

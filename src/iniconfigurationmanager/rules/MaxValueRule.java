@@ -58,7 +58,7 @@ public class MaxValueRule implements ValidationRule {
         for (Long longValue : optionIntValue) {
             if ( longValue > (Long) this.maxValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.HIGH_VALUE );
+                result.addErrorMsg( HIGH_VALUE );
                 }
             }
         return result;
@@ -70,7 +70,7 @@ public class MaxValueRule implements ValidationRule {
         for (Float floatValue : optionFloatValue) {
             if ( floatValue > (Float) this.maxValue ) {
             } else {
-                result.addErrorMsg( ValidationResult.HIGH_VALUE );
+                result.addErrorMsg( HIGH_VALUE );
                 }
             }
         return result;
@@ -97,5 +97,8 @@ public class MaxValueRule implements ValidationRule {
         result.addErrorMsg( ValidationResult.INVALID_RULE_APPLICATED );
         return result;
     }
+
+    private static String HIGH_VALUE =
+            "Option value is higher that rule";
 
 }

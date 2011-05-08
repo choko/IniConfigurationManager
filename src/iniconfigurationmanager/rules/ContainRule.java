@@ -31,10 +31,13 @@ public class ContainRule implements ValidationRule {
         List<Object> options = option.getValues( new Object() );
 
         if ( !options.contains( contain ) ) {
-            result.addErrorMsg( ValidationResult.NOT_CONTAIN_VALUE );
+            result.addErrorMsg( NOT_CONTAIN_VALUE );
         }
 
         return result;
     }
+
+    private final String NOT_CONTAIN_VALUE = 
+            "Option doesnt containt ruled value";
 
 }

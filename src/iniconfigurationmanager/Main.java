@@ -2,9 +2,12 @@
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.options.BooleanOptionSchema;
+import iniconfigurationmanager.options.FloatOptionData;
+import iniconfigurationmanager.options.FloatOptionSchema;
 import iniconfigurationmanager.options.SignedOptionSchema;
 import iniconfigurationmanager.options.StringOptionSchema;
 import iniconfigurationmanager.parsing.ConfigParserException;
+import iniconfigurationmanager.rules.RangeRule;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.ConfigurationSchema;
 import iniconfigurationmanager.schema.OptionData;
@@ -21,9 +24,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ConfigParserException {
-        OptionSchema id = new BooleanOptionSchema()
-            .setRequired()
-            .setComment("id");
+        OptionSchema id = new SignedOptionSchema()
+                .setRequired()
+                .setComment("id");
+
+            //.addValidationRule(new RangeRule(5, 7));
 
         OptionSchema name = new StringOptionSchema()
             .setRequired()
@@ -38,7 +43,7 @@ public class Main {
         ConfigurationSchema schema = new ConfigurationSchema()
             .addSection( "section", section );
 
-        String input = "[section]\nid=false\nname=karel,${section#id}";
+        String input = "[section]\nid=0x800ccc0e\nname=karel,${section#id}";
 
         ConfigurationData data = ConfigurationData.loadFromString( schema, input );
 

@@ -7,6 +7,7 @@ package iniconfigurationmanager.options;
 
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.utils.NumberUtils;
 
 /**
  *
@@ -33,36 +34,21 @@ public class SignedOptionData  extends OptionData {
 
     public String valueToString(Object value) {
       Long longValue = (Long) value;
-      if ( isHexFormat( rawStringvalue ) ) {
-          return Long.toOctalString( longValue );
+      NumberUtils utils = new NumberUtils();
+
+      if ( utils.isHexFormat( rawStringvalue ) ) {
+          return NumberUtils.HEXPREFIX.concat( Long.toHexString( longValue ) );
       }
 
-      if ( isOCtaFormat( rawStringvalue ) ) {
-          return Long.toOctalString( longValue );
+      if ( utils.isOCtaFormat( rawStringvalue ) ) {
+          return NumberUtils.OCTAPREFIX.concat( Long.toOctalString( longValue ) );
       }
 
-      if ( isBinaryFormat( rawStringvalue ) ) {
-          return Long.toBinaryString( longValue );
+      if ( utils.isBinaryFormat( rawStringvalue ) ) {
+          return NumberUtils.BINARYPREFIX.concat( Long.toBinaryString( longValue ) );
       }
 
       return longValue.toString();
     }
-
-    private static String HEXPREFIX = "0x";
-    private static String OCTAPREFIX = "0b";
-    private static String BINARYPREFIX = "0";
-
-    private boolean  isHexFormat(String string) {
-       return  rawStringvalue.startsWith(HEXPREFIX);
-    }
-
-     private boolean  isOCtaFormat(String string) {
-       return  rawStringvalue.startsWith(OCTAPREFIX);
-    }
-
-      private boolean  isBinaryFormat(String string) {
-       return  rawStringvalue.startsWith(BINARYPREFIX);
-    }
-
 
 }

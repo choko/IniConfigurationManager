@@ -35,7 +35,7 @@ public class OddRule implements ValidationRule {
 
         for (Integer integer : optionIntValue) {
             if ( ( integer % 2) == 1 ) {
-                result.addErrorMsg( ValidationResult.NOT_ODD_VALUE );
+                result.addErrorMsg( NOT_ODD_VALUE );
                 }
             }
 
@@ -48,7 +48,7 @@ public class OddRule implements ValidationRule {
 
         for (Float floatValue : optionFloatValue) {
             if ( ( floatValue % 2) == 1 ) {
-                result.addErrorMsg( ValidationResult.NOT_ODD_VALUE );
+                result.addErrorMsg( NOT_ODD_VALUE );
                 }
         }
 
@@ -61,12 +61,15 @@ public class OddRule implements ValidationRule {
 
         for (Long longValue : optionLongValue) {
              if ( ( longValue % 2) == 1 ) {
-                result.addErrorMsg( ValidationResult.NOT_ODD_VALUE );
+                result.addErrorMsg( NOT_ODD_VALUE );
                 }
             }
 
         return result;
     }
+
+    private static String NOT_ODD_VALUE =
+            "Option value is not a odd number";
 
     public boolean isAplicableOn( OptionSchema option ) {
        return false;

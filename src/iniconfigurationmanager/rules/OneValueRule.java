@@ -13,7 +13,7 @@ import iniconfigurationmanager.validators.ValidationResult;
  *
  * @author KlonK
  */
-public class OneValueRule implements ValidationRule {
+public class OneValueRule implements  ValidationRule {
 
     public boolean isAplicableOn(OptionSchema option) {
         return true;
