@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.validators;
 
 import iniconfigurationmanager.schema.StructureVisitor;
@@ -15,38 +14,44 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class RulesValidatorVisitor implements StructureVisitor {
+public class RulesValidatorVisitor
+        implements StructureVisitor {
 
-     private Map< String,OptionSchema > schemaOptions;
+    private Map<String, OptionSchema> schemaOptions;
 
-     private ValidationResult result;
+    private ValidationResult result;
+
 
     public void visit( OptionData option ) {
-      OptionSchema schema = schemaOptions.get(option.getCanonicalName());
-      List<ValidationRule> optionRules = schema.getValidationRules();
-       for (ValidationRule validationRule : optionRules) {
-           result.mergeResults( validationRule.validate( option ) );
+        OptionSchema schema = schemaOptions.get( option.getCanonicalName() );
+        List<ValidationRule> optionRules = schema.getValidationRules();
+        for ( ValidationRule validationRule : optionRules ) {
+            result.mergeResults( validationRule.validate( option ) );
         }
     }
 
-    public void visit(OptionSchema option) {
-        schemaOptions.put(option.getCanonicalName(), option);
+
+    public void visit( OptionSchema option ) {
+        schemaOptions.put( option.getCanonicalName(), option );
     }
 
-    public void visit(SectionData section) {
+
+    public void visit( SectionData section ) {
         return;
     }
 
-    public void visit(SectionSchema section) {
+
+    public void visit( SectionSchema section ) {
         return;
     }
+
 
     public ValidationResult getResult() {
-      return result;
+        return result;
     }
 
-    public void visit(ConfigurationData data) {
-      return;
-    }
 
+    public void visit( ConfigurationData data ) {
+        return;
+    }
 }

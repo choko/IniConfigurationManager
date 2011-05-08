@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.validators;
 
 import iniconfigurationmanager.schema.StructureVisitor;
@@ -13,14 +12,16 @@ import java.util.HashSet;
  *
  * @author KlonK
  */
-public class StrictValidatorVisitor implements StructureVisitor {
+public class StrictValidatorVisitor
+        implements StructureVisitor {
 
     private ValidationResult result;
 
-    private HashSet< String > schemaSection;
+    private HashSet<String> schemaSection;
 
-    private HashSet< String > schemaOption;
- 
+    private HashSet<String> schemaOption;
+
+
     public void visit( OptionData option ) {
         boolean hasOption = schemaOption.remove( option.getCanonicalName() );
         if ( !hasOption ) {
@@ -29,28 +30,32 @@ public class StrictValidatorVisitor implements StructureVisitor {
         result.addResult( hasOption );
     }
 
+
     public void visit( OptionSchema option ) {
-      schemaOption.add( option.getCanonicalName() );
+        schemaOption.add( option.getCanonicalName() );
     }
+
 
     public void visit( SectionData section ) {
-      boolean haveSection =  schemaSection.remove( section.getName() );
-      if ( !haveSection ) {
-        result.addErrorMsg( ValidationResult.INVALID_SCHEMA );
-      }
-      result.addResult( haveSection );
+        boolean haveSection = schemaSection.remove( section.getName() );
+        if ( !haveSection ) {
+            result.addErrorMsg( ValidationResult.INVALID_SCHEMA );
+        }
+        result.addResult( haveSection );
     }
 
+
     public void visit( SectionSchema section ) {
-       schemaSection.add( section.getName() );
-      }
+        schemaSection.add( section.getName() );
+    }
+
 
     public ValidationResult getResult() {
         return result;
     }
 
-    public void visit(ConfigurationData data) {
-       return;
-    }
 
+    public void visit( ConfigurationData data ) {
+        return;
+    }
 }

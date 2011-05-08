@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.options.BooleanOptionSchema;
@@ -23,32 +22,29 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ConfigParserException {
-        OptionSchema id = new SignedOptionSchema()
-                .setRequired()
-                .setComment("id");
+    public static void main( String[] args )
+            throws ConfigParserException {
+        OptionSchema id = new SignedOptionSchema().setRequired().setComment(
+                "id" );
 
-            //.addValidationRule(new RangeRule(5, 7));
+        //.addValidationRule(new RangeRule(5, 7));
 
-        OptionSchema name = new StringOptionSchema()
-            .setRequired()
-            .setComment("name");
+        OptionSchema name = new StringOptionSchema().setRequired().setComment(
+                "name" );
 
 
-        SectionSchema section = new SectionSchema()
-            .setReguired()
-            .addOption( "id", id )
-            .addOption( "name", name );
+        SectionSchema section = new SectionSchema().setReguired().addOption(
+                "id", id ).addOption( "name", name );
 
-        ConfigurationSchema schema = new ConfigurationSchema()
-            .addSection( "section", section );
+        ConfigurationSchema schema = new ConfigurationSchema().addSection(
+                "section", section );
 
         String input = "[section]\nid=0x800ccc0e\nname=karel,${section#id}";
 
-        ConfigurationData data = ConfigurationData.loadFromString( schema, input );
+        ConfigurationData data =
+                ConfigurationData.loadFromString( schema, input );
 
-        
-        System.out.println( data.toString(false) );
+
+        System.out.println( data.toString( false ) );
     }
-
 }

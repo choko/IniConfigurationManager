@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.ConfigParser;
@@ -17,46 +16,45 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigurationData implements Iterable< SectionData > {
+public class ConfigurationData
+        implements Iterable<SectionData> {
 
     private ConfigurationSchema schema;
 
-    private Map< String, SectionData > sections;
+    private Map<String, SectionData> sections;
 
-    
-    public static ConfigurationData loadFromString(
-        ConfigurationSchema schema,
-        String string
-    ) throws ConfigParserException {
+
+    public static ConfigurationData loadFromString( ConfigurationSchema schema,
+            String string )
+            throws ConfigParserException {
         return getReader( schema ).readFromString( string );
     }
 
 
-    public static ConfigurationData loadFromFile(
-        ConfigurationSchema schema,
-        File file
-    ) throws FileNotFoundException, ConfigParserException {
+    public static ConfigurationData loadFromFile( ConfigurationSchema schema,
+            File file )
+            throws FileNotFoundException, ConfigParserException {
         return getReader( schema ).readFromFile( file );
     }
 
 
     public static ConfigurationData loadFromInputStream(
-        ConfigurationSchema schema,
-        InputStream stream
-    ) throws ConfigParserException {
+            ConfigurationSchema schema, InputStream stream )
+            throws ConfigParserException {
         return getReader( schema ).readFromInputStream( stream );
     }
 
-    
-    private static ConfigReader getReader( ConfigurationSchema schema ) {
-        ConfigParser parser = new ConfigParser(schema, new ConfigurationData());
 
-        return new ConfigReader(parser);
+    private static ConfigReader getReader( ConfigurationSchema schema ) {
+        ConfigParser parser =
+                new ConfigParser( schema, new ConfigurationData() );
+
+        return new ConfigReader( parser );
     }
 
-    
+
     private ConfigurationData() {
-        this.sections = new LinkedHashMap< String, SectionData >();
+        this.sections = new LinkedHashMap<String, SectionData>();
     }
 
 
@@ -66,16 +64,16 @@ public class ConfigurationData implements Iterable< SectionData > {
     }
 
 
-    public void saveToOuputStream(OutputStream stream, boolean printDefaults)
+    public void saveToOuputStream( OutputStream stream, boolean printDefaults )
             throws IOException {
-        ConfigWriter.writeToOutputStream( stream , this, printDefaults );
+        ConfigWriter.writeToOutputStream( stream, this, printDefaults );
     }
-  
-    
+
+
     public ConfigurationData setSchema( ConfigurationSchema schema ) {
-        if( this.schema != null ) {
+        if ( this.schema != null ) {
             throw new InvalidOperationException( String.format(
-                    SchemaError.NULL_SCHEMA.getMessage()) );
+                    SchemaError.NULL_SCHEMA.getMessage() ) );
         }
 
         this.schema = schema;
@@ -87,23 +85,22 @@ public class ConfigurationData implements Iterable< SectionData > {
     public ConfigurationSchema getSchema() {
         return schema;
     }
-    
 
-    public ConfigurationData addSection ( String name, SectionData section ) {
-        if( hasSection( name ) ) {
+
+    public ConfigurationData addSection( String name, SectionData section ) {
+        if ( hasSection( name ) ) {
             throw new InvalidOperationException( String.format(
                     SchemaError.DUPLICIT_SECTION_DATA.getMessage(), name ) );
         }
 
-        if( section == null ) {
+        if ( section == null ) {
             throw new IllegalArgumentException( String.format(
                     SchemaError.NULL_SECTION_DATA.getMessage(), name ) );
         }
 
-        section.setName( name )
-            .setConfiguration( this );
+        section.setName( name ).setConfiguration( this );
 
-        sections.put(name, section);
+        sections.put( name, section );
 
         return this;
     }
@@ -113,7 +110,7 @@ public class ConfigurationData implements Iterable< SectionData > {
         return sections.containsKey( name );
     }
 
-    
+
     public SectionData getSection( String name ) {
         return sections.get( name );
     }
@@ -133,20 +130,19 @@ public class ConfigurationData implements Iterable< SectionData > {
 
         return visitor.print();
     }
-    
+
 
     public Iterator<SectionData> iterator() {
         return sections.values().iterator();
     }
 
-    
-    public void accept(StructureVisitor visitor) {
+
+    public void accept( StructureVisitor visitor ) {
         schema.accept( visitor );
         visitor.visit( this );
 
-        for( SectionData section : sections.values() ) {
+        for ( SectionData section : sections.values() ) {
             section.accept( visitor );
         }
     }
-    
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package iniconfigurationmanager.parsing;
 
 import iniconfigurationmanager.schema.LinkVisitor;
@@ -24,7 +23,7 @@ public class ValueLink {
 
     private ConfigurationData configuration;
 
-    
+
     public ValueLink( String link, ConfigurationData configuration ) {
         this.sectionName = getSectionName( link );
         this.optionName = getOptionName( link );
@@ -33,17 +32,17 @@ public class ValueLink {
 
 
     private String getSectionName( String link ) {
-        return link.substring( 2, link.indexOf("#") );
+        return link.substring( 2, link.indexOf( "#" ) );
     }
 
 
     private String getOptionName( String link ) {
-        return link.substring( link.indexOf("#") + 1, link.length() - 1 );
+        return link.substring( link.indexOf( "#" ) + 1, link.length() - 1 );
     }
-    
 
-    public <T> List< T > getValues( T type ) {
-        LinkVisitor< T > visitor = new LinkVisitor< T >();
+
+    public <T> List<T> getValues( T type ) {
+        LinkVisitor<T> visitor = new LinkVisitor<T>();
         getLinkedOption().accept( visitor );
 
         return visitor.getValues();
@@ -51,7 +50,7 @@ public class ValueLink {
 
 
     public SectionData getLinkedSection() {
-        if( configuration.hasSection( sectionName ) ) {
+        if ( configuration.hasSection( sectionName ) ) {
             return configuration.getSection( sectionName );
         } else {
             throw new IllegalStateException( String.format(
@@ -59,10 +58,11 @@ public class ValueLink {
         }
     }
 
+
     public OptionData getLinkedOption() {
         SectionData section = getLinkedSection();
 
-        if( section.hasOption( optionName ) ) {
+        if ( section.hasOption( optionName ) ) {
             return section.getOption( optionName );
         } else {
             throw new IllegalStateException( String.format(
@@ -70,10 +70,10 @@ public class ValueLink {
         }
     }
 
+
     @Override
     public String toString() {
         return String.format( Format.LINK_FORMAT,
                 getLinkedOption().getCanonicalName() );
     }
-   
 }

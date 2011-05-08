@@ -1,18 +1,19 @@
-
 package iniconfigurationmanager.parsing;
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigParserException extends Exception {
+public class ConfigParserException
+        extends Exception {
 
     private ConfigParserError error;
 
     private String message;
 
     private Object[] args;
-    
+
+
     public ConfigParserException( String message ) {
         this.message = message;
     }
@@ -23,15 +24,15 @@ public class ConfigParserException extends Exception {
         this.args = args;
     }
 
+
     @Override
     public String getMessage() {
-        if( message != null ) {
+        if ( message != null ) {
             return message;
         } else if ( error != null ) {
-            return String.format( error.getMessage(), args);
+            return String.format( error.getMessage(), args );
         } else {
             return ConfigParserError.UNDEFINED_PARSER_ERROR.getMessage();
         }
     }
-
 }

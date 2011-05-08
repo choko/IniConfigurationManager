@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.schema;
 
 /**
@@ -9,8 +8,9 @@ public interface ValuesVisitor {
 
     public void enter( OptionData option );
 
+
     public void visit( Object value );
 
-    public void leave( OptionData option );
 
+    public void leave( OptionData option );
 }

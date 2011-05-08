@@ -1,7 +1,4 @@
-
 package iniconfigurationmanager.schema;
-
-import iniconfigurationmanager.validators.ValidationResult;
 
 /**
  *
@@ -9,19 +6,17 @@ import iniconfigurationmanager.validators.ValidationResult;
  */
 public interface StructureVisitor {
 
-
-    public void visit(OptionData option);
-
-    
-    public void visit(OptionSchema option);
-
-    
-    public void visit(SectionData section);
+    public void visit( OptionData option );
 
 
-    public void visit(SectionSchema section);
+    public void visit( OptionSchema option );
 
-    
-    public void visit(ConfigurationData data);
 
+    public void visit( SectionData section );
+
+
+    public void visit( SectionSchema section );
+
+
+    public void visit( ConfigurationData data );
 }

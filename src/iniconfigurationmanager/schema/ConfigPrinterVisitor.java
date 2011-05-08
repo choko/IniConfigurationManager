@@ -1,22 +1,16 @@
-
 package iniconfigurationmanager.schema;
-
-import iniconfigurationmanager.schema.ConfigurationData;
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.schema.SectionData;
-import iniconfigurationmanager.schema.SectionSchema;
-import iniconfigurationmanager.schema.StructureVisitor;
 
 /**
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class ConfigPrinterVisitor implements StructureVisitor {
+public class ConfigPrinterVisitor
+        implements StructureVisitor {
 
     private StringBuilder sb;
 
     private boolean printDefaults;
+
 
     public ConfigPrinterVisitor() {
         this.printDefaults = false;
@@ -26,10 +20,10 @@ public class ConfigPrinterVisitor implements StructureVisitor {
     public void setPrintDefaults( boolean printDefaults ) {
         this.printDefaults = printDefaults;
     }
-    
 
-    public void visit(OptionData option) {
-        if( ! this.printDefaults && option.hasOnlyDefaultValues() ) {
+
+    public void visit( OptionData option ) {
+        if ( !this.printDefaults && option.hasOnlyDefaultValues() ) {
             return;
         }
 
@@ -37,22 +31,22 @@ public class ConfigPrinterVisitor implements StructureVisitor {
     }
 
 
-    public void visit(OptionSchema option) {
+    public void visit( OptionSchema option ) {
         return;
     }
 
 
-    public void visit(SectionData section) {
+    public void visit( SectionData section ) {
         this.sb.append( section.toString() );
     }
 
 
-    public void visit(SectionSchema section) {
+    public void visit( SectionSchema section ) {
         return;
     }
 
-    
-    public void visit(ConfigurationData data) {
+
+    public void visit( ConfigurationData data ) {
         this.sb = new StringBuilder();
     }
 
@@ -60,5 +54,4 @@ public class ConfigPrinterVisitor implements StructureVisitor {
     public String print() {
         return this.sb.toString();
     }
-
 }

@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.rules.ValidationRule;
@@ -19,11 +18,11 @@ public abstract class OptionSchema {
 
     private String comment;
 
-    private List< ValidationRule > validationRules;
+    private List<ValidationRule> validationRules;
 
     private List defaultValues;
 
-    
+
     public OptionSchema() {
         this.validationRules = new LinkedList<ValidationRule>();
         this.required = false;
@@ -49,13 +48,14 @@ public abstract class OptionSchema {
         return this;
     }
 
+
     public String getSectionName() {
         return sectionName;
     }
 
 
     public String getCanonicalName() {
-        return String.format("%s#%s", sectionName, name);
+        return String.format( "%s#%s", sectionName, name );
     }
 
 
@@ -70,7 +70,7 @@ public abstract class OptionSchema {
         return comment;
     }
 
-    
+
     public OptionSchema setRequired() {
         this.required = true;
 
@@ -84,12 +84,12 @@ public abstract class OptionSchema {
 
 
     public OptionSchema addValidationRule( ValidationRule rule ) {
-        if( rule == null ) {
+        if ( rule == null ) {
             throw new IllegalArgumentException( String.format(
                     SchemaError.NULL_VALIDATION_RULE.getMessage() ) );
         }
 
-        if( ! rule.isAplicableOn( this ) ) {
+        if ( !rule.isAplicableOn( this ) ) {
             throw new IllegalArgumentException( String.format(
                     SchemaError.UNALLOWED_VALIDATION_RULE.getMessage() ) );
         }
@@ -100,12 +100,12 @@ public abstract class OptionSchema {
     }
 
 
-    public List< ValidationRule > getValidationRules() {
+    public List<ValidationRule> getValidationRules() {
         return validationRules;
     }
 
 
-    public OptionSchema setDefaultValues(List defaultValues) {
+    public OptionSchema setDefaultValues( List defaultValues ) {
         this.defaultValues = defaultValues;
 
         return this;
@@ -118,15 +118,14 @@ public abstract class OptionSchema {
 
 
     public boolean hasDefaultValue() {
-        return defaultValues != null && ! defaultValues.isEmpty();
+        return defaultValues != null && !defaultValues.isEmpty();
     }
-    
 
-    public void accept(StructureVisitor visitor) {
+
+    public void accept( StructureVisitor visitor ) {
         visitor.visit( this );
     }
 
 
     public abstract OptionData getOptionData();
-    
 }

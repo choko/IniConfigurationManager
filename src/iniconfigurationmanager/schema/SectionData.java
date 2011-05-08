@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.Format;
@@ -12,7 +11,8 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class SectionData implements Iterable< OptionData > {
+public class SectionData
+        implements Iterable<OptionData> {
 
     private String name;
 
@@ -20,7 +20,7 @@ public class SectionData implements Iterable< OptionData > {
 
     private ConfigurationData configuration;
 
-    private Map< String, OptionData > options;
+    private Map<String, OptionData> options;
 
 
     public SectionData() {
@@ -34,7 +34,7 @@ public class SectionData implements Iterable< OptionData > {
 
         return this;
     }
-    
+
 
     public String getName() {
         return name;
@@ -54,7 +54,7 @@ public class SectionData implements Iterable< OptionData > {
 
 
     public boolean hasComment() {
-        return ! comment.trim().isEmpty();
+        return !comment.trim().isEmpty();
     }
 
 
@@ -66,25 +66,24 @@ public class SectionData implements Iterable< OptionData > {
 
 
     public SectionData addOption( String name, OptionData option ) {
-        if( hasOption( name ) ) {
+        if ( hasOption( name ) ) {
             throw new InvalidOperationException( String.format(
                     SchemaError.DUPLICIT_OPTION_DATA.getMessage(), name ) );
         }
 
-        if( option == null ) {
+        if ( option == null ) {
             throw new IllegalArgumentException( String.format(
-                    SchemaError.NULL_OPTION_DATA.getMessage(), name) );
+                    SchemaError.NULL_OPTION_DATA.getMessage(), name ) );
         }
 
-        option.setName( name )
-            .setSectionName( this.name )
-            .setConfiguration( this.configuration );
+        option.setName( name ).setSectionName( this.name ).setConfiguration(
+                this.configuration );
 
         options.put( name, option );
 
         return this;
     }
-  
+
 
     public boolean hasOption( String name ) {
         return options.containsKey( name );
@@ -111,20 +110,19 @@ public class SectionData implements Iterable< OptionData > {
     public void accept( StructureVisitor visitor ) {
         visitor.visit( this );
 
-        for( OptionData option : options.values() ) {
+        for ( OptionData option : options.values() ) {
             option.accept( visitor );
         }
     }
-    
+
 
     @Override
     public String toString() {
-        if( hasComment() ) {
+        if ( hasComment() ) {
             return String.format( Format.SECTION_WITH_COMMENT_FORMAT,
-                    comment, name);
+                    comment, name );
         } else {
-            return String.format( Format.SECTION_FORMAT, name);
+            return String.format( Format.SECTION_FORMAT, name );
         }
     }
-    
 }

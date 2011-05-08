@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.rules;
 
 import iniconfigurationmanager.schema.OptionData;
@@ -12,7 +11,7 @@ import iniconfigurationmanager.validators.ValidationResult;
 public interface ValidationRule {
 
     public boolean isAplicableOn( OptionSchema option );
-    
-    public ValidationResult validate( OptionData option );
 
+
+    public ValidationResult validate( OptionData option );
 }

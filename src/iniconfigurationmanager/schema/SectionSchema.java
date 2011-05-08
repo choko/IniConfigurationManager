@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.utils.InvalidOperationException;
@@ -10,7 +9,8 @@ import java.util.Map;
  *
  * @author Ondrej Klejch <ondrej.klejch@gmail.com>
  */
-public class SectionSchema implements Iterable< OptionSchema > {
+public class SectionSchema
+        implements Iterable<OptionSchema> {
 
     private String name;
 
@@ -18,7 +18,7 @@ public class SectionSchema implements Iterable< OptionSchema > {
 
     private Boolean required;
 
-    private Map< String, OptionSchema > options;
+    private Map<String, OptionSchema> options;
 
 
     public SectionSchema() {
@@ -34,12 +34,12 @@ public class SectionSchema implements Iterable< OptionSchema > {
         return this;
     }
 
-    
+
     public String getName() {
         return name;
     }
-    
-    
+
+
     public SectionSchema setReguired() {
         this.required = true;
 
@@ -58,24 +58,24 @@ public class SectionSchema implements Iterable< OptionSchema > {
         return this.comment;
     }
 
+
     public boolean isRequired() {
         return this.required;
     }
 
 
     public SectionSchema addOption( String name, OptionSchema option ) {
-        if( hasOption( name ) ) {
+        if ( hasOption( name ) ) {
             throw new InvalidOperationException( String.format(
-                    SchemaError.DUPLICIT_OPTION_SCHEMA.getMessage(), name) );
+                    SchemaError.DUPLICIT_OPTION_SCHEMA.getMessage(), name ) );
         }
 
-        if( option == null ) {
+        if ( option == null ) {
             throw new IllegalArgumentException( String.format(
-                    SchemaError.NULL_OPTION_SCHEMA.getMessage(), name) );
+                    SchemaError.NULL_OPTION_SCHEMA.getMessage(), name ) );
         }
 
-        option.setName( name )
-            .setSectionName( this.name );
+        option.setName( name ).setSectionName( this.name );
 
         options.put( name, option );
 
@@ -108,9 +108,8 @@ public class SectionSchema implements Iterable< OptionSchema > {
     public void accept( StructureVisitor visitor ) {
         visitor.visit( this );
 
-        for( OptionSchema option : options.values() ) {
+        for ( OptionSchema option : options.values() ) {
             option.accept( visitor );
         }
     }
-
 }

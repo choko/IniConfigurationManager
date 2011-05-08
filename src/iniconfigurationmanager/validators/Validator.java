@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.validators;
 
 import iniconfigurationmanager.schema.ConfigurationData;
@@ -25,12 +24,11 @@ public class Validator {
     }
 
 
-    public static ValidationResult validateValidationRules( ConfigurationData data ) {
+    public static ValidationResult validateValidationRules(
+            ConfigurationData data ) {
         RulesValidatorVisitor visitor = new RulesValidatorVisitor();
         data.accept( visitor );
 
         return visitor.getResult();
     }
-
-
 }

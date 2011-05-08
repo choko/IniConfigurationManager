@@ -1,6 +1,4 @@
-
 package iniconfigurationmanager.schema;
-
 
 import iniconfigurationmanager.parsing.ValueLink;
 import iniconfigurationmanager.parsing.RawValue;
@@ -8,7 +6,6 @@ import iniconfigurationmanager.parsing.Format;
 import iniconfigurationmanager.utils.StringUtils;
 import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  *
@@ -24,11 +21,11 @@ public abstract class OptionData {
 
     private ConfigurationData configuration;
 
-    private List< Object > values;
+    private List<Object> values;
 
-    
+
     public OptionData() {
-        this.values = new LinkedList< Object >();
+        this.values = new LinkedList<Object>();
         this.comment = "";
     }
 
@@ -67,39 +64,40 @@ public abstract class OptionData {
 
 
     private boolean hasComment() {
-        return ! comment.trim().isEmpty();
+        return !comment.trim().isEmpty();
     }
 
-    
+
     public String getName() {
         return name;
     }
 
-    
+
     public String getSectionName() {
         return sectionName;
     }
-    
+
 
     public String getCanonicalName() {
         return String.format( Format.OPTION_CANONICAL_NAME_FORMAT,
-                sectionName, name);
+                sectionName, name );
     }
 
 
     public ValueLink getOptionLink() {
         return new ValueLink( getCanonicalName(), configuration );
     }
-    
+
+
     public OptionData clear() {
         values.clear();
 
         return this;
     }
-    
+
 
     public OptionData addValue( Object value ) {
-        if( value instanceof ValueLink) {
+        if ( value instanceof ValueLink ) {
             values.add( (ValueLink) value );
         } else if ( value instanceof RawValue ) {
             values.add( parseValue( (RawValue) value ) );
@@ -110,7 +108,7 @@ public abstract class OptionData {
         return this;
     }
 
-    
+
     public OptionData setValue( Object value ) {
         clear();
         addValue( value );
@@ -119,9 +117,9 @@ public abstract class OptionData {
     }
 
 
-    public OptionData setValues( List< Object > values ) {
+    public OptionData setValues( List<Object> values ) {
         clear();
-        for( Object value : values ) {
+        for ( Object value : values ) {
             addValue( value );
         }
 
@@ -134,24 +132,24 @@ public abstract class OptionData {
     }
 
 
-    public < T > T getValue( T type ) {
+    public <T> T getValue( T type ) {
         return (T) getValue();
     }
 
 
-    public List< Object > getValues() {
+    public List<Object> getValues() {
         return getValues( new Object() );
     }
 
-    
-    public < T > List< T > getValues( T type ) {
-        if( ! typeMatches( type ) ) {
+
+    public <T> List<T> getValues( T type ) {
+        if ( !typeMatches( type ) ) {
             throw new ClassCastException();
         }
 
-        List< T > valuesList = new LinkedList< T >();
-        for( Object value : values ) {
-            if( value instanceof ValueLink ) {
+        List<T> valuesList = new LinkedList<T>();
+        for ( Object value : values ) {
+            if ( value instanceof ValueLink ) {
                 ValueLink link = (ValueLink) value;
                 valuesList.addAll( link.getValues( type ) );
             } else {
@@ -163,7 +161,7 @@ public abstract class OptionData {
     }
 
 
-    private < T > boolean typeMatches( T type ) {
+    private <T> boolean typeMatches( T type ) {
         return type.getClass().isAssignableFrom( getValueClass() );
     }
 
@@ -176,8 +174,8 @@ public abstract class OptionData {
     public void accept( ValuesVisitor visitor ) {
         visitor.enter( this );
 
-        for( Object value : values ) {
-            if( value instanceof ValueLink ) {
+        for ( Object value : values ) {
+            if ( value instanceof ValueLink ) {
                 ValueLink link = (ValueLink) value;
                 link.getLinkedOption().accept( visitor );
             } else {
@@ -191,48 +189,48 @@ public abstract class OptionData {
 
     public boolean hasOnlyDefaultValues() {
         ConfigurationSchema schema = configuration.getSchema();
-        if( ! schema.hasSection( sectionName ) ) {
+        if ( !schema.hasSection( sectionName ) ) {
             return false;
         }
 
         SectionSchema sectionSchema = schema.getSection( sectionName );
-        if( ! sectionSchema.hasOption( name ) ) {
+        if ( !sectionSchema.hasOption( name ) ) {
             return false;
         }
 
         OptionSchema optionSchema = sectionSchema.getOption( name );
-        if( ! optionSchema.hasDefaultValue() ) {
+        if ( !optionSchema.hasDefaultValue() ) {
             return false;
         }
-        
-        
+
+
         return containsSameValues( optionSchema.getDefaultValues(), values );
     }
 
 
     private boolean containsSameValues(
-            List defaultValues, List<Object> values
-    ) {
+            List defaultValues, List<Object> values ) {
         return defaultValues.containsAll( values ) &&
                 values.containsAll( defaultValues );
     }
 
+
     @Override
     public String toString() {
-        if( hasComment() ) {
+        if ( hasComment() ) {
             return String.format( Format.OPTION_WITH_COMMENT_FORMAT,
                     comment, name, valuesToString() );
         } else {
             return String.format( Format.OPTION_FORMAT,
-                name, valuesToString() );
+                    name, valuesToString() );
         }
     }
 
 
     private String valuesToString() {
         StringBuilder sb = new StringBuilder();
-        for( Object value : values ) {
-            if( value instanceof ValueLink ) {
+        for ( Object value : values ) {
+            if ( value instanceof ValueLink ) {
                 sb.append( ((ValueLink) value).toString() );
             } else {
                 sb.append( valueToString( value ) );
@@ -249,8 +247,9 @@ public abstract class OptionData {
 
     protected abstract Class getValueClass();
 
+
     protected abstract Object parseValue( RawValue value );
 
-    protected abstract String valueToString( Object value );
 
+    protected abstract String valueToString( Object value );
 }

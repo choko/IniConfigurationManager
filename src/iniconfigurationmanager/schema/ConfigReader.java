@@ -1,11 +1,9 @@
-
 package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.ConfigLine;
 import iniconfigurationmanager.parsing.ConfigParser;
 import iniconfigurationmanager.parsing.ConfigParserError;
 import iniconfigurationmanager.parsing.ConfigParserException;
-import iniconfigurationmanager.schema.ConfigurationData;
 import java.io.BufferedReader;
 import java.io.CharArrayReader;
 import java.io.File;
@@ -26,46 +24,49 @@ public class ConfigReader {
 
     private ConfigParser parser;
 
+
     public ConfigReader( ConfigParser parser ) {
         this.parser = parser;
     }
-    
+
+
     public ConfigurationData readFromFile( File file )
             throws FileNotFoundException, ConfigParserException {
         return read( new FileReader( file ) );
     }
 
+
     public ConfigurationData readFromInputStream( InputStream stream )
             throws ConfigParserException {
-        return read ( new InputStreamReader( stream ) );
+        return read( new InputStreamReader( stream ) );
     }
+
 
     public ConfigurationData readFromString( String string )
             throws ConfigParserException {
-        return read ( new CharArrayReader ( string.toCharArray() ) );
+        return read( new CharArrayReader( string.toCharArray() ) );
     }
 
-    private ConfigurationData read( Reader reader ) throws ConfigParserException {
-        BufferedReader bf = new BufferedReader(reader);
+
+    private ConfigurationData read( Reader reader )
+            throws ConfigParserException {
+        BufferedReader bf = new BufferedReader( reader );
 
         List<ConfigLine> lines = new ArrayList<ConfigLine>();
         try {
-            for (
-                String line = bf.readLine();
-                line != null;
-                line = bf.readLine()
-            ) {
+            for ( String line = bf.readLine();
+                    line != null;
+                    line = bf.readLine() ) {
                 lines.add( new ConfigLine( line ) );
             }
 
             bf.close();
-        } catch( IOException e ) {
+        } catch ( IOException e ) {
             throw new ConfigParserException( ConfigParserError.INPUT_ERROR,
                     e.getMessage() );
         }
-        
 
-        return this.parser.parse(lines);
+
+        return this.parser.parse( lines );
     }
-    
 }

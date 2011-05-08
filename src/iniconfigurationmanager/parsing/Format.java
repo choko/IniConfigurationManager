@@ -1,4 +1,3 @@
-
 package iniconfigurationmanager.parsing;
 
 import java.util.regex.Pattern;
@@ -42,14 +41,13 @@ public class Format {
     public static final char ESCAPE = '\\';
 
     public static final Pattern VALID_NAME_PATTERN =
-        Pattern.compile("[a-zA-Z.:$][a-zA-Z0-9_~.:$ -]*");
+            Pattern.compile( "[a-zA-Z.:$][a-zA-Z0-9_~.:$ -]*" );
 
     public static final Pattern COMMA_DELIMITER_PATTERN =
-        Pattern.compile("(?<!\\\\),");
+            Pattern.compile( "(?<!\\\\)," );
 
     public static final Pattern COLON_DELIMITER_PATTERN =
-        Pattern.compile("(?<!\\\\):");
+            Pattern.compile( "(?<!\\\\):" );
 
     public static final Pattern NO_DELIMITER_PATTERN = COMMA_DELIMITER_PATTERN;
-
 }
