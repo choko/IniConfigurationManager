@@ -17,8 +17,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ConfigParser class parses the configuration input and sets value of the
+ * configuration data.
  */
 public class ConfigParser {
 
@@ -44,6 +44,13 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Parses given preprocessed configuration input into configuration data.
+     *
+     * @param List<ConfigLine> lines preprocessed configuration input
+     * @return ConfigurationData configuration data
+     * @throws ConfigParserException
+     */
     public ConfigurationData parse( List<ConfigLine> lines )
             throws ConfigParserException {
         for ( ConfigLine line : lines ) {
@@ -67,12 +74,25 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Removes ; symbol and adds comment to the current comment buffer.
+     *
+     * @param ConfigLine line
+     */
     private void parseComment( ConfigLine line ) {
         currentComment.append( line.getText().trim().substring( 1 ) );
         currentComment.append( Format.NEWLINE );
     }
 
 
+    /**
+     * Retrieves a name of the section and adds this section to the
+     * configuration data. Also checks if the appropriate schema for this
+     * sections exists.
+     *
+     * @param ConfigLine line
+     * @throws ConfigParserException
+     */
     private void parseSectionHeader( ConfigLine line )
             throws ConfigParserException {
         String name = getSectionName( line );
@@ -91,6 +111,13 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retrieves a section name from the line
+     *
+     * @param ConfigLine line
+     * @return String section name
+     * @throws ConfigParserException whether the section name is not valid
+     */
     private String getSectionName( ConfigLine line )
             throws ConfigParserException {
         String text = line.getText();
@@ -107,6 +134,14 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retrieves an option name and option values. If appropriate option schema
+     * exists, values are parsed with this schema.
+     * Otherwise the StringOptionData class is used.
+     *
+     * @param ConfigLine line
+     * @throws ConfigParserException
+     */
     private void parseOptionDefinition( ConfigLine line )
             throws ConfigParserException {
         try {
@@ -127,6 +162,13 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retrieves an option name from the line
+     *
+     * @param ConfigLine line
+     * @return String option name
+     * @throws ConfigParserException whether the option name is not valid
+     */
     private String getOptionName( ConfigLine line )
             throws ConfigParserException {
         String text = line.getText();
@@ -143,6 +185,13 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Determines whether the given name is valid - it matches pattern
+     * [a-zA-Z.:$][a-zA-Z0-9_~.:$ -]*
+     *
+     * @param String name
+     * @return boolean
+     */
     private boolean isValidName( String name ) {
         Matcher m = Format.VALID_NAME_PATTERN.matcher( name );
 
@@ -150,6 +199,12 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retrieve list of values from the line
+     *
+     * @param ConfigLine line
+     * @return List<Object> values
+     */
     private List<Object> getOptionValues( ConfigLine line ) {
         String[] values = splitValues( getOptionValuesDefinition( line ) );
 
@@ -166,6 +221,12 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retrieve option values as a string from the line
+     *
+     * @param ConfigLine line
+     * @return String values in string separated by , or :
+     */
     private String getOptionValuesDefinition( ConfigLine line ) {
         String text = line.getText();
         int equalsSignPosition = text.indexOf( Format.EQUALS_SIGN );
@@ -177,6 +238,14 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Retreives OptionData for the option with the name.
+     * If option with the name has schema it return appropriate OptionData
+     * descendant. Otherwise default StringOptionData class is used.
+     *
+     * @param String name name of the option
+     * @return OptionData
+     */
     private OptionData getOptionData( String name ) {
         if ( currentSectionSchema.hasOption( name ) ) {
             return currentSectionSchema.getOption( name ).getOptionData();
@@ -186,11 +255,23 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Split list of values in the string using , or : delimiter.
+     * 
+     * @param String values
+     * @return String[]
+     */
     private String[] splitValues( String values ) {
         return getDelimiterPattern( values ).split( values );
     }
 
 
+    /**
+     * Returns delimiter pattern which matches the values string.
+     *
+     * @param values
+     * @return Pattern
+     */
     private Pattern getDelimiterPattern( String values ) {
         if ( isDelimitedByComma( values ) ) {
             return Format.COMMA_DELIMITER_PATTERN;
@@ -202,6 +283,11 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Returns a comment from the comment buffer and resets the buffer.
+     *
+     * @return String comment
+     */
     private String getComment() {
         String comment = currentComment.toString();
         currentComment = new StringBuilder();
@@ -210,6 +296,12 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Returns a comment from the appropriate option schema definition.
+     *
+     * @param String name Option name
+     * @return String comment in option schema
+     */
     private String getCommentForOption( String name ) {
         if ( currentSectionSchema.hasOption( name ) ) {
             return currentSectionSchema.getOption( name ).getComment();
@@ -219,16 +311,33 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Returns a comment from the current section schema
+     *
+     * @return String comment in section schema
+     */
     private String getCommentForCurrentSection() {
         return currentSectionSchema.getComment();
     }
 
 
+    /**
+     *  Determines whether the given value is a link definition
+     * 
+     * @param String value
+     * @return boolean
+     */
     private boolean isLinkDefinition( String value ) {
         return value.startsWith( Format.LINK_DEFINITION_START );
     }
 
 
+    /**
+     * Determines whether the values in the given string are delimited by comma
+     *
+     * @param String values
+     * @return boolean
+     */
     private boolean isDelimitedByComma( String values ) {
         Pattern pattern = Format.COMMA_DELIMITER_PATTERN;
 
@@ -236,6 +345,12 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Determines whether the values in the given string are delimited by colon
+     *
+     * @param String values
+     * @return boolean
+     */
     private boolean isDelimitedByColon( String values ) {
         Pattern pattern = Format.COLON_DELIMITER_PATTERN;
 
@@ -243,6 +358,13 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Determine whether the text contains occurence of the pattern
+     * 
+     * @param Pattern pattern
+     * @param String text
+     * @return boolean
+     */
     private boolean findOccurence( Pattern pattern, String text ) {
         Matcher m = pattern.matcher( text );
 
@@ -250,6 +372,10 @@ public class ConfigParser {
     }
 
 
+    /**
+     * Add options which has not been set during parsing input and has default
+     * values to the configuration data.
+     */
     private void addMissingOptionsWithDefaultValue() {
         for ( SectionSchema sectionSchema : configuration.getSchema() ) {
             SectionData sectionData = configuration.getSection(
