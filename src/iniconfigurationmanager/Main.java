@@ -2,6 +2,7 @@
 package iniconfigurationmanager;
 
 import iniconfigurationmanager.options.StringOptionSchema;
+import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.ConfigurationSchema;
 import iniconfigurationmanager.schema.OptionData;
@@ -17,21 +18,29 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-          ConfigurationSchema pokus = new ConfigurationSchema();
-          SectionSchema po = new  SectionSchema();
-          po.addOption("ddd", new  OptionSchema() {
+    public static void main(String[] args) throws ConfigParserException {
+        OptionSchema id = new StringOptionSchema()
+            .setRequired()
+            .setComment("id");
 
-            @Override
-            public OptionData getOptionData() {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-        })
-          pokus.addSection("pokus", SectionSchema pokus = new SectionSchema();
-    :, null)
+        OptionSchema name = new StringOptionSchema()
+            .setRequired()
+            .setComment("name");
+        
+        
+        SectionSchema section = new SectionSchema()
+            .setReguired()
+            .addOption( "id", id )
+            .addOption( "name", name );
 
+        ConfigurationSchema schema = new ConfigurationSchema()
+            .addSection( "section", section );
 
+        String input = "[section]\nid=45\nname=karel,${section#id}";
+
+        ConfigurationData data = ConfigurationData.loadFromString( schema, input );
+
+        System.out.println( data.toString(false) );
     }
 
 }
