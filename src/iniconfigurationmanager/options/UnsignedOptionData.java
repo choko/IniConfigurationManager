@@ -60,7 +60,7 @@ public class UnsignedOptionData
             return NumberUtils.HEXPREFIX.concat( bigInteger.toString( 16 ) );
         }
 
-        if ( utils.isOCtaFormat( rawUnsigned ) ) {
+        if ( utils.isOctaFormat( rawUnsigned ) ) {
             return NumberUtils.OCTAPREFIX.concat( bigInteger.toString( 8 ) );
         }
 

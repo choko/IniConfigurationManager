@@ -64,7 +64,7 @@ public class SignedOptionData
             return NumberUtils.HEXPREFIX.concat( Long.toHexString( longValue ) );
         }
 
-        if ( utils.isOCtaFormat( rawStringvalue ) ) {
+        if ( utils.isOctaFormat( rawStringvalue ) ) {
             return NumberUtils.OCTAPREFIX.concat(
                     Long.toOctalString( longValue ) );
         }
