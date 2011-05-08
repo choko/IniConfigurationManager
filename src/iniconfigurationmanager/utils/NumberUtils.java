@@ -17,17 +17,17 @@ public class NumberUtils {
     public static String BINARYPREFIX = "0";
 
 
-    public boolean isHexFormat( String string ) {
+    public static boolean isHexFormat( String string ) {
         return string.startsWith( HEXPREFIX );
     }
 
 
-    public boolean isOCtaFormat( String string ) {
+    public static boolean isOCtaFormat( String string ) {
         return string.startsWith( OCTAPREFIX );
     }
 
 
-    public boolean isBinaryFormat( String string ) {
+    public static boolean isBinaryFormat( String string ) {
         return string.startsWith( BINARYPREFIX );
     }
 }
