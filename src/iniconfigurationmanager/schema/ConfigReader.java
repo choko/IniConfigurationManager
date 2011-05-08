@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ConfigReader is used to reading configuration input from the file, input
+ * stream or string.
  */
 public class ConfigReader {
 
@@ -30,24 +30,54 @@ public class ConfigReader {
     }
 
 
+    /**
+     * Reads a configuration data from the file.
+     *
+     * @param File file input file
+     * @return ConfigurationData configuration data
+     * @throws FileNotFoundException whether the given file doesn't exist
+     * @throws ConfigParserException whether the error occured during parsing
+     */
     public ConfigurationData readFromFile( File file )
             throws FileNotFoundException, ConfigParserException {
         return read( new FileReader( file ) );
     }
 
 
+    /**
+     * Reads a configuration data from the input stream.
+     * 
+     * @param InputStream stream input stream
+     * @return ConfigurationData configuration data
+     * @throws ConfigParserException whether the error occured during parsing
+     */
     public ConfigurationData readFromInputStream( InputStream stream )
             throws ConfigParserException {
         return read( new InputStreamReader( stream ) );
     }
 
 
+    /**
+     * Reads a configuration data from the string
+     * 
+     * @param String string input string
+     * @return ConfigurationData configuration data
+     * @throws ConfigParserException whether the error occured during parsing
+     */
     public ConfigurationData readFromString( String string )
             throws ConfigParserException {
         return read( new CharArrayReader( string.toCharArray() ) );
     }
 
 
+    /**
+     * Reads all lines from the given reader. Creates list of lines represented
+     * by ConfigLine and parse it by using ConfigParser.
+     * 
+     * @param Reader reader input reader
+     * @return ConfigurationData configuration data
+     * @throws ConfigParserException whether the error occured during parsing
+     */
     private ConfigurationData read( Reader reader )
             throws ConfigParserException {
         BufferedReader bf = new BufferedReader( reader );

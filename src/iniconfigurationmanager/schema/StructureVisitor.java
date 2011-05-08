@@ -1,8 +1,8 @@
 package iniconfigurationmanager.schema;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * StructureVisitor is an interface implementing Visitor design pattern for
+ * traversing configuration structure.
  */
 public interface StructureVisitor {
 

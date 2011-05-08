@@ -1,12 +1,12 @@
 package iniconfigurationmanager.schema;
 
+import iniconfigurationmanager.parsing.Format;
 import iniconfigurationmanager.rules.ValidationRule;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * Abstract OptionData represents option's schema in the configuration schema.
  */
 public abstract class OptionSchema {
 
@@ -30,6 +30,12 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Sets name of this option
+     *
+     * @param String name
+     * @return OptionSchema this instance for fluent interface
+     */
     protected OptionSchema setName( String name ) {
         this.name = name;
 
@@ -37,11 +43,22 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Returns name of this option.
+     *
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
 
+    /**
+     * Sets name of section that this option belongs to
+     *
+     * @param String sectionName
+     * @return OptionSchema this instance for fluent interface
+     */
     protected OptionSchema setSectionName( String sectionName ) {
         this.sectionName = sectionName;
 
@@ -49,16 +66,34 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Return name of a section that this option belongs to.
+     * 
+     * @return String
+     */
     public String getSectionName() {
         return sectionName;
     }
 
 
+    /**
+     * Returns canonical name of this option. It's a string in
+     * section_name#option_name format.
+     *
+     * @return String
+     */
     public String getCanonicalName() {
-        return String.format( "%s#%s", sectionName, name );
+        return String.format( Format.OPTION_CANONICAL_NAME_FORMAT,
+                sectionName, name );
     }
 
 
+    /**
+     * Sets comment for this option schema.
+     * 
+     * @param String comment
+     * @return OptionSchema this instance for fluent interface
+     */
     public OptionSchema setComment( String comment ) {
         this.comment = comment;
 
@@ -66,11 +101,21 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Returns comment of this option schema.
+     * 
+     * @return String
+     */
     public String getComment() {
         return comment;
     }
 
 
+    /**
+     * Sets this option schema required.
+     * 
+     * @return OptionSchema this instance for fluent interface
+     */
     public OptionSchema setRequired() {
         this.required = true;
 
@@ -78,11 +123,24 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Determines whether this section is required.
+     * 
+     * @return boolean
+     */
     public boolean isRequired() {
         return this.required;
     }
 
 
+    /**
+     * Adds validation rule to this validation rules list.
+     *
+     * @param ValidationRule rule
+     * @return OptionSchema this instance for fluent interface
+     * @throws IllegalArgumentException whether the rule is rule
+     * @throws UnsupportedOperationException whether the rule is not aplicable
+     */
     public OptionSchema addValidationRule( ValidationRule rule ) {
         if ( rule == null ) {
             throw new IllegalArgumentException( String.format(
@@ -90,7 +148,7 @@ public abstract class OptionSchema {
         }
 
         if ( !rule.isAplicableOn( this ) ) {
-            throw new IllegalArgumentException( String.format(
+            throw new UnsupportedOperationException( String.format(
                     SchemaError.UNALLOWED_VALIDATION_RULE.getMessage() ) );
         }
 
@@ -100,11 +158,22 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Returns list of validation rules.
+     * 
+     * @return List<ValidationRule>
+     */
     public List<ValidationRule> getValidationRules() {
         return validationRules;
     }
 
 
+    /**
+     * Sets default values for this option schema.
+     * 
+     * @param List defaultValues
+     * @return OptionSchema this instance for fluent interface
+     */
     public OptionSchema setDefaultValues( List defaultValues ) {
         this.defaultValues = defaultValues;
 
@@ -112,20 +181,42 @@ public abstract class OptionSchema {
     }
 
 
+    /**
+     * Return list of default values.
+     * 
+     * @return List
+     */
     public List getDefaultValues() {
         return defaultValues;
     }
 
 
+    /**
+     * Determines whether this option schema has default value.
+     * @return
+     */
     public boolean hasDefaultValue() {
         return defaultValues != null && !defaultValues.isEmpty();
     }
 
 
-    public void accept( StructureVisitor visitor ) {
+    /**
+     * Accepts visitors implementing StructureVisitor pattern.
+     * 
+     * @param StructureVisitor visitor
+     * @return OptionSchema this instance for fluent interface
+     */
+    public OptionSchema accept( StructureVisitor visitor ) {
         visitor.visit( this );
+
+        return this;
     }
 
 
+    /**
+     * Returns appropriate OptionData class instance.
+     * 
+     * @return OptionData
+     */
     public abstract OptionData getOptionData();
 }

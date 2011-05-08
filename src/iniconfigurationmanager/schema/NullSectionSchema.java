@@ -1,8 +1,9 @@
 package iniconfigurationmanager.schema;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * NullSectionSchema implements Null object design pattern. It is used to handle
+ * special case during the parsing of a configuration input, when no section has
+ * not been defined yet.
  */
 public class NullSectionSchema
         extends SectionSchema {

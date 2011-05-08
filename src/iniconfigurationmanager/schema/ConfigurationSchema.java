@@ -6,8 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ConfigurationSchema represents configuration schema structure.
  */
 public class ConfigurationSchema
         implements Iterable<SectionSchema> {
@@ -20,6 +19,15 @@ public class ConfigurationSchema
     }
 
 
+    /**
+     * Adds section to the sections list.
+     *
+     * @param String name section name
+     * @param SectionSchema section
+     * @return ConfigurationSchema this instance for fluent interface
+     * @throws InvalidOperationException whether the section already exists
+     * @throws IllegalArgumentException whether the section is null
+     */
     public ConfigurationSchema addSection( String name, SectionSchema section ) {
         if ( hasSection( name ) ) {
             throw new InvalidOperationException( String.format(
@@ -38,16 +46,40 @@ public class ConfigurationSchema
     }
 
 
+    /**
+     * Determines whether a section with the name exists.
+     *
+     * @param String name section name
+     * @return boolean
+     */
     public boolean hasSection( String name ) {
         return sections.containsKey( name );
     }
 
 
+    /**
+     * Return section with the given name.
+     *
+     * @param String name section name
+     * @return SectionSchema
+     * @throws IllegalArgumentException whether section doesn't exist
+     */
     public SectionSchema getSection( String name ) {
+        if ( !hasSection( name ) ) {
+            throw new IllegalArgumentException( String.format(
+                    SchemaError.UNDEFINED_SECTION_SCHEMA.getMessage(), name ) );
+        }
+
         return sections.get( name );
     }
 
 
+    /**
+     * Removes section from the sections list.
+     *
+     * @param String name section name
+     * @return ConfigurationSchema this instance for fluent interface
+     */
     public ConfigurationSchema removeSection( String name ) {
         sections.remove( name );
 
@@ -55,14 +87,27 @@ public class ConfigurationSchema
     }
 
 
+    /**
+     * Returns iterator for iterating over section's schemas.
+     *
+     * @return Iterator<SectionSchema>
+     */
     public Iterator<SectionSchema> iterator() {
         return sections.values().iterator();
     }
 
 
-    public void accept( StructureVisitor visitor ) {
+    /**
+     * Accepts visitors implementing StructureVisitor pattern
+     *
+     * @param StructureVisitor visitor
+     * @return ConfigurationSchema this instance for fluent interface
+     */
+    public ConfigurationSchema accept( StructureVisitor visitor ) {
         for ( SectionSchema section : sections.values() ) {
             section.accept( visitor );
         }
+
+        return this;
     }
 }

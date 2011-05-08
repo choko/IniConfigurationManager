@@ -1,8 +1,7 @@
 package iniconfigurationmanager.schema;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * SchemaError unites error messages which can occur by bad schema definition.
  */
 public enum SchemaError {
 
@@ -18,6 +17,10 @@ public enum SchemaError {
     DUPLICIT_OPTION_SCHEMA( "Option schema %s already exists." ),
     UNALLOWED_ADDING_OPTION( "Option cannot be added to undefined section." ),
     UNALLOWED_VALIDATION_RULE( "Validation rule is not aplicable here." ),
+    UNDEFINED_SECTION_DATA( "Section data %s doesn't exists." ),
+    UNDEFINED_SECTION_SCHEMA( "Section schema %s doesn't exists." ),
+    UNDEFINED_OPTION_DATA( "Option data %s doesn't exist." ),
+    UNDEFINED_OPTION_SCHEMA( "Option schema %s doesn't exist." ),
     CYCLIC_LINK( "Values link contains cyclic dependency." );
 
     private final String message;

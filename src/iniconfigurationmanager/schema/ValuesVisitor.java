@@ -1,8 +1,8 @@
 package iniconfigurationmanager.schema;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ValuesVisitor is an interface implementing Visitor design pattern for
+ * traversing values of the options.
  */
 public interface ValuesVisitor {
 
