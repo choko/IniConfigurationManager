@@ -24,6 +24,20 @@ public class ConfigurationData
 
 
     /**
+     * Loads default configuration for the schema.
+     *
+     * @param schema
+     * @return configuration data
+     * @throws ConfigParserException whether the error occured during parsing
+     */
+    public static ConfigurationData loadDefaultConfiguration( 
+            ConfigurationSchema schema )
+            throws ConfigParserException {
+        return loadFromString( schema, "" );
+    }
+
+
+    /**
      * Loads configuration from the string by parsing it against the schema.
      *
      * @param ConfigurationSchema schema
@@ -211,6 +225,12 @@ public class ConfigurationData
         sections.remove( name );
 
         return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return toString( true );
     }
 
 
