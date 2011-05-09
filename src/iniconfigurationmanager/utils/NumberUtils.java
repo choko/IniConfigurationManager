@@ -9,9 +9,9 @@ public class NumberUtils {
 
     public static String HEXPREFIX = "0x";
 
-    public static String OCTAPREFIX = "0b";
+    public static String OCTAPREFIX = "0";
 
-    public static String BINARYPREFIX = "0";
+    public static String BINARYPREFIX = "0b";
 
 
     /**
@@ -46,6 +46,17 @@ public class NumberUtils {
         return format.startsWith( BINARYPREFIX ) && format.length() > 1;
     }
 
+
+    public static long toLong( Object value ) {
+        if ( value instanceof Integer ) {
+            return ((Integer) value).longValue();
+        } else if ( value instanceof Long ) {
+            return (Long) value;
+        } else {
+            throw new ClassCastException();
+        }
+    }
+    
 
     public static BigInteger toBigInteger( Object value ) {
         if ( value instanceof Integer ) {

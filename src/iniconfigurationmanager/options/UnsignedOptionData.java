@@ -56,6 +56,10 @@ public class UnsignedOptionData
     public String valueToString( Object value ) {
         BigInteger number = NumberUtils.toBigInteger( value );
 
+        if( number.equals( BigInteger.ZERO ) ) {
+            return Integer.toString( 0 );
+        }
+
         if ( NumberUtils.isBinaryFormat( rawUnsigned ) ) {
             return NumberUtils.BINARYPREFIX.concat( number.toString( 2 ));
         } else if ( NumberUtils.isOctaFormat( rawUnsigned ) ) {
