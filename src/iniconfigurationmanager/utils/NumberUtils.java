@@ -9,9 +9,9 @@ public class NumberUtils {
 
     public static String HEXPREFIX = "0x";
 
-    public static String OCTAPREFIX = "0b";
+    public static String OCTAPREFIX = "0";
 
-    public static String BINARYPREFIX = "0";
+    public static String BINARYPREFIX = "0b";
 
 
     /**

@@ -25,7 +25,7 @@ public class Main {
      */
     public static void main( String[] args )
             throws ConfigParserException {
-        OptionSchema id = new UnsignedOptionSchema().setRequired().setComment(
+        OptionSchema id = new SignedOptionSchema().setRequired().setComment(
                 "id" );
 
         //.addValidationRule(new RangeRule(5, 7));
@@ -40,7 +40,7 @@ public class Main {
         ConfigurationSchema schema = new ConfigurationSchema().addSection(
                 "section", section );
 
-        String input = "[section]\nid=010000000001\nname=karel,${section#id}";
+        String input = "[section]\nid=0b01101001\nname=karel,${section#id}";
 
         ConfigurationData data =
                 ConfigurationData.loadFromString( schema, input );
