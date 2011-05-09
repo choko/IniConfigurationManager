@@ -47,6 +47,30 @@ public class NumberUtils {
     }
 
 
+    public static int getRadix( String value ) {
+        if ( isBinaryFormat( value ) ) {
+            return 2;
+        } else if ( isOctaFormat( value ) ) {
+            return 8;
+        } else if( isHexFormat( value ) ) {
+            return 16;
+        } else {
+            return 10;
+        }
+    }
+
+
+    public static long toLong( Object value ) {
+        if ( value instanceof Integer ) {
+            return ((Integer) value).longValue();
+        } else if ( value instanceof Long ) {
+            return (Long) value;
+        } else {
+            throw new ClassCastException();
+        }
+    }
+    
+
     public static BigInteger toBigInteger( Object value ) {
         if ( value instanceof Integer ) {
             return BigInteger.valueOf( ((Integer) value).longValue() );

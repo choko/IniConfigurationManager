@@ -61,22 +61,23 @@ public class SignedOptionData
      */
     @Override
     protected String valueToString( Object value ) {
-        Long longValue = (Long) value;
-      
-        if ( NumberUtils.isHexFormat( rawStringvalue ) ) {
-            return NumberUtils.HEXPREFIX.concat( Long.toHexString( longValue ) );
-        }
+        Long longValue = NumberUtils.toLong( value );
 
-        if ( NumberUtils.isOctaFormat( rawStringvalue ) ) {
-            return NumberUtils.OCTAPREFIX.concat(
-                    Long.toOctalString( longValue ) );
+        if( longValue == 0) {
+            return Integer.toString( 0 );
         }
 
         if ( NumberUtils.isBinaryFormat( rawStringvalue ) ) {
             return NumberUtils.BINARYPREFIX.concat( Long.toBinaryString(
                     longValue ) );
+        } else if ( NumberUtils.isOctaFormat( rawStringvalue ) ) {
+            return NumberUtils.OCTAPREFIX.concat(
+                    Long.toOctalString( longValue ) );
+        } else if ( NumberUtils.isHexFormat( rawStringvalue ) ) {
+            return NumberUtils.HEXPREFIX.concat( Long.toHexString( longValue ) );
+        } else {
+            return longValue.toString();
         }
-
-        return longValue.toString();
     }
+
 }

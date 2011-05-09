@@ -23,7 +23,7 @@ public class FloatOptionData
      * @return Float.class
      */
     @Override
-    protected Class getValueClass() {
+    public Class getValueClass() {
         return Float.class;
     }
 
@@ -35,7 +35,7 @@ public class FloatOptionData
      * @return  Float
      */
     @Override
-    protected Object parseValue( RawValue value ) {
+    public Object parseValue( RawValue value ) {
        
         try {
             return  Float.parseFloat( value.getValue() );
@@ -51,7 +51,7 @@ public class FloatOptionData
      * @return String
      */
     @Override
-    protected String valueToString( Object value ) {
+    public String valueToString( Object value ) {
         return value.toString();
     }
 }

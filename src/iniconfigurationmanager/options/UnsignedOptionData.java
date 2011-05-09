@@ -56,6 +56,10 @@ public class UnsignedOptionData
     protected String valueToString( Object value ) {
         BigInteger number = NumberUtils.toBigInteger( value );
 
+        if( number.equals( BigInteger.ZERO ) ) {
+            return Integer.toString( 0 );
+        }
+
         if ( NumberUtils.isBinaryFormat( rawUnsigned ) ) {
             return NumberUtils.BINARYPREFIX.concat( number.toString( 2 ));
         } else if ( NumberUtils.isOctaFormat( rawUnsigned ) ) {
@@ -85,10 +89,14 @@ public class UnsignedOptionData
                 BigInteger.ZERO.setBit( 64 ).flipBit( 64 );
 
         
-        public UnsignedInt64( String string ) {
-            BigInteger rawUint64 = new BigInteger( string );
-            if ( rawUint64.compareTo( minValue ) >= 0  &&
-                    rawUint64.compareTo( maxValue ) >= 0 ) {
+        public UnsignedInt64( String value ) {
+            BigInteger rawUint64 = new BigInteger( value,
+                    NumberUtils.getRadix( value ) );
+
+            if (
+                    rawUint64.compareTo( minValue ) >= 0  &&
+                    rawUint64.compareTo( maxValue ) >= 0
+            ) {
                 uint64 = rawUint64;
             } else {
                 throw new ClassCastException();
