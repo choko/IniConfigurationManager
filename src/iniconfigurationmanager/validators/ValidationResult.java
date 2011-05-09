@@ -23,6 +23,7 @@ public class ValidationResult {
 
     /**
      * Method <code>addResult</code> merge @param value result
+     * @param result
      */
     public void addResult( boolean result ) {
         this.result = this.result && result;
@@ -33,6 +34,7 @@ public class ValidationResult {
      * Method returns <code>boolean</code> result.
      * Its return<code>TRUE</code> if none error report.
      * return <code>FALSE</code> if it has any error report.
+     * @return
      */
     public boolean isOk() {
        if ( errorMessages.isEmpty() ) {
@@ -45,6 +47,7 @@ public class ValidationResult {
 
     /**
      * Method added error report that trow validator
+     * @param errorMessage
      */
     public void addErrorMessage( String errorMessage ) {
         this.errorMessages.add( errorMessage );
@@ -52,6 +55,7 @@ public class ValidationResult {
 
     /**
      * Method return all error reports
+     * @return
      */
     public List<String> getErrorMessages() {
         return this.errorMessages;
@@ -59,6 +63,7 @@ public class ValidationResult {
 
     /**
      * Method merge two ValidationResult to one
+     * @param result
      */
     public void mergeResults( ValidationResult result ) {
         this.errorMessages.addAll( result.getErrorMessages() );

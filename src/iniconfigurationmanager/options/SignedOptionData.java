@@ -39,6 +39,7 @@ public class SignedOptionData
      * value to the <code>Long</code> value. RawValue string can be in
      *  hexadecima, octadecimal, binary or standart format.
      *
+     * @param value
      * @return long
      */
     @Override
@@ -57,6 +58,7 @@ public class SignedOptionData
      * Its return <code>String</code> from value in same numeral system
      * with a radix 16,10,8,2 whit corresponding prefix
      *
+     * @param value
      * @return String
      */
     @Override

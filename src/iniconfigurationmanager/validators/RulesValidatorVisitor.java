@@ -36,6 +36,7 @@ public class RulesValidatorVisitor
     /**
      * Method run validation and merge validation result od each rules
      * that have option
+     * @param option
      */
     public void visit( OptionData option ) {
         OptionSchema schema = schemaOptions.get( option.getCanonicalName() );
@@ -52,6 +53,7 @@ public class RulesValidatorVisitor
 
     /**
      * Method run add option schema whit his canonical name and schema
+     * @param option
      */
 
     public void visit( OptionSchema option ) {

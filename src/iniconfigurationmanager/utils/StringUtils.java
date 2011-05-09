@@ -10,7 +10,7 @@ public class StringUtils {
     /**
      * Trims unescaped whitespaces from the start and from the end of the text.
      *
-     * @param String text
+     * @param text
      * @return String
      */
     public static String trim( String text ) {
@@ -27,7 +27,7 @@ public class StringUtils {
     /**
      * Trims inline comments from the line.
      * 
-     * @param String line
+     * @param line
      * @return String
      */
     public static String trimInlineComments( String line ) {
@@ -52,7 +52,7 @@ public class StringUtils {
      *  Formats comment by adding Format.COMMENT_START sign after every newline
      *  character.
      *
-     * @param String comment
+     * @param comment
      * @return String
      */
     public static String formatComment( String comment ) {
@@ -73,7 +73,7 @@ public class StringUtils {
     /**
      * Adds slashes before every  ,:;$ character.
      * 
-     * @param String unslashedString
+     * @param unslashedString
      * @return String
      */
     public static String addSlashes( String unslashedString ) {
@@ -91,7 +91,7 @@ public class StringUtils {
     /**
      * Removes slashes before every ,:;$ character.
      * 
-     * @param String slashedString
+     * @param slashedString
      * @return String
      */
     public static String removeSlashes( String slashedString ) {

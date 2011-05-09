@@ -32,6 +32,7 @@ public class StrictValidatorVisitor
     /**
      * Method visit option data and try remove its name from HashSet off
      * all  Optiondata thats in the schema
+     * @param option
      */
     public void visit( OptionData option ) {
         boolean hasOption = schemaOption.remove( option.getCanonicalName() );
@@ -43,6 +44,7 @@ public class StrictValidatorVisitor
 
     /**
      * Method visit optionSchema and if its reqiered add its name to HashSet
+     * @param option
      */
     public void visit( OptionSchema option ) {
         schemaOption.add( option.getCanonicalName() );
@@ -50,7 +52,8 @@ public class StrictValidatorVisitor
 
      /**
      *Method that removes section nae from schemaSection
-     */
+      * @param section
+      */
     public void visit( SectionData section ) {
         boolean haveSection = schemaSection.remove( section.getName() );
         if ( !haveSection ) {
@@ -61,6 +64,7 @@ public class StrictValidatorVisitor
 
     /**
      *Method that visiting section data.Name of section is stored
+     * @param section
      */
     public void visit( SectionSchema section ) {
         schemaSection.add( section.getName() );

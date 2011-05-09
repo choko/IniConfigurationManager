@@ -31,7 +31,7 @@ public class SectionData
     /**
      * Sets name of this section.
      *
-     * @param String name
+     * @param name
      * @return SectionData this instance for fluent interface implementation
      */
     protected SectionData setName( String name ) {
@@ -55,7 +55,8 @@ public class SectionData
      * Sets comment for this section data by merging comment from the section
      * schema and from the configuration input.
      *
-     * @param String comment
+     * @param schemaComment
+     * @param inputComment
      * @return SectionData this instance for fluent interface implementation
      */
     public SectionData setComment( String schemaComment, String inputComment ) {
@@ -83,7 +84,7 @@ public class SectionData
     /**
      * Sets configuration that this section belongs to
      * 
-     * @param ConfigurationData configuration
+     * @param configuration
      * @return SectionData this instance for fluent interface implementation
      */
     protected SectionData setConfiguration( ConfigurationData configuration ) {
@@ -96,8 +97,8 @@ public class SectionData
     /**
      * Adds option to this options list.
      *
-     * @param String name
-     * @param String option
+     * @param name
+     * @param option
      * @return SectionData this instance for fluent interface implementation
      * @throws InvalidOperationException whether the option already exists
      * @throws IllegalArgumentException whether the option is null
@@ -125,7 +126,7 @@ public class SectionData
     /**
      * Determines whether the option exists.
      *
-     * @param String name
+     * @param name
      * @return boolean
      */
     public boolean hasOption( String name ) {
@@ -136,7 +137,7 @@ public class SectionData
     /**
      * Removes option from the options list.
      *
-     * @param String name
+     * @param name
      * @return SectionData this instance for fluent interface implementation
      */
     public SectionData removeOption( String name ) {
@@ -149,7 +150,7 @@ public class SectionData
     /**
      * Returns option with the name.
      *
-     * @param String name
+     * @param name
      * @return OptionData
      * @throws IllegalArgumentException whether the option doesn't exist
      */

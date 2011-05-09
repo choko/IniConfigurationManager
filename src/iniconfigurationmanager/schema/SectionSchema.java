@@ -20,6 +20,9 @@ public class SectionSchema
     private Map<String, OptionSchema> options;
 
 
+    /**
+     *
+     */
     public SectionSchema() {
         this.options = new LinkedHashMap<String, OptionSchema>();
         this.required = false;
@@ -30,7 +33,7 @@ public class SectionSchema
     /**
      * Sets name of this section.
      *
-     * @param String name
+     * @param name
      * @return SectionSchema this instance for fluent interface implementation
      */
     protected SectionSchema setName( String name ) {
@@ -79,7 +82,7 @@ public class SectionSchema
     /**
      * Sets comment for this section schema.
      *
-     * @param String comment
+     * @param comment
      * @return SectionSchema this instance for fluent interface implementation
      */
     public SectionSchema setComment( String comment ) {
@@ -102,8 +105,8 @@ public class SectionSchema
     /**
      * Adds option to this options list.
      *
-     * @param String name
-     * @param String option
+     * @param name 
+     * @param option
      * @return SectionSchema this instance for fluent interface implementation
      * @throws InvalidOperationException whether the option already exists
      * @throws IllegalArgumentException whether the option is null
@@ -130,7 +133,7 @@ public class SectionSchema
     /**
      * Determines whether the option exists.
      *
-     * @param String name
+     * @param name
      * @return boolean
      */
     public boolean hasOption( String name ) {
@@ -141,7 +144,7 @@ public class SectionSchema
     /**
      * Removes option from the options list.
      * 
-     * @param String name
+     * @param name
      * @return SectionSchema this instance for fluent interface implementation
      */
     public SectionSchema removeOption( String name ) {
@@ -154,7 +157,7 @@ public class SectionSchema
     /**
      * Returns option with the name.
      * 
-     * @param String name
+     * @param name
      * @return OptionSchema
      * @throws IllegalArgumentException whether the option doesn't exist
      */

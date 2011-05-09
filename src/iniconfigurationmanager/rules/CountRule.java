@@ -29,6 +29,8 @@ public class CountRule
      * as @param came Class that extends OptionScheme Class.
      * Its mean that <code>CountRule</code> is applicable on
      * every posible OptionSchema.
+     * @return 
+     * @param format
      */
     public boolean isAplicableOn( OptionSchema format ) {
         return true;
@@ -38,6 +40,8 @@ public class CountRule
      * <Code>validate</code> check if count of elements in
      * Option data its a same as requed count.
      * If not add Error message to the result.
+     * @param option
+     * @return
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();

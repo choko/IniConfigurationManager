@@ -24,11 +24,6 @@ public class Main {
 
     public static void main( String[] args )
             throws ConfigParserException {
-<<<<<<< HEAD
-        OptionSchema id = new SignedOptionSchema().setRequired().setComment(
-                "id" );
-=======
->>>>>>> f5b7fba034568cd840bcd3d97eadba20ff28b6a0
 
         List<Object> allowedNames = new LinkedList<Object>();
         allowedNames.add("Petra");
@@ -55,13 +50,10 @@ public class Main {
                 .addOption( "name", name )
                 .addOption( "surname", surname )
                 .addOption( "age", age);
+       
 
-<<<<<<< HEAD
-        String input = "[section]\nid=0b01101001\nname=karel,${section#id}";
-=======
         ConfigurationSchema schema = new ConfigurationSchema()
                 .addSection( "person", personSection );
->>>>>>> f5b7fba034568cd840bcd3d97eadba20ff28b6a0
 
 
         String input = "[person]\nname=Karla,Petra\nsurname=${person#name},Machova\nage=010000000001";

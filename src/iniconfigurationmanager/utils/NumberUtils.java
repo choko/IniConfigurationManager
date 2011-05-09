@@ -8,7 +8,7 @@ import java.math.BigInteger;
 public class NumberUtils {
 
     /**
-     * This String constant holds posible prefix of number whit non 10 radix
+     * This Strings constant holds posible prefix of number whit non 10 radix
      */
 
     public static String HEXPREFIX = "0x";
@@ -21,7 +21,7 @@ public class NumberUtils {
     /**
      * Determines whether the given number is in hexadecimal format.
      *
-     * @param String number
+     * @param number
      * @return boolean
      */
     public static boolean isHexFormat( String number ) {
@@ -32,7 +32,7 @@ public class NumberUtils {
     /**
      * Determines whether the given number is in octal format.
      *
-     * @param String number
+     * @param number
      * @return boolean
      */
     public static boolean isOctaFormat( String number ) {
@@ -43,7 +43,7 @@ public class NumberUtils {
     /**
      * Determines whether the given number is in binary format.
      *
-     * @param String number
+     * @param format
      * @return boolean
      */
     public static boolean isBinaryFormat( String format ) {

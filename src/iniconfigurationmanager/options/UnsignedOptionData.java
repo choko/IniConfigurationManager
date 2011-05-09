@@ -1,5 +1,10 @@
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.utils.NumberUtils;
+import java.math.BigInteger;
+
 /**
  * The <code>UnsignedOptionData</code> class extends OptionData of
  * <code>BigInteger</code> value type.
@@ -12,14 +17,6 @@ package iniconfigurationmanager.options;
  * parsing method and valueToString method that returns <code>string</code>
  * whit radix same as parsed string
  */
-
-
-import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.utils.NumberUtils;
-import java.math.BigInteger;
-
-
 public class UnsignedOptionData
         extends OptionData {
 
@@ -37,6 +34,7 @@ public class UnsignedOptionData
 
     /**
      * The <code>parseValue</code> return string value of <code>RawValue</code>
+     * @param value
      */
     @Override
     protected Object parseValue( RawValue value ) {
@@ -51,6 +49,7 @@ public class UnsignedOptionData
      * The <code>parseValue</code> provade parsing of <code>RawValue</code>
      * value to the <code>BigInteger</code> value. RawValue string can be in
      *  hexadecima, octadecimal, binary or standart format.
+     * @param value
      */
     @Override
     protected String valueToString( Object value ) {

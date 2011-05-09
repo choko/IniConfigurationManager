@@ -29,6 +29,8 @@ public class EnumRule
      * as @param came Class that extends OptionScheme Class.
      * Its mean that <code>EnumRule</code> is applicable on
      * every posible OptionSchema.
+     * @param option 
+     * @return
      */
     public boolean isAplicableOn( OptionSchema option ) {
         return true;
@@ -37,6 +39,8 @@ public class EnumRule
     /**
      * <Code>validate</code> if all Object specified during constructor
      * is in Optioandata.If not add Error message to the result.
+     * @param option 
+     * @return
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();

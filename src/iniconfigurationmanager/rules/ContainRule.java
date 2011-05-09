@@ -31,6 +31,8 @@ public class ContainRule
      * as @param came Class that extends OptionScheme Class.
      * Its mean that <code>ContainRule</code> is applicable on
      * every posible OptionSchema.
+     * @return 
+     * @param format
      */
     public boolean isAplicableOn( OptionSchema format ) {
         return true;
@@ -39,6 +41,8 @@ public class ContainRule
     /**
      * <Code>validate</code> check if object contain in
      * Option data. If not add Error message to the result.
+     * @param option
+     * @return
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();

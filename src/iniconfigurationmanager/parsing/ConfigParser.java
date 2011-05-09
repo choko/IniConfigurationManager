@@ -47,7 +47,7 @@ public class ConfigParser {
     /**
      * Parses given preprocessed configuration input into configuration data.
      *
-     * @param List<ConfigLine> lines preprocessed configuration input
+     * @param lines
      * @return ConfigurationData configuration data
      * @throws ConfigParserException
      */

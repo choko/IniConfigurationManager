@@ -34,6 +34,7 @@ public class RelaxValidatorVisitor
     /**
      * Method visit option data and try remove its name from HashSet off
      * all requed Optiondata
+     * @param option
      */
     public void visit( OptionData option ) {
       schemaOption.remove( option.getCanonicalName() );
@@ -41,6 +42,7 @@ public class RelaxValidatorVisitor
 
     /**
      * Method visit optionSchema and if its reqiered add its name to HashSet
+     * @param option
      */
     public void visit( OptionSchema option ) {
         if ( option.isRequired() ) {
@@ -51,6 +53,7 @@ public class RelaxValidatorVisitor
 
     /**
      *Method that visiting section data.Name of section is stored
+     * @param section
      */
     public void visit( SectionData section ) {
        schemaSection.remove( section.getName() );        
@@ -58,6 +61,7 @@ public class RelaxValidatorVisitor
 
     /**
      *Method that visiting section data.Name of section is stored
+     * @param section
      */
     public void visit( SectionSchema section ) {
         if ( section.isRequired() ) {

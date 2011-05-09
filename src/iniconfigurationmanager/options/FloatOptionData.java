@@ -32,6 +32,7 @@ public class FloatOptionData
      * value to the <code>Float</code> value. Float value is standart IEEE 754
      * format
      *
+     * @param value
      * @return  Float
      */
     @Override
@@ -48,6 +49,7 @@ public class FloatOptionData
      * The <code>valueToString</code> provade oposite of parseValue.
      * Its return <code>String</code> from value in standart IEEE 754
      *
+     * @param value
      * @return String
      */
     @Override

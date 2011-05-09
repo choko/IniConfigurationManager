@@ -41,6 +41,7 @@ public class BooleanOptionData
      * value to the <code>boolean</code> value. It can parse all valid
      * meaning of true or false
      *
+     * @param value
      * @return boolean
      */
     @Override
@@ -78,6 +79,7 @@ public class BooleanOptionData
      * Its return <code>String</code> from value in same syntax as original
      * unparsed string-value
      *
+     * @param value
      * @return String
      */
     @Override
