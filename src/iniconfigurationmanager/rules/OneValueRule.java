@@ -8,6 +8,7 @@ package iniconfigurationmanager.rules;
  */
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.utils.ValidatorUtils;
 import iniconfigurationmanager.validators.ValidationResult;
 
 public class OneValueRule
@@ -22,6 +23,7 @@ public class OneValueRule
         return true;
     }
 
+
     /**
      * <Code>validate</code> check if count of elements in
      * Option data is one!.Method simply use CountRule whit @param 1
@@ -29,6 +31,6 @@ public class OneValueRule
      */
     public ValidationResult validate( OptionData option ) {
         CountRule countRule = new CountRule( 1 );
-        return countRule.validate( option );
+        return ValidatorUtils.validate( countRule, option );
     }
 }

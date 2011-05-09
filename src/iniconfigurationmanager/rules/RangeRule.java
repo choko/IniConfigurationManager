@@ -12,6 +12,7 @@ import iniconfigurationmanager.options.SignedOptionSchema;
 import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.utils.ValidatorUtils;
 import iniconfigurationmanager.validators.ValidationResult;
 
 public class RangeRule
@@ -65,10 +66,10 @@ public class RangeRule
         ValidationResult result = new ValidationResult();
 
         MinValueRule minRule = new MinValueRule( this.min );
-        result.mergeResults( minRule.validate( option ) );
+        result.mergeResults( ValidatorUtils.validate( minRule, option ) );
 
         MaxValueRule maxRule = new MaxValueRule( this.max );
-        result.mergeResults( maxRule.validate( option ) );
+        result.mergeResults( ValidatorUtils.validate( maxRule, option ) );
 
         return result;
     }

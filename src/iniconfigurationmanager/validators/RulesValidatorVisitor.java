@@ -12,6 +12,7 @@ import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.schema.SectionData;
 import iniconfigurationmanager.schema.SectionSchema;
+import iniconfigurationmanager.utils.ValidatorUtils;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,8 @@ public class RulesValidatorVisitor
         }
 
         List<ValidationRule> optionRules = schema.getValidationRules();
-        for ( ValidationRule validationRule : optionRules ) {
-            result.mergeResults( validationRule.validate( option ) );
+        for ( ValidationRule rule : optionRules ) {
+            result.mergeResults( ValidatorUtils.validate( rule, option ) );
         }
     }
 

@@ -2,8 +2,12 @@ package iniconfigurationmanager.schema;
 
 import iniconfigurationmanager.parsing.Format;
 import iniconfigurationmanager.rules.ValidationRule;
+import iniconfigurationmanager.utils.ValidatorUtils;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Abstract OptionData represents option's schema in the configuration schema.
@@ -147,7 +151,7 @@ public abstract class OptionSchema {
                     SchemaError.NULL_VALIDATION_RULE.getMessage() ) );
         }
 
-        if ( !rule.isAplicableOn( this ) ) {
+        if ( ! ValidatorUtils.isRuleAplicableOn( rule, this ) ) {
             throw new UnsupportedOperationException( String.format(
                     SchemaError.UNALLOWED_VALIDATION_RULE.getMessage() ) );
         }

@@ -167,7 +167,7 @@ public abstract class OptionData {
             values.add( parseValue( (RawValue) value ) );
         } else {
             values.add( value );
-        }
+        } 
 
         return this;
     }
@@ -245,10 +245,6 @@ public abstract class OptionData {
      * @return List<T>
      */
     public <T> List<T> getValues( T type ) {
-        if ( !typeMatches( type ) ) {
-            throw new ClassCastException();
-        }
-
         List<T> valuesList = new LinkedList<T>();
         for ( Object value : values ) {
             if ( value instanceof ValueLink ) {
@@ -260,19 +256,6 @@ public abstract class OptionData {
         }
 
         return valuesList;
-    }
-
-
-    /**
-     * Determine whether the given type mathes with type defined by 
-     * getValueClass()
-     * 
-     * @param <T> type to which the value has to be casted.
-     * @param type instance of the T
-     * @return boolean
-     */
-    private <T> boolean typeMatches( T type ) {
-        return type.getClass().isAssignableFrom( getValueClass() );
     }
 
 
