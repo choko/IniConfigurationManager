@@ -7,8 +7,7 @@ import iniconfigurationmanager.validators.ValidationResult;
 import java.lang.reflect.Method;
 
 /**
- *
- * @author Ondrej Klejch <ondrej.klejch@gmail.com>
+ * ValidatorUtils unites method for providing polymorphism in validation rules.
  */
 public class ValidatorUtils {
 
@@ -17,6 +16,14 @@ public class ValidatorUtils {
     private static final String VALIDATE_METHOD_NAME = "validate";
 
 
+    /**
+     * Calls the most specific isAplicableOn method for the option from the rule
+     * class.
+     *
+     * @param rule
+     * @param option
+     * @return
+     */
     public static boolean isRuleAplicableOn( ValidationRule rule,
             OptionSchema option) {
         try {
@@ -30,6 +37,14 @@ public class ValidatorUtils {
     }
 
 
+    /**
+     * Calls the most specific validate method for the option from the rule
+     * class.
+     *
+     * @param rule
+     * @param option
+     * @return
+     */
     public static ValidationResult validate( ValidationRule rule,
             OptionData option ) {
         try {
