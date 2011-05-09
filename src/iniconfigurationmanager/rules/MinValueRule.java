@@ -9,7 +9,6 @@ import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
-import java.util.List;
 
 /**
  * The <code>MaxValueRule</code> provides rule that limites
@@ -24,29 +23,10 @@ public class MinValueRule
     private static final String LOW_VALUE =
             "Option %s value is lower than rule allows.";
 
-    private Object minValue;
+    private Comparable minValue;
 
 
-    /**
-     *<code>MaxValueRule</code> have diferent constructor to distinguish
-     *type of value
-     */
-    public MinValueRule( int minValue ) {
-        this.minValue = minValue;
-    }
-
-
-    public MinValueRule( float minValue ) {
-        this.minValue = minValue;
-    }
-
-
-    public MinValueRule( long minValue ) {
-        this.minValue = minValue;
-    }
-
-
-    MinValueRule( Object min ) {
+    MinValueRule( Comparable min ) {
         this.minValue = min;
     }
 
@@ -57,17 +37,7 @@ public class MinValueRule
      * .If not write error msg in result
      */
     public ValidationResult validate( SignedOptionData option ) {
-        ValidationResult result = new ValidationResult();
-        List<Integer> optionIntValue = option.getValues( new Integer( 0 ) );
-
-        for ( Integer integer : optionIntValue ) {
-            if ( integer < (Integer) this.minValue ) {
-                result.addErrorMessage( String.format( LOW_VALUE,
-                        option.getCanonicalName() ) );
-            }
-        }
-
-        return result;
+        return _validate( option );
     }
 
 
@@ -77,17 +47,7 @@ public class MinValueRule
      * .If not write error msg in result
      */
     public ValidationResult validate( UnsignedOptionData option ) {
-        ValidationResult result = new ValidationResult();
-        List<Long> optionIntValue = option.getValues( new Long( 0 ) );
-
-        for ( Long longValue : optionIntValue ) {
-            if ( longValue < (Long) this.minValue ) {
-                result.addErrorMessage( String.format( LOW_VALUE,
-                        option.getCanonicalName() ) );
-            }
-        }
-
-        return result;
+        return _validate( option );
     }
 
 
@@ -97,11 +57,15 @@ public class MinValueRule
      * .If not write error msg in result
      */
     public ValidationResult validate( FloatOptionData option ) {
-        ValidationResult result = new ValidationResult();
-        List<Float> optionFloatValue = option.getValues( new Float( 0 ) );
+        return _validate( option );
+    }
 
-        for ( Float floatValue : optionFloatValue ) {
-            if ( floatValue < (Float) this.minValue ) {
+
+    private ValidationResult _validate( OptionData option ) {
+        ValidationResult result = new ValidationResult();
+
+        for ( Object value : option.getValues() ) {
+            if( ((Comparable) value).compareTo( minValue ) <= 0 ) {
                 result.addErrorMessage( String.format( LOW_VALUE,
                         option.getCanonicalName() ) );
             }
