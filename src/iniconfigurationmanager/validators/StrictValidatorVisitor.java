@@ -1,12 +1,5 @@
 package iniconfigurationmanager.validators;
 
-/**
- * <code>validateStrict</code> Strict validate given data.
- * Strict validation mean ,that every section and every option
- * MUST be define in scheme otherwise makes error and validation
- * doesnt pass
-
- */
 import iniconfigurationmanager.schema.StructureVisitor;
 import iniconfigurationmanager.schema.ConfigurationData;
 import iniconfigurationmanager.schema.OptionData;
@@ -15,7 +8,12 @@ import iniconfigurationmanager.schema.SectionData;
 import iniconfigurationmanager.schema.SectionSchema;
 import java.util.HashSet;
 
-
+/**
+ * <code>validateStrict</code> Strict validate given data.
+ * Strict validation mean ,that every section and every option
+ * MUST be define in scheme otherwise makes error and validation
+ * doesnt pass
+ */
 public class StrictValidatorVisitor
         implements StructureVisitor {
 

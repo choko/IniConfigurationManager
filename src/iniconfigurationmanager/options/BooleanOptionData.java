@@ -21,7 +21,7 @@ public class BooleanOptionData
      * The <code>rawBoolean</code> <code>String</code> holds unparsed value
      * of item for same valueToString outout as imput
      */
-    String rawBoolean;
+    private String rawBoolean;
 
 
     /**
@@ -182,34 +182,34 @@ public class BooleanOptionData
     /**
      * This constant hold all posible string reprezentation of false string
      */
-    static final String ZERO = "0";
+    private static final String ZERO = "0";
 
-    static final String SHORT_FALSE = "f";
+    private static final String SHORT_FALSE = "f";
 
-    static final String SHORT_NO = "n";
+    private static final String SHORT_NO = "n";
 
-    static final String FALSE = "false";
+    private static final String FALSE = "false";
 
-    static final String OFF = "off";
+    private static final String OFF = "off";
 
-    static final String NO = "no";
+    private static final String NO = "no";
 
-    static final String DISABLED = "disabled";
+    private static final String DISABLED = "disabled";
 
      /**
      * This constant hold all posible string reprezentation of false string
      */
-    static final String ONE = "1";
+    private static final String ONE = "1";
 
-    static final String SHORT_TRUE = "t";
+    private static final String SHORT_TRUE = "t";
 
-    static final String SHORT_YES = "y";
+    private static final String SHORT_YES = "y";
 
-    static final String TRUE = "true";
+    private static final String TRUE = "true";
 
-    static final String ON = "on";
+    private static final String ON = "on";
 
-    static final String YES = "yes";
+    private static final String YES = "yes";
 
-    static final String ENABLED = "enebled";
+    private static final String ENABLED = "enebled";
 }

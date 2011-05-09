@@ -1,5 +1,13 @@
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.StructureVisitor;
+import iniconfigurationmanager.schema.ConfigurationData;
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.schema.SectionData;
+import iniconfigurationmanager.schema.SectionSchema;
+import java.util.HashSet;
+
 /**
 * <code>validateRelax</code> Relax validate given data.
 * Relax validation mean ,that only schemas and option that set to requied
@@ -11,14 +19,6 @@ package iniconfigurationmanager.validators;
 * So if schema or option is not reqied validator doesnt care and
 * validation pass
 */
-import iniconfigurationmanager.schema.StructureVisitor;
-import iniconfigurationmanager.schema.ConfigurationData;
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.schema.SectionData;
-import iniconfigurationmanager.schema.SectionSchema;
-import java.util.HashSet;
-
 public class RelaxValidatorVisitor
         implements StructureVisitor {
  

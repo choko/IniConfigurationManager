@@ -1,13 +1,12 @@
 package iniconfigurationmanager.validators;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * <code>ValidationResult</code> handle validating result
  * It contains every Report of error during validation
  */
-import java.util.LinkedList;
-import java.util.List;
-
-
 public class ValidationResult {
 
     /**

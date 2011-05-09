@@ -1,16 +1,16 @@
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.validators.ValidationResult;
+import java.util.List;
+
 /**
  * The <code>CountRule</code> provides rule that check if
  * count of number of element in Option data is specfi number
  * <p>
  * This rule is applicable on evry Data that extends OptionSchema
  */
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.validators.ValidationResult;
-import java.util.List;
-
 public class CountRule
         implements ValidationRule {
 
