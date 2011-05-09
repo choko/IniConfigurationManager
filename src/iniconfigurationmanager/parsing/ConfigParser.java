@@ -378,6 +378,11 @@ public class ConfigParser {
      */
     private void addMissingOptionsWithDefaultValue() {
         for ( SectionSchema sectionSchema : configuration.getSchema() ) {
+            if( ! configuration.hasSection( sectionSchema.getName() ) ) {
+                configuration.addSection( sectionSchema.getName(),
+                        new SectionData() );
+            }
+
             SectionData sectionData = configuration.getSection(
                     sectionSchema.getName() );
 
