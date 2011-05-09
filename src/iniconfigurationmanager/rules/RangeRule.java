@@ -19,47 +19,24 @@ import iniconfigurationmanager.validators.ValidationResult;
 public class RangeRule
         implements ValidationRule {
 
-    private Object max;
+    private Comparable max;
 
-    private Object min;
+    private Comparable min;
 
     
-     /**
-     *<code>RangeRule</code> have diferent constructor to distinguish
-     *type of value
-     */
-    public RangeRule( int min, int max ) {
+    public RangeRule( Comparable min, Comparable max ) {
         this.min = min;
         this.max = max;
-        if ( min > max ) {
-            throw new NumberFormatException();
-        }
-
-    }
-
-
-    public RangeRule( float min, float max ) {
-        this.min = min;
-        this.max = max;
-        if ( min > max ) {
+        if ( min.compareTo( max ) > 0 ) {
             throw new NumberFormatException();
         }
     }
 
-
-    public RangeRule( long min, long max ) {
-        this.min = min;
-        this.max = max;
-        if ( min > max ) {
-            throw new NumberFormatException();
-        }
-    }
-
-     /**
+    /**
      * This<Code>validate</code> with @param <code>option</code>
      * validate if value in @param is in range that value adden in constructor
-      * specifi.Use MaxValueRule and MinValueFor it.
-       .If not write error msg in result
+     * specifi.Use MaxValueRule and MinValueFor it.
+     * If not write error msg in result
      */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();

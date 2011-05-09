@@ -25,29 +25,10 @@ public class MaxValueRule
     private static final String HIGH_VALUE =
             "Option %s value is higher than rule allows.";
 
-    private Object maxValue;
+    private Comparable maxValue;
 
     
-     /**
-     *<code>MaxValueRule</code> have diferent constructor to distinguish
-     *type of value
-     */
-    public MaxValueRule( int minValue ) {
-        this.maxValue = minValue;
-    }
-
-
-    public MaxValueRule( float minValue ) {
-        this.maxValue = minValue;
-    }
-
-
-    public MaxValueRule( long minValue ) {
-        this.maxValue = minValue;
-    }
-
-
-    MaxValueRule( Object min ) {
+    public MaxValueRule( Comparable min ) {
         this.maxValue = min;
     }
 
@@ -58,32 +39,16 @@ public class MaxValueRule
      * .If not write error msg in result
      */
     public ValidationResult validate( SignedOptionData option ) {
-        ValidationResult result = new ValidationResult();
-        List<Integer> optionIntValue = option.getValues( new Integer( 0 ) );
-        for ( Integer integer : optionIntValue ) {
-            if ( integer > (Integer) this.maxValue ) {
-               result.addErrorMessage( String.format( HIGH_VALUE,
-                        option.getCanonicalName() ) );
-            }
-        }
-        return result;
+        return _validate( option );
     }
 
     /**
      * This<Code>validate</code> with @param <code>UnsignedOptionData</code>
-     * validate if value in @param is bellow value adden in constructor
-     * .If not write error msg in result
+     * validate if value in @param is bellow value adden in constructor.
+     * If not write error msg in result.
      */
     public ValidationResult validate( UnsignedOptionData option ) {
-        ValidationResult result = new ValidationResult();
-        List<Long> optionIntValue = option.getValues( new Long( 0 ) );
-        for ( Long longValue : optionIntValue ) {
-            if ( longValue > (Long) this.maxValue ) {
-                result.addErrorMessage( String.format( HIGH_VALUE,
-                        option.getCanonicalName() ) );
-            }
-        }
-        return result;
+        return _validate( option );
     }
 
     /**
@@ -92,16 +57,23 @@ public class MaxValueRule
      * .If not write error msg in result
      */
     public ValidationResult validate( FloatOptionData option ) {
+        return _validate( option );
+    }
+
+
+    private ValidationResult _validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
-        List<Float> optionFloatValue = option.getValues( new Float( 0 ) );
-        for ( Float floatValue : optionFloatValue ) {
-            if ( floatValue > (Float) this.maxValue ) {
-                result.addErrorMessage( String.format( HIGH_VALUE, 
+
+        for ( Object value : option.getValues() ) {
+            if( ((Comparable) value).compareTo( maxValue ) <= 0 ) {
+                result.addErrorMessage( String.format( HIGH_VALUE,
                         option.getCanonicalName() ) );
             }
         }
+
         return result;
     }
+    
 
     /**
      * Methods thts specify on whitch OptionSchema can be rule aplicated

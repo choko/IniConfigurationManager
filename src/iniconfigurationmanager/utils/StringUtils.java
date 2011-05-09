@@ -100,7 +100,7 @@ public class StringUtils {
         unslashedString.replaceAll( "\\,", "," );
         unslashedString.replaceAll( "\\:", ":" );
         unslashedString.replaceAll( "\\;", ";" );
-        unslashedString.replaceAll( "\\$", "$" );
+        unslashedString.replaceAll( "\\\\$", "\\$" );
 
         return unslashedString;
     }
