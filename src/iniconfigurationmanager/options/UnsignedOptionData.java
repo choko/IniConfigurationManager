@@ -54,22 +54,17 @@ public class UnsignedOptionData
      */
     @Override
     public String valueToString( Object value ) {
-        BigInteger bigInteger = (BigInteger) value;
-        NumberUtils utils = new NumberUtils();
+        BigInteger number = NumberUtils.toBigInteger( value );
 
-        if ( utils.isHexFormat( rawUnsigned ) ) {
-            return NumberUtils.HEXPREFIX.concat( bigInteger.toString( 16 ) );
+        if ( NumberUtils.isBinaryFormat( rawUnsigned ) ) {
+            return NumberUtils.BINARYPREFIX.concat( number.toString( 2 ));
+        } else if ( NumberUtils.isOctaFormat( rawUnsigned ) ) {
+            return NumberUtils.OCTAPREFIX.concat( number.toString( 8 ));
+        } else if ( NumberUtils.isHexFormat( rawUnsigned ) ) {
+            return NumberUtils.HEXPREFIX.concat( number.toString( 16 ));
+        } else {
+            return value.toString();
         }
-
-        if ( utils.isOctaFormat( rawUnsigned ) ) {
-            return NumberUtils.OCTAPREFIX.concat( bigInteger.toString( 8 ) );
-        }
-
-        if ( utils.isBinaryFormat( rawUnsigned ) ) {
-            return NumberUtils.BINARYPREFIX.concat( bigInteger.toString( 2 ) );
-        }
-
-        return bigInteger.toString();
     }
 
 

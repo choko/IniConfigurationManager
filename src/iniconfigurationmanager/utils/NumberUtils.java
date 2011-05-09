@@ -1,5 +1,7 @@
 package iniconfigurationmanager.utils;
 
+import java.math.BigInteger;
+
 /**
  * NumberUtils unites usefull methods for working with numbers.
  */
@@ -18,7 +20,7 @@ public class NumberUtils {
      * @param String number
      * @return boolean
      */
-    public boolean isHexFormat( String number ) {
+    public static boolean isHexFormat( String number ) {
         return number.startsWith( HEXPREFIX );
     }
 
@@ -29,7 +31,7 @@ public class NumberUtils {
      * @param String number
      * @return boolean
      */
-    public boolean isOctaFormat( String number ) {
+    public static boolean isOctaFormat( String number ) {
         return number.startsWith( OCTAPREFIX );
     }
 
@@ -40,7 +42,20 @@ public class NumberUtils {
      * @param String number
      * @return boolean
      */
-    public boolean isBinaryFormat( String format ) {
-        return format.startsWith( BINARYPREFIX );
+    public static boolean isBinaryFormat( String format ) {
+        return format.startsWith( BINARYPREFIX ) && format.length() > 1;
+    }
+
+
+    public static BigInteger toBigInteger( Object value ) {
+        if ( value instanceof Integer ) {
+            return BigInteger.valueOf( ((Integer) value).longValue() );
+        } else if ( value instanceof Long ) {
+            return BigInteger.valueOf( (Long) value );
+        } else if ( value instanceof BigInteger ) {
+            return (BigInteger) value;
+        } else {
+            throw new ClassCastException();
+        }
     }
 }
