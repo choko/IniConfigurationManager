@@ -62,8 +62,8 @@ public class MaxValueRule
         List<Integer> optionIntValue = option.getValues( new Integer( 0 ) );
         for ( Integer integer : optionIntValue ) {
             if ( integer > (Integer) this.maxValue ) {
-            } else {
-                result.addErrorMessage( HIGH_VALUE );
+               result.addErrorMessage( String.format( HIGH_VALUE,
+                        option.getCanonicalName() ) );
             }
         }
         return result;
@@ -79,8 +79,8 @@ public class MaxValueRule
         List<Long> optionIntValue = option.getValues( new Long( 0 ) );
         for ( Long longValue : optionIntValue ) {
             if ( longValue > (Long) this.maxValue ) {
-            } else {
-                result.addErrorMessage( HIGH_VALUE );
+                result.addErrorMessage( String.format( HIGH_VALUE,
+                        option.getCanonicalName() ) );
             }
         }
         return result;
@@ -96,8 +96,8 @@ public class MaxValueRule
         List<Float> optionFloatValue = option.getValues( new Float( 0 ) );
         for ( Float floatValue : optionFloatValue ) {
             if ( floatValue > (Float) this.maxValue ) {
-            } else {
-                result.addErrorMessage( HIGH_VALUE );
+                result.addErrorMessage( String.format( HIGH_VALUE, 
+                        option.getCanonicalName() ) );
             }
         }
         return result;
@@ -141,5 +141,5 @@ public class MaxValueRule
      * Constant hold error message that added on result if rule fail
      */
     private static String HIGH_VALUE =
-            "Option value is higher that rule";
+            "Option %s value is higher than rule allows.";
 }

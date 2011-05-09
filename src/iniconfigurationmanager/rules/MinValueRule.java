@@ -18,16 +18,17 @@ import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
 import java.util.List;
 
-
 public class MinValueRule
         implements ValidationRule {
-     /**
+
+    /**
      * <code>int</code> maxValue minimum value whitch can have ruled value to
      * pass
      */
     Object minValue;
 
-     /**
+
+    /**
      *<code>MaxValueRule</code> have diferent constructor to distinguish
      *type of value
      */
@@ -50,7 +51,8 @@ public class MinValueRule
         this.minValue = min;
     }
 
-     /**
+
+    /**
      * This<Code>validate</code> with @param <code>SignedOptionData</code>
      * validate if value in @param is larger that value adden in constructor
      * .If not write error msg in result
@@ -61,13 +63,14 @@ public class MinValueRule
 
         for ( Integer integer : optionIntValue ) {
             if ( integer < (Integer) this.minValue ) {
-            } else {
-                result.addErrorMessage( LOW_VALUE );
+                result.addErrorMessage( String.format( LOW_VALUE,
+                        option.getCanonicalName() ) );
             }
         }
 
         return result;
     }
+
 
     /**
      * This<Code>validate</code> with @param <code>UnsignedOptionData</code>
@@ -80,13 +83,14 @@ public class MinValueRule
 
         for ( Long longValue : optionIntValue ) {
             if ( longValue < (Long) this.minValue ) {
-            } else {
-                result.addErrorMessage( LOW_VALUE );
+                result.addErrorMessage( String.format( LOW_VALUE,
+                        option.getCanonicalName() ) );
             }
         }
 
         return result;
     }
+
 
     /**
      * This<Code>validate</code> with @param <code>FloatOptionData</code>
@@ -99,20 +103,22 @@ public class MinValueRule
 
         for ( Float floatValue : optionFloatValue ) {
             if ( floatValue < (Float) this.minValue ) {
-            } else {
-                result.addErrorMessage( LOW_VALUE );
+                result.addErrorMessage( String.format( LOW_VALUE,
+                        option.getCanonicalName() ) );
             }
         }
 
         return result;
     }
-     /**
+
+    /**
      * Constant hold error message that added on result if rule fail
      */
     private static String LOW_VALUE =
-            "Option value is lower that rule";
+            "Option %s value is lower than rule allows.";
 
-     /**
+
+    /**
      * Methods thts specify on whitch OptionSchema can be rule aplicated
      */
     public boolean isAplicableOn( OptionSchema option ) {
@@ -134,12 +140,13 @@ public class MinValueRule
         return true;
     }
 
-     /**
+
+    /**
      * This<Code>validate</code> whit @param <code>OptionData</code>
      * provides that if the Class that is extend of Option data and doesnt
      * have method validate specified for spesify class, return error.
      * That error tells the rule is applicated on wrong Option
-     */    
+     */
     public ValidationResult validate( OptionData option ) {
         ValidationResult result = new ValidationResult();
         result.addErrorMessage( ValidationResult.INVALID_RULE_APPLICATED );
