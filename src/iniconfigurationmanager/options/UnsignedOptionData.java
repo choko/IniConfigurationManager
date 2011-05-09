@@ -31,7 +31,7 @@ public class UnsignedOptionData
      * is result of parsing
      */
     @Override
-    public Class getValueClass() {
+    protected Class getValueClass() {
         return BigInteger.class;
     }
 
@@ -39,7 +39,7 @@ public class UnsignedOptionData
      * The <code>parseValue</code> return string value of <code>RawValue</code>
      */
     @Override
-    public Object parseValue( RawValue value ) {
+    protected Object parseValue( RawValue value ) {
         rawUnsigned = value.getValue();
         UnsignedInt64 number = new UnsignedInt64( value.getValue() );
 
@@ -53,7 +53,7 @@ public class UnsignedOptionData
      *  hexadecima, octadecimal, binary or standart format.
      */
     @Override
-    public String valueToString( Object value ) {
+    protected String valueToString( Object value ) {
         BigInteger number = NumberUtils.toBigInteger( value );
 
         if ( NumberUtils.isBinaryFormat( rawUnsigned ) ) {

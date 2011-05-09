@@ -31,7 +31,7 @@ public class BooleanOptionData
      * @return Boolean.class
      */
     @Override
-    public Class getValueClass() {
+    protected Class getValueClass() {
         return Boolean.class;
     }
 
@@ -44,7 +44,7 @@ public class BooleanOptionData
      * @return boolean
      */
     @Override
-    public Object parseValue( RawValue value ) {
+    protected Object parseValue( RawValue value ) {
         rawBoolean = value.getValue();
         try {
             if ( value.getValue().equalsIgnoreCase( ZERO ) ||
@@ -81,7 +81,7 @@ public class BooleanOptionData
      * @return String
      */
     @Override
-    public String valueToString( Object value ) {
+    protected String valueToString( Object value ) {
         if ( (Boolean) value ) {
             return getFormatedTrue( rawBoolean );
         } else {

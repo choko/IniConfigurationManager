@@ -30,7 +30,7 @@ public class SignedOptionData
      * @return Long.class
      */
     @Override
-    public Class getValueClass() {
+    protected Class getValueClass() {
         return Long.class;
     }
 
@@ -42,7 +42,7 @@ public class SignedOptionData
      * @return long
      */
     @Override
-    public Object parseValue( RawValue value ) {
+    protected Object parseValue( RawValue value ) {
         try {
             rawStringvalue = value.getValue();
             return Long.decode( value.getValue() );
@@ -60,20 +60,19 @@ public class SignedOptionData
      * @return String
      */
     @Override
-    public String valueToString( Object value ) {
+    protected String valueToString( Object value ) {
         Long longValue = (Long) value;
-        NumberUtils utils = new NumberUtils();
-
-        if ( utils.isHexFormat( rawStringvalue ) ) {
+      
+        if ( NumberUtils.isHexFormat( rawStringvalue ) ) {
             return NumberUtils.HEXPREFIX.concat( Long.toHexString( longValue ) );
         }
 
-        if ( utils.isOctaFormat( rawStringvalue ) ) {
+        if ( NumberUtils.isOctaFormat( rawStringvalue ) ) {
             return NumberUtils.OCTAPREFIX.concat(
                     Long.toOctalString( longValue ) );
         }
 
-        if ( utils.isBinaryFormat( rawStringvalue ) ) {
+        if ( NumberUtils.isBinaryFormat( rawStringvalue ) ) {
             return NumberUtils.BINARYPREFIX.concat( Long.toBinaryString(
                     longValue ) );
         }
