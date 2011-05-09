@@ -7,6 +7,10 @@ import java.math.BigInteger;
  */
 public class NumberUtils {
 
+    /**
+     * This String constant holds posible prefix of number whit non 10 radix
+     */
+
     public static String HEXPREFIX = "0x";
 
     public static String OCTAPREFIX = "0";
@@ -46,6 +50,12 @@ public class NumberUtils {
         return format.startsWith( BINARYPREFIX ) && format.length() > 1;
     }
 
+    /**
+     * Method<code>getRadix</code> retun radix of number given in string
+     * 
+     * @param value
+     * @return
+     */
 
     public static int getRadix( String value ) {
         if ( isBinaryFormat( value ) ) {
@@ -59,6 +69,13 @@ public class NumberUtils {
         }
     }
 
+    /**
+     * Method<code>toLong</code> convert Object given in parameter to long
+     *
+     * @param value
+     * @return long
+     */
+
 
     public static long toLong( Object value ) {
         if ( value instanceof Integer ) {
@@ -69,7 +86,14 @@ public class NumberUtils {
             throw new ClassCastException();
         }
     }
-    
+
+    /**
+     * Method <code>BigInteger<code> convert Object given in parameter to
+     * BigInteger
+     *
+     * @param value
+     * @return 
+     */
 
     public static BigInteger toBigInteger( Object value ) {
         if ( value instanceof Integer ) {
