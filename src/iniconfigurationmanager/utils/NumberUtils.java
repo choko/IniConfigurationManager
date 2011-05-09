@@ -47,7 +47,7 @@ public class NumberUtils {
      * @return boolean
      */
     public static boolean isBinaryFormat( String format ) {
-        return format.startsWith( BINARYPREFIX ) && format.length() > 1;
+        return format.startsWith( BINARYPREFIX );
     }
 
     /**
@@ -77,6 +77,19 @@ public class NumberUtils {
      */
 
 
+    public static String trimPrefix( String value ) {
+        if( isBinaryFormat( value ) ) {
+            return value.substring( BINARYPREFIX.length() );
+        } else if ( isOctaFormat( value ) ) {
+            return value.substring( OCTAPREFIX.length() );
+        } else if ( isHexFormat( value ) ) {
+            return value.substring( HEXPREFIX.length() );
+        } else {
+            return value;
+        }
+    }
+
+    
     public static long toLong( Object value ) {
         if ( value instanceof Integer ) {
             return ((Integer) value).longValue();

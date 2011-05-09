@@ -90,7 +90,8 @@ public class UnsignedOptionData
 
         
         public UnsignedInt64( String value ) {
-            BigInteger rawUint64 = new BigInteger( value,
+            BigInteger rawUint64 = new BigInteger(
+                    NumberUtils.trimPrefix( value ),
                     NumberUtils.getRadix( value ) );
 
             if (
