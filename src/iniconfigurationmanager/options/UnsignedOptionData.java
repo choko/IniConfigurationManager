@@ -41,8 +41,9 @@ public class UnsignedOptionData
     @Override
     public Object parseValue( RawValue value ) {
         rawUnsigned = value.getValue();
-        UnsignedInt64 uInt64value = new UnsignedInt64( value.getValue() );
-        return uInt64value.toBigInteger();
+        UnsignedInt64 number = new UnsignedInt64( value.getValue() );
+
+        return number.getValue();
 
     }
 
@@ -73,7 +74,7 @@ public class UnsignedOptionData
 
 
      /**
-     *Private class <code>UnsignedItem64</code> provide unsigned 64bit long
+      * Private class <code>UnsignedItem64</code> provide unsigned 64bit long
       * number.It have minimum posible value, maximum posible value and methods
       * to parsing from and to <code>String</code>
      */
@@ -81,36 +82,27 @@ public class UnsignedOptionData
 
         private BigInteger uint64;
 
+        private final BigInteger B64 = BigInteger.ZERO.setBit( 64 );
 
+        private final BigInteger minValue = BigInteger.ZERO;
+
+        private final BigInteger maxValue =
+                BigInteger.ZERO.setBit( 64 ).flipBit( 64 );
+
+        
         public UnsignedInt64( String string ) {
             BigInteger rawUint64 = new BigInteger( string );
-            if ( rawUint64.equals( rawUint64.min( BigInteger.TEN.not() ) ) ) {
+            if ( rawUint64.compareTo( minValue ) >= 0  &&
+                    rawUint64.compareTo( maxValue ) >= 0 ) {
                 uint64 = rawUint64;
             } else {
                 throw new ClassCastException();
-
             }
-
         }
 
 
-        public BigInteger toBigInteger() {
+        public BigInteger getValue() {
             return uint64;
-        }
-
-        private final BigInteger B64 = BigInteger.ZERO.setBit( 64 );
-
-        public final BigInteger minValue = BigInteger.ZERO;
-
-        public final BigInteger maxValue = BigInteger.ZERO.setBit( 64 ).flipBit(
-                64 );
-
-
-        public String toUnsignedString( long num ) {
-            if ( num >= 0 ) {
-                return String.valueOf( num );
-            }
-            return BigInteger.valueOf( num ).add( B64 ).toString();
         }
     }
 }
