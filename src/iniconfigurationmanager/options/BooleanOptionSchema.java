@@ -12,6 +12,8 @@ public class BooleanOptionSchema
 
     /**
     * This method returns newed created <code>BooleanOptionData</code>
+    *
+    *@return BooleanOptionData
     */
     @Override
     public OptionData getOptionData() {

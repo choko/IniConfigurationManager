@@ -12,6 +12,8 @@ public class FloatOptionSchema
 
     /**
     * This method returns newed created <code>FloatOptionData</code>
+     *
+     * @return FloatOptionData
     */
     @Override
     public OptionData getOptionData() {

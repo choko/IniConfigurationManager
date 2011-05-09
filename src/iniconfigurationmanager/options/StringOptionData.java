@@ -1,15 +1,13 @@
 package iniconfigurationmanager.options;
 
-/**
- * The <code>StringOptionData</code> class extends OptionData of
- * <code>String</code> value type.
- */
-
 import iniconfigurationmanager.parsing.RawValue;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.utils.StringUtils;
 
-
+/**
+ * The <code>StringOptionData</code> class extends OptionData of
+ * <code>String</code> value type.
+ */
 public class StringOptionData
         extends OptionData {
 
@@ -28,6 +26,8 @@ public class StringOptionData
     /**
      * The <code>parseValue</code> return string value of <code>RawValue</code>
      * that have removed slashes
+     *
+     * @return String
      */
     @Override
     protected Object parseValue( RawValue value ) {
@@ -36,6 +36,8 @@ public class StringOptionData
 
     /**
      * The <code>valueToString</code> return string that have added slasses
+     *
+     * @return String
      */
     @Override
     protected String valueToString( Object value ) {

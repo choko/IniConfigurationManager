@@ -39,7 +39,7 @@ public class Main {
         ConfigurationSchema schema = new ConfigurationSchema().addSection(
                 "section", section );
 
-        String input = "[section]\nid=0x800ccc0e\nname=karel,${section#id}";
+        String input = "[section]\nid=0111\nname=karel,${section#id}";
 
         ConfigurationData data =
                 ConfigurationData.loadFromString( schema, input );

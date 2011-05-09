@@ -41,6 +41,9 @@ public class NumberUtils {
      * @return boolean
      */
     public boolean isBinaryFormat( String format ) {
-        return format.startsWith( BINARYPREFIX );
+        return format.startsWith( BINARYPREFIX )
+               && !format.equalsIgnoreCase(ZERO);
     }
+
+    private static String ZERO = "0";
 }

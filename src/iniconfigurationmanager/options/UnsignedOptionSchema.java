@@ -12,6 +12,8 @@ public class UnsignedOptionSchema
 
     /**
     * This method returns newed created <code>UnsignedOptionData</code>
+     *
+     * @return UnsignedOptionData
     */
     @Override
     public OptionData getOptionData() {

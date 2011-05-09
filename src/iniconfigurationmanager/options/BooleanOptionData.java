@@ -1,5 +1,9 @@
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.OptionData;
+
+
 /**
  * The <code>BooleanOptionData</code> class extends OptionData of
  * <code>boolean</code> value type.
@@ -9,10 +13,6 @@ package iniconfigurationmanager.options;
  * method for returnig class of <code>BooleanOptionData</code>
  * parsing method and valueToString method that returns <code>string</code>
  */
-
-import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.schema.OptionData;
-
 
 public class BooleanOptionData
         extends OptionData {
@@ -27,6 +27,8 @@ public class BooleanOptionData
     /**
      * The <code>getValueClass</code> method return <code>Class</code> of witch
      * is result of parsing
+     *
+     * @return Boolean.class
      */
     @Override
     public Class getValueClass() {
@@ -38,6 +40,8 @@ public class BooleanOptionData
      * The <code>parseValue</code> provade parsing of <code>RawValue</code>
      * value to the <code>boolean</code> value. It can parse all valid
      * meaning of true or false
+     *
+     * @return boolean
      */
     @Override
     public Object parseValue( RawValue value ) {
@@ -73,6 +77,8 @@ public class BooleanOptionData
      * The <code>valueToString</code> provade oposite of parseValue.
      * Its return <code>String</code> from value in same syntax as original
      * unparsed string-value
+     *
+     * @return String
      */
     @Override
     public String valueToString( Object value ) {
@@ -85,7 +91,9 @@ public class BooleanOptionData
 
     /**
      * The <code>getFormatedFalse</code> return string that reprezents
-     * false value in same syntax as original value;
+     * false value in same syntax as original value
+     *
+     * @return String
      */
     private String getFormatedFalse( String rawBoolean ) {
         if ( rawBoolean.equalsIgnoreCase( ZERO ) ||
@@ -128,7 +136,9 @@ public class BooleanOptionData
 
     /**
      * The <code>getFormatedFalse</code> return string that reprezents
-     * true value in same syntax as original value;
+     * true value in same syntax as original value
+     *
+     * @return String
      */
     private String getFormatedTrue( String rawBoolean ) {
         if ( rawBoolean.equalsIgnoreCase( ZERO ) ||

@@ -1,5 +1,9 @@
 package iniconfigurationmanager.options;
 
+import iniconfigurationmanager.parsing.RawValue;
+import iniconfigurationmanager.schema.OptionData;
+
+
 /**
  * The <code>FloatOptionData</code> class extends OptionData of
  * <code>Float</code> value type.
@@ -9,17 +13,14 @@ package iniconfigurationmanager.options;
  * method for returnig class of <code>FloatOptionData</code>
  * parsing method and valueToString method that returns <code>string</code>
  */
-
-import iniconfigurationmanager.parsing.RawValue;
-import iniconfigurationmanager.schema.OptionData;
-
-
 public class FloatOptionData
         extends OptionData {
 
     /**
      * The <code>getValueClass</code> method return <code>Class</code> of witch
      * is result of parsing
+     *
+     * @return Float.class
      */
     @Override
     public Class getValueClass() {
@@ -29,7 +30,9 @@ public class FloatOptionData
     /**
      * The <code>parseValue</code> provade parsing of <code>RawValue</code>
      * value to the <code>Float</code> value. Float value is standart IEEE 754
-     * format.
+     * format
+     *
+     * @return  Float
      */
     @Override
     public Object parseValue( RawValue value ) {
@@ -44,6 +47,8 @@ public class FloatOptionData
     /**
      * The <code>valueToString</code> provade oposite of parseValue.
      * Its return <code>String</code> from value in standart IEEE 754
+     *
+     * @return String
      */
     @Override
     public String valueToString( Object value ) {

@@ -12,6 +12,8 @@ public class StringOptionSchema
 
     /**
     * This method returns newed created <code>StringOptionData</code>
+     *
+     * @return StringOptionData
     */
     @Override
     public OptionData getOptionData() {
