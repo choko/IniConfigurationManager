@@ -1,12 +1,5 @@
 package iniconfigurationmanager.rules;
 
-/**
- * The <code>RangeRule</code> provides rule that limited
- * bottom and top value of numeric OptionData
- * <p>
- * This rule is applicable on numeric Optiaon data such as
- * :SignedOptionData,FloatOptionData and FloatOptiaonData *
- */
 import iniconfigurationmanager.options.FloatOptionSchema;
 import iniconfigurationmanager.options.SignedOptionSchema;
 import iniconfigurationmanager.options.UnsignedOptionSchema;
@@ -15,16 +8,22 @@ import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.utils.ValidatorUtils;
 import iniconfigurationmanager.validators.ValidationResult;
 
+
+/**
+ * The <code>RangeRule</code> provides rule that limited
+ * bottom and top value of numeric OptionData
+ * <p>
+ * This rule is applicable on numeric Optiaon data such as
+ * :SignedOptionData,FloatOptionData and FloatOptiaonData *
+ */
 public class RangeRule
         implements ValidationRule {
-    /**
-     * <code>Object</code> max and min hold values in whitch range must be
-     * validating value to pass validating.
-     */
+
     private Object max;
 
     private Object min;
 
+    
      /**
      *<code>RangeRule</code> have diferent constructor to distinguish
      *type of value

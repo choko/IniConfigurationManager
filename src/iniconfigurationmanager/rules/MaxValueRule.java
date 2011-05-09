@@ -1,12 +1,5 @@
 package iniconfigurationmanager.rules;
 
-/**
- * The <code>MaxValueRule</code> provides rule that limited
- * top value of numeric OptionData
- * <p>
- * This rule is applicable on numeric Optiaon data such as
- * :SignedOptionData,FloatOptionData and FloatOptiaonData *
- */
 import iniconfigurationmanager.options.FloatOptionData;
 import iniconfigurationmanager.options.FloatOptionSchema;
 import iniconfigurationmanager.options.SignedOptionData;
@@ -19,15 +12,22 @@ import iniconfigurationmanager.validators.ValidationResult;
 import java.util.List;
 
 
+/**
+ * The <code>MaxValueRule</code> provides rule that limited
+ * top value of numeric OptionData
+ * <p>
+ * This rule is applicable on numeric Optiaon data such as
+ * :SignedOptionData,FloatOptionData and FloatOptiaonData *
+ */
 public class MaxValueRule
         implements ValidationRule {
 
-     /**
-     * <code>int</code> maxValue maximum value whitch can have ruled value to
-     * pass
-     */
-    Object maxValue;
+    private static final String HIGH_VALUE =
+            "Option %s value is higher than rule allows.";
 
+    private Object maxValue;
+
+    
      /**
      *<code>MaxValueRule</code> have diferent constructor to distinguish
      *type of value
@@ -137,9 +137,4 @@ public class MaxValueRule
         return result;
     }
 
-     /**
-     * Constant hold error message that added on result if rule fail
-     */
-    private static String HIGH_VALUE =
-            "Option %s value is higher than rule allows.";
 }

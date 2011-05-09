@@ -1,28 +1,27 @@
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.validators.ValidationResult;
+import java.util.List;
+
 /**
  * The <code>CountRule</code> provides rule that check if
  * all Object stored in Constructor @param is too in OptionData
  * <p>
  * This rule is applicable on evry Data that extends OptionSchema
  */
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.validators.ValidationResult;
-import java.util.List;
-
 public class EnumRule
         implements ValidationRule {
 
-     /**
-     * <code>List<Object></code> all Object , that must by in
-      * ObjectData to pass rule.
-     */
-    private List<Object> enumValue;
+    private static final String ENUM_INVALID_VALUE =
+            "Option %s contains an unallowed value %s.";
+
+    private List<Object> allowedValues;
 
 
-    public EnumRule( List<Object> enumValue ) {
-        this.enumValue = enumValue;
+    public EnumRule( List<Object> allowedValues ) {
+        this.allowedValues = allowedValues;
     }
 
     /**
@@ -44,7 +43,7 @@ public class EnumRule
         List<Object> optionValues = option.getValues();
 
         for( Object value : optionValues ) {
-            if ( ! enumValue.contains( value ) ) {
+            if ( ! allowedValues.contains( value ) ) {
                 result.addErrorMessage( String.format( ENUM_INVALID_VALUE,
                         option.getCanonicalName(), value ) );
             }
@@ -53,9 +52,4 @@ public class EnumRule
         return result;
     }
 
-    /**
-     * Constant hold error message that added on result if rule fail
-     */
-    private final String ENUM_INVALID_VALUE =
-            "Option %s contains an unallowed value %s.";
 }

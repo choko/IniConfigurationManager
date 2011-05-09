@@ -14,15 +14,14 @@ import java.util.List;
 public class CountRule
         implements ValidationRule {
 
-     /**
-     * <code>int</code> stores how many elements must be in OptionData
-     * to pass the rule.
-     */
-    int count;
+    private static final String INVALID_COUNT =
+            "Option %s has %d values instead of %d.";
+
+    private int requiredValuesCount;
 
 
     public CountRule( int count ) {
-        this.count = count;
+        this.requiredValuesCount = count;
     }
 
     /**
@@ -44,17 +43,14 @@ public class CountRule
         ValidationResult result = new ValidationResult();
         List<Object> options = option.getValues( new Object() );
 
-        if ( options.size() != count ) {
+        if ( options.size() != requiredValuesCount ) {
             result.addErrorMessage( String.format( INVALID_COUNT,
-                    option.getCanonicalName(), options.size(), count ) );
+                    option.getCanonicalName(),
+                    options.size(),
+                    requiredValuesCount ) );
         }
 
         return result;
     }
 
-    /**
-     * Constant hold error message that added on result if rule fail
-     */
-    private final String INVALID_COUNT =
-            "Option %s has %d values instead of %d.";
 }
