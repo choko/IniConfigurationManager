@@ -36,6 +36,10 @@ public class SectionSchema
     protected SectionSchema setName( String name ) {
         this.name = name;
 
+        for( OptionSchema option : options.values() ) {
+            option.setSectionName( name );
+        }
+
         return this;
     }
 

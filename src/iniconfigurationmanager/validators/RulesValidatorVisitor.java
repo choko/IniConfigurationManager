@@ -36,9 +36,13 @@ public class RulesValidatorVisitor
      * Method run validation and merge validation result od each rules
      * that have option
      */
-
     public void visit( OptionData option ) {
         OptionSchema schema = schemaOptions.get( option.getCanonicalName() );
+
+        if( schema == null ) {
+            return;
+        }
+
         List<ValidationRule> optionRules = schema.getValidationRules();
         for ( ValidationRule validationRule : optionRules ) {
             result.mergeResults( validationRule.validate( option ) );

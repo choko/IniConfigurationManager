@@ -166,7 +166,7 @@ public abstract class OptionData {
         } else if ( value instanceof RawValue ) {
             values.add( parseValue( (RawValue) value ) );
         } else {
-            values.add( getValueClass().cast( value ) );
+            values.add( value );
         }
 
         return this;
