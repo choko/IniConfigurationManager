@@ -1,10 +1,5 @@
 package iniconfigurationmanager.validators;
 
-/**
-* <code>validateValidationRules</code> validate Option by its
-* <code>ValidationRule</code>s
-*
-*/
 import iniconfigurationmanager.schema.StructureVisitor;
 import iniconfigurationmanager.rules.ValidationRule;
 import iniconfigurationmanager.schema.ConfigurationData;
@@ -17,6 +12,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+* <code>validateValidationRules</code> validate Option by its
+* <code>ValidationRule</code>s
+*
+*/
 public class RulesValidatorVisitor
         implements StructureVisitor {
 

@@ -1,5 +1,9 @@
 package iniconfigurationmanager.rules;
 
+import iniconfigurationmanager.schema.OptionData;
+import iniconfigurationmanager.schema.OptionSchema;
+import iniconfigurationmanager.validators.ValidationResult;
+
 /**
  * The <code>ValidationRule</code> is interface for Validation rule.
  * Its requed two methods.
@@ -11,11 +15,6 @@ package iniconfigurationmanager.rules;
  * Depends on @param what policy of validating is used
  *
  */
-import iniconfigurationmanager.schema.OptionData;
-import iniconfigurationmanager.schema.OptionSchema;
-import iniconfigurationmanager.validators.ValidationResult;
-
-
 public interface ValidationRule {
 
     public boolean isAplicableOn( OptionSchema option );

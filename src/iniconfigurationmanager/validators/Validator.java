@@ -1,13 +1,12 @@
 package iniconfigurationmanager.validators;
 
+import iniconfigurationmanager.schema.ConfigurationData;
+
 /**
  * <codeValidator</code> cover diferent validors.
  * It have method for validate given data by
  * StrictValidator,RelaxValidator and RulesValidator
  */
-import iniconfigurationmanager.schema.ConfigurationData;
-
-
 public class Validator {
 
     /**

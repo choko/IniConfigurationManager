@@ -5,6 +5,7 @@ import iniconfigurationmanager.options.FloatOptionData;
 import iniconfigurationmanager.options.FloatOptionSchema;
 import iniconfigurationmanager.options.SignedOptionSchema;
 import iniconfigurationmanager.options.StringOptionSchema;
+import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.parsing.ConfigParserException;
 import iniconfigurationmanager.rules.RangeRule;
 import iniconfigurationmanager.schema.ConfigurationData;
@@ -24,7 +25,7 @@ public class Main {
      */
     public static void main( String[] args )
             throws ConfigParserException {
-        OptionSchema id = new SignedOptionSchema().setRequired().setComment(
+        OptionSchema id = new UnsignedOptionSchema().setRequired().setComment(
                 "id" );
 
         //.addValidationRule(new RangeRule(5, 7));
@@ -39,7 +40,7 @@ public class Main {
         ConfigurationSchema schema = new ConfigurationSchema().addSection(
                 "section", section );
 
-        String input = "[section]\nid=0\nname=karel,${section#id}";
+        String input = "[section]\nid=010000000001\nname=karel,${section#id}";
 
         ConfigurationData data =
                 ConfigurationData.loadFromString( schema, input );

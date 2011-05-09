@@ -9,7 +9,6 @@ import iniconfigurationmanager.options.UnsignedOptionSchema;
 import iniconfigurationmanager.schema.OptionData;
 import iniconfigurationmanager.schema.OptionSchema;
 import iniconfigurationmanager.validators.ValidationResult;
-import java.util.List;
 
 
 /**
