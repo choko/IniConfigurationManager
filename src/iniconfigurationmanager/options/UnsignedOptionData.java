@@ -31,7 +31,7 @@ public class UnsignedOptionData
      * is result of parsing
      */
     @Override
-    public Class getValueClass() {
+    protected Class getValueClass() {
         return BigInteger.class;
     }
 
@@ -39,7 +39,7 @@ public class UnsignedOptionData
      * The <code>parseValue</code> return string value of <code>RawValue</code>
      */
     @Override
-    public Object parseValue( RawValue value ) {
+    protected Object parseValue( RawValue value ) {
         rawUnsigned = value.getValue();
         UnsignedInt64 number = new UnsignedInt64( value.getValue() );
 
@@ -53,7 +53,7 @@ public class UnsignedOptionData
      *  hexadecima, octadecimal, binary or standart format.
      */
     @Override
-    public String valueToString( Object value ) {
+    protected String valueToString( Object value ) {
         BigInteger number = NumberUtils.toBigInteger( value );
 
         if( number.equals( BigInteger.ZERO ) ) {
@@ -89,10 +89,14 @@ public class UnsignedOptionData
                 BigInteger.ZERO.setBit( 64 ).flipBit( 64 );
 
         
-        public UnsignedInt64( String string ) {
-            BigInteger rawUint64 = new BigInteger( string );
-            if ( rawUint64.compareTo( minValue ) >= 0  &&
-                    rawUint64.compareTo( maxValue ) >= 0 ) {
+        public UnsignedInt64( String value ) {
+            BigInteger rawUint64 = new BigInteger( value,
+                    NumberUtils.getRadix( value ) );
+
+            if (
+                    rawUint64.compareTo( minValue ) >= 0  &&
+                    rawUint64.compareTo( maxValue ) >= 0
+            ) {
                 uint64 = rawUint64;
             } else {
                 throw new ClassCastException();
