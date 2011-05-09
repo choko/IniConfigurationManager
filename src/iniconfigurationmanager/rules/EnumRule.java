@@ -43,8 +43,11 @@ public class EnumRule
         ValidationResult result = new ValidationResult();
         List<Object> optionValues = option.getValues();
 
-        if ( !optionValues.containsAll( enumValue ) ) {
-            result.addErrorMessage( ENUM_INVALID_VALUE );
+        for( Object value : optionValues ) {
+            if ( ! enumValue.contains( value ) ) {
+                result.addErrorMessage( String.format( ENUM_INVALID_VALUE,
+                        option.getCanonicalName(), value ) );
+            }
         }
 
         return result;
@@ -54,5 +57,5 @@ public class EnumRule
      * Constant hold error message that added on result if rule fail
      */
     private final String ENUM_INVALID_VALUE =
-            "Option doesnt have all ruled value";
+            "Option %s contains an unallowed value %s.";
 }

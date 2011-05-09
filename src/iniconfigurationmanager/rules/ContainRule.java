@@ -44,7 +44,8 @@ public class ContainRule
         List<Object> options = option.getValues( new Object() );
 
         if ( !options.contains( contain ) ) {
-            result.addErrorMessage( NOT_CONTAIN_VALUE );
+            result.addErrorMessage( String.format( NOT_CONTAIN_VALUE,
+                    option.getCanonicalName(), contain ) );
         }
 
         return result;
@@ -54,5 +55,5 @@ public class ContainRule
      * Constant hold error message that added on result if rule fail
      */
     private final String NOT_CONTAIN_VALUE =
-            "Option doesnt containt ruled value";
+            "Option %s doesn't contain required value %s.";
 }

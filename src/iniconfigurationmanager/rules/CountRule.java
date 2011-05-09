@@ -45,7 +45,8 @@ public class CountRule
         List<Object> options = option.getValues( new Object() );
 
         if ( options.size() != count ) {
-            result.addErrorMessage( INVALID_COUNT );
+            result.addErrorMessage( String.format( INVALID_COUNT,
+                    option.getCanonicalName(), options.size(), count ) );
         }
 
         return result;
@@ -55,5 +56,5 @@ public class CountRule
      * Constant hold error message that added on result if rule fail
      */
     private final String INVALID_COUNT =
-            "Option value doesnt have valid count";
+            "Option %s has %d values instead of %d.";
 }
